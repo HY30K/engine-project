@@ -24,7 +24,12 @@ public class MineralScript : MonoBehaviour
 
     private void Update()
     {
-         
+         if(hp < 0)
+         {
+            Destroy(gameObject);//나중에 풀링해줘야함
+            //gameObject.SetActive(false);
+            Debug.Log("광물hp 0");
+         }
     }
 
     public void OnOreBreak()
@@ -35,7 +40,7 @@ public class MineralScript : MonoBehaviour
             //hp 0 일때 실행할것들
         }
     }
-    void SetType()// 광석 타입지정
+    void SetType()// 광석 타입에따른 피통 지정
     {
         switch (MineralType)
         {
