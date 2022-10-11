@@ -7,6 +7,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float jumpPower;
     [SerializeField] float speed;
 
+
+    [SerializeField] private PlayerProficiency state;
+    
     bool isJump = true;
 
     Rigidbody2D _rigid;
@@ -28,7 +31,7 @@ public class PlayerMove : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
+        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed ;
     }
 
     private void Jump()
