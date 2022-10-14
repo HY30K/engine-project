@@ -61,7 +61,7 @@ public class TerrainGeneration : MonoBehaviour
                 newObj.GetComponent<BoxCollider2D>().size = new Vector2(1,1);
                 newObj.transform.parent = this.transform;
                 newObj.transform.position = new Vector2(x, y);
-                newObj.layer = LayerMask.NameToLayer("Mineral");
+                newObj.layer = LayerMask.NameToLayer("Ground");
                 newObj.GetComponent<BoxCollider2D>().isTrigger = false;
                 newObj.GetComponent<SpriteRenderer>().color = Color.white;
                 newObj.GetComponent<SpriteRenderer>().sprite = ground;

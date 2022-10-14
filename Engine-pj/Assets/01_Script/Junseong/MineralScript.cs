@@ -11,6 +11,7 @@ public enum MineralType
     Gold,
     Diamond
 }
+
 public class MineralScript : MonoBehaviour
 {
     public MineralType MineralType;
@@ -24,17 +25,17 @@ public class MineralScript : MonoBehaviour
 
     private void Update()
     {
-         if(hp < 0)
-         {
+        if (hp < 0)
+        {
             Destroy(gameObject);//나중에 풀링해줘야함
             //gameObject.SetActive(false);
             Debug.Log("광물hp 0");
-         }
+        }
     }
 
     public void OnOreBreak()
     {
-        if(hp < 0)
+        if (hp < 0)
         {
             tg.isOreAlive[(int)transform.position.x, (int)transform.position.y] = false;// 해당위치에 bool값 false로 변환
             //hp 0 일때 실행할것들
