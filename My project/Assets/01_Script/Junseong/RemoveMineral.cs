@@ -13,18 +13,18 @@ public class RemoveMineral : MonoBehaviour
     Vector3 mousePos;
     public float speed = 5f;
     public LayerMask layer;
-    
+
     private void Awake()
     {
-         _rigid = GetComponent<Rigidbody2D>();
+        _rigid = GetComponent<Rigidbody2D>();
         _capCollider = GetComponent<CapsuleCollider2D>();
-        
+
     }
 
     private void Update()
     {
-            DoMining();
-//        PlayerMove();
+        DoMining();
+        //        PlayerMove();
     }
 
     public void DoMining()// 플레이어에서 불러와줘야함
@@ -35,8 +35,8 @@ public class RemoveMineral : MonoBehaviour
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
 
-            hit = Physics2D.Raycast(transform.position,(mousePos-transform.position), raycastDistance,layer);
-            
+            hit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, layer);
+
             Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
             if (hit && !_isHItting)
             {
@@ -60,7 +60,7 @@ public class RemoveMineral : MonoBehaviour
         yield return new WaitForSeconds(1f);
         while (hit)
         {
-            hit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
+            hit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함
             Debug.Log($"광석 이름 : {hit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : { hit.collider.gameObject.GetComponent<MineralScript>().hp}");
             yield return new WaitForSeconds(0.5f);                                                              // 
         }
