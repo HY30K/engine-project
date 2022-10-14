@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpPower: 10
   speed: 5
+  state: {fileID: 0}
 --- !u!1 &1067004146
 GameObject:
   m_ObjectHideFlags: 0
