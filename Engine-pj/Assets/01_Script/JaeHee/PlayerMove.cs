@@ -38,7 +38,7 @@ public class PlayerMove : MonoBehaviour
     {
         isJump = false;
 
-        hit = Physics2D.OverlapCapsule(transform.position, new Vector2(1, 2), 0, LayerMask.GetMask("Ground"));
+        hit = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Ground"));
 
         if (hit != null)
         {
@@ -52,4 +52,6 @@ public class PlayerMove : MonoBehaviour
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         }
     }
+
+
 }
