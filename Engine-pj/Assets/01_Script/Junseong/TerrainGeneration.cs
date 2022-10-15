@@ -54,7 +54,8 @@ public class TerrainGeneration : MonoBehaviour
                 
                 //if (isOreAlive[x, y])
                 //{
-                GameObject newObj = new GameObject();
+                GameObject newObj = new();
+               
                 newObj.AddComponent<SpriteRenderer>();
                 newObj.AddComponent<MineralScript>();
                 newObj.AddComponent<BoxCollider2D>();
