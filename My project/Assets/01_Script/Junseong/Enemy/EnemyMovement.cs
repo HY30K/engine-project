@@ -31,8 +31,9 @@ public class EnemyMovement : EnemyBase
 
     EnemyAttack _enemyAttack;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         this.speed = _enemy.BeforeDetectSpeed();
         _rigid = GetComponent<Rigidbody2D>();
         _enemyAttack = GetComponent<EnemyAttack>();
@@ -61,6 +62,7 @@ public class EnemyMovement : EnemyBase
         if (_isChasing && !_enemyAttack._isAttack)
         {
             speed = _enemy.AfterDetectSpeed();
+            _animator.SetBool("IsRun", true);
             _isCanDetectAttacking = true;
             afterNoChasingTime = 0;
         }
@@ -71,6 +73,7 @@ public class EnemyMovement : EnemyBase
         else if (!_isChasing)
         {
             speed = _enemy.BeforeDetectSpeed();
+            _animator.SetBool("IsRun", false);
             _isCanDetectAttacking = false;
             PlatformCheck();
             afterNoChasingTime += Time.deltaTime;
