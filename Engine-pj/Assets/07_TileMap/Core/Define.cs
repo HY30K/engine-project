@@ -6,6 +6,7 @@ using Cinemachine;
 public class Define : MonoBehaviour
 {
     private static Camera _mainCam = null;
+
     public static Camera MainCam
     {
         get
@@ -26,4 +27,6 @@ public class Define : MonoBehaviour
             return _cmVCam;
         }
     }
+
+    public static LayerMask GroundLayer = 1 << 8;
 }
