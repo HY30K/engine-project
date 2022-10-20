@@ -23,7 +23,6 @@ public class EnemyMovement : EnemyBase
     //enemyState
     public bool _isThinking;
     public bool _isChasing;
-
     public bool _isCanDetectAttacking;
 
     Coroutine runningCoroutine = null;
@@ -56,34 +55,54 @@ public class EnemyMovement : EnemyBase
 
         dir = nextMove >= 0 ? Vector2.right : Vector2.left;
         origin = (Vector2)transform.position + (nextMove >= 0 ? Vector2.right : Vector2.left);
-
-        DetectPlayer();
-
-        if (_isChasing && !_enemyAttack._isAttack)
+        if (_isThinking)
         {
-            speed = _enemy.AfterDetectSpeed();
-            _animator.SetBool("IsRun", true);
-            _isCanDetectAttacking = true;
-            afterNoChasingTime = 0;
-        }
-        //else if (_isChasing && _enemyAttack._isAttack)
-        //{
-        //    speed = 0;
-        //}
-        else if (!_isChasing)
-        {
-            speed = _enemy.BeforeDetectSpeed();
-            _animator.SetBool("IsRun", false);
-            _isCanDetectAttacking = false;
-            PlatformCheck();
-            afterNoChasingTime += Time.deltaTime;
-            if (afterNoChasingTime > randThinkTime)
+            if (nextMove != 0 && !_enemyAttack._isAttack)
             {
-                afterNoChasingTime = 0;
-                EnemyThink();
+                _animator.SetBool("IsRun", true);
+                _animator.SetBool("IsIdle", false);
             }
+            else if (nextMove == 0 && !_isChasing)
+            {
+                speed = 0;
+                _animator.SetBool("IsIdle", true);
+                _animator.SetBool("IsRun", false);
+            }
+
+            if (_isChasing && !_enemyAttack._isAttack)
+            {
+                speed = _enemy.AfterDetectSpeed();
+                _isCanDetectAttacking = true;
+                afterNoChasingTime = 0;
+            }
+            if (!_isChasing)
+            {
+                if (nextMove != 0)
+                {
+                    speed = _enemy.BeforeDetectSpeed();
+                }
+                _isCanDetectAttacking = false;
+                PlatformCheck();
+                afterNoChasingTime += Time.deltaTime;
+                if (afterNoChasingTime > randThinkTime)
+                {
+                    afterNoChasingTime = 0;
+                    EnemyThink();
+                }
+            }
+            else if (_isChasing && _enemyAttack._isAttack)
+            {
+                speed = 0;
+            }
+           
+            if (_enemyAttack._isAttack)
+            {
+                //_animator.SetBool("IsRun", false);
+            }
+            DetectPlayer();
         }
 
+        //print(Random.Range(-1, 2));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -91,6 +110,7 @@ public class EnemyMovement : EnemyBase
         if (collision.gameObject.layer == 7)
         {
             nextMove = -nextMove;
+            afterNoChasingTime = Random.Range(0f, 1f);//벽충돌후 적 생각쿨타임
         }
     }
 
@@ -98,6 +118,7 @@ public class EnemyMovement : EnemyBase
     {
         Debug.Log("ENemyTHinkOpen");
         nextMove = Random.Range(-1, 2);
+        print(nextMove);
         if (nextMove != 0)
         {
             randThinkTime = Random.Range(4f, 5f);
@@ -105,6 +126,15 @@ public class EnemyMovement : EnemyBase
         else
         {
             randThinkTime = Random.Range(1f, 2f);
+            afterNoChasingTime = 0;
+            if (afterNoChasingTime < randThinkTime)
+            {
+                afterNoChasingTime += Time.deltaTime;
+            }
+            else if (afterNoChasingTime > randThinkTime)
+            {
+                EnemyThink();
+            }
         }
 
         //if(runningCoroutine != null)
@@ -161,7 +191,8 @@ public class EnemyMovement : EnemyBase
         {
             Debug.Log("isNull");
             nextMove = -nextMove;
-            _isThinking = false;
+            //afterNoChasingTime = 2;
+            //_isThinking = false;
 
             //StartCoroutine(EnemyNextThinkTime(3));
 

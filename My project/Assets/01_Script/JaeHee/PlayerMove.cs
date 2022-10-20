@@ -42,7 +42,7 @@ public class PlayerMove : MonoBehaviour
             isJump = true;
         }
 
-        if (!isJump) return;
+        if (isJump) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

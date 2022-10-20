@@ -35,14 +35,17 @@ public class EnemyAttack : EnemyBase
             _isAttack = true;
             _enemyMoveMent.speed = 0;
             _animator.SetBool("IsCanAttack", true);
-            if (_isAttack && _isCanAttacking)// && !_isAttacking
+            if (_isCanAttacking)// && !_isAttacking
             {
                 if (_attackingCoroutine != null)
                 {
                     StopCoroutine(_attackingCoroutine);
                 }
                 _attackingCoroutine = StartCoroutine("AttackingPlayer");
-                _isCanAttacking = false;
+            }
+            else
+            {
+                _enemyMoveMent.speed = 0;
             }
         }
         else
@@ -56,12 +59,18 @@ public class EnemyAttack : EnemyBase
     {
         //yield return new WaitForSeconds(_enemy.AttackDelay());
         //공격 애니메이션 실행;
-        enemyNextAttack = Random.Range(1, 7);// 적 공격수가 달라지면 그에따라 변동가능
-        _animator.SetInteger("IsAttack", enemyNextAttack);// 노멀공격, 스페셜 공격퍼센트 안나눠줌 : 이 부분은 수정해야될듯
-        Debug.Log("공격1");
-         //공격하던건 마저 실행한후 감지할지 쫓아갈지 판단해주는
+        enemyNextAttack = Random.Range(1, 7);
+        if (enemyNextAttack >= 5)
+        {
+            _animator.SetTrigger("CanSpecialAttack");
+        }
+        _isCanAttacking = false;
+        _enemyMoveMent._isThinking = false;
+        _enemyMoveMent.speed = 0;
         yield return new WaitForSeconds(_enemy.AttackSpeed());
         _isCanAttacking = true;
+        _enemyMoveMent._isThinking = true;
+
         Debug.Log("end attack");
     }
 }
