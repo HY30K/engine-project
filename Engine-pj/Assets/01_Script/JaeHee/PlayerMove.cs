@@ -35,6 +35,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
+
         if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
             || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
             return;
