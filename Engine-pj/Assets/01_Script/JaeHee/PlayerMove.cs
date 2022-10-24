@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerMove : MonoBehaviour
+{
+    [SerializeField] float jumpPower;
+    [SerializeField] float speed;
+
+    [SerializeField] Transform rayPos1;
+    [SerializeField] Transform rayPos2;
+
+    [SerializeField] private PlayerProficiency state;
+
+
+    Rigidbody2D _rigid;
+
+    private void Awake()
+    {
+        _rigid = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        Jump();
+        Move();
+    }
+
+    private void Move()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+
+        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
+    }
+
+    private void Jump()
+    {
+<<<<<<< HEAD:My project/Assets/01_Script/JaeHee/PlayerMove.cs
+        isJump = false;
+
+        hit = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Ground"));
+
+        if (hit != null)
+        {
+            isJump = true;
+        }
+
+        if (isJump) return;
+
+=======
+        if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
+            return;
+    
+>>>>>>> main:Engine-pj/Assets/01_Script/JaeHee/PlayerMove.cs
+        if (Input.GetKeyDown(KeyCode.Space))
+            _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+    }
+}
