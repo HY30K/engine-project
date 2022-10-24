@@ -35,24 +35,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
-<<<<<<< HEAD:My project/Assets/01_Script/JaeHee/PlayerMove.cs
-        isJump = false;
 
-        hit = Physics2D.OverlapBox(transform.position, new Vector2(1, 1), 0, LayerMask.GetMask("Ground"));
-
-        if (hit != null)
-        {
-            isJump = true;
-        }
-
-        if (isJump) return;
-
-=======
         if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
             || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
             return;
     
->>>>>>> main:Engine-pj/Assets/01_Script/JaeHee/PlayerMove.cs
         if (Input.GetKeyDown(KeyCode.Space))
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
     }
