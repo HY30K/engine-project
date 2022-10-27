@@ -39,7 +39,8 @@ public class PlayerMove : MonoBehaviour
         if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
             || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
             return;
-    
+
+        Debug.Log(12312);
         if (Input.GetKeyDown(KeyCode.Space))
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
     }

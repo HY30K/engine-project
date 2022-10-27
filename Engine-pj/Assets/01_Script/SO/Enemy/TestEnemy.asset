@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53dc3299ea4c72a4683c4353181d16fc, type: 3}
   m_Name: TestEnemy
   m_EditorClassIdentifier: 
+  enemyType: 0
   enemyName: gimzae
   hp: 5
   damage: 0
@@ -20,3 +21,4 @@ MonoBehaviour:
   detectRange: 5
   attackRange: 2
   attackSpeed: 1
+  attackDelay: 1
