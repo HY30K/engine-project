@@ -18,8 +18,6 @@ public class EnemyMovement : EnemyBase
     public int nextMove = 0;
     public float randThinkTime = 5f;
 
-
-
     //enemyState
     public bool _isThinking;
     public bool _isChasing;
@@ -35,6 +33,7 @@ public class EnemyMovement : EnemyBase
         base.Awake();
         this.speed = _enemy.BeforeDetectSpeed();
         _rigid = GetComponent<Rigidbody2D>();
+        _transform = GetComponent<Transform>();
         _enemyAttack = GetComponent<EnemyAttack>();
         //nextMove = Random.Range(-1,2);
 
@@ -52,6 +51,16 @@ public class EnemyMovement : EnemyBase
     {
         Debug.Log(nextMove);
         _rigid.velocity = new Vector2(nextMove * speed, _rigid.velocity.y);
+        
+        //뒤집기
+        if(nextMove == -1)
+        {
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        if(nextMove == 1)
+        {
+            transform.rotation = Quaternion.identity;
+        }
 
         dir = nextMove >= 0 ? Vector2.right : Vector2.left;
         origin = (Vector2)transform.position + (nextMove >= 0 ? Vector2.right : Vector2.left);
@@ -60,19 +69,17 @@ public class EnemyMovement : EnemyBase
             if (nextMove != 0 && !_enemyAttack._isAttack)
             {
                 _animator.SetBool("IsRun", true);
-                _animator.SetBool("IsIdle", false);
             }
             else if (nextMove == 0 && !_isChasing)
             {
                 speed = 0;
-                _animator.SetBool("IsIdle", true);
                 _animator.SetBool("IsRun", false);
             }
 
             if (_isChasing && !_enemyAttack._isAttack)
             {
                 speed = _enemy.AfterDetectSpeed();
-                _isCanDetectAttacking = true;
+                //_isCanDetectAttacking = true;
                 afterNoChasingTime = 0;
             }
             if (!_isChasing)
@@ -81,7 +88,7 @@ public class EnemyMovement : EnemyBase
                 {
                     speed = _enemy.BeforeDetectSpeed();
                 }
-                _isCanDetectAttacking = false;
+                //_isCanDetectAttacking = false;
                 PlatformCheck();
                 afterNoChasingTime += Time.deltaTime;
                 if (afterNoChasingTime > randThinkTime)
@@ -90,10 +97,10 @@ public class EnemyMovement : EnemyBase
                     EnemyThink();
                 }
             }
-            else if (_isChasing && _enemyAttack._isAttack)
-            {
-                speed = 0;
-            }
+            //else if (_isChasing && _enemyAttack._isAttack)
+            //{
+            //    speed = 0;
+            //}
            
             if (_enemyAttack._isAttack)
             {
@@ -111,6 +118,18 @@ public class EnemyMovement : EnemyBase
         {
             nextMove = -nextMove;
             afterNoChasingTime = Random.Range(0f, 1f);//벽충돌후 적 생각쿨타임
+        }
+    }
+
+    public void FaceTarget()
+    {
+        if(target.position.x - transform.position.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -180, 0);
+        }
+        else if( target.position.y - transform.position.y > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 

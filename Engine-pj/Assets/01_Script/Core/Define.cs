@@ -28,5 +28,5 @@ public class Define : MonoBehaviour
         }
     }
 
-    public static LayerMask GroundLayer = 1 << 8;
+    public static LayerMask GroundLayer = 1 << 13;
 }
