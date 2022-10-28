@@ -13,8 +13,11 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] private PlayerProficiency state;
     [SerializeField] private GameObject visualSprite;
 
-    Animator _animator;
-    Rigidbody2D _rigid;
+    private Animator _animator;
+
+    private bool isJumping;
+
+    private Rigidbody2D _rigid;
 
     private void Awake()
     {
@@ -24,6 +27,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
+        //_animator.SetBool("Attack", true);
+        //_animator.SetBool("AttackCombo", true);
+        //_animator.SetBool("Roll", true);
+        //_animator.SetBool("Death", true);
+        //_animator.SetBool("Land", true);
+
         Jump();
         Move();
     }
@@ -33,19 +42,25 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
 
         transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
+        h = 0;
+        _animator.SetBool("Walk", h != 0);
     }
 
     private void Jump()
     {
-        Debug.Log(1);
         if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
             || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
             return;
+        if (isJumping)
+        {
+            _animator.SetBool("Jump", true);
+            isJumping = false;
+        }
 
-        Debug.Log(12312);
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            _animator.SetBool("Jump", true);
+            isJumping = true;
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         }
     }
