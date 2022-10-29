@@ -11,21 +11,22 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
 
-    [SerializeField] private PlayerProficiency state;
+    [SerializeField] private PlayerProficiency state; //Ω∫≈»
 
     private Animator _animator;
     private Rigidbody2D _rigid;
     private BoxCollider2D _boxCol;
-    private CapsuleCollider2D _hitCol;
 
-    bool OnAir = false;
+    bool onAir = false;
+
+    [SerializeField] private float rollCoolTime = 0;
+    [SerializeField] private float attackDelay = 0;
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
         _boxCol = GetComponent<BoxCollider2D>();
-        _hitCol = GetComponent<CapsuleCollider2D>();
     }
 
     private void Start()
@@ -35,9 +36,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        OnAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
             || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer);
-
         Jump();
         Move();
     }
@@ -46,12 +46,12 @@ public class PlayerMove : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && !OnAir);
-
-            _animator.SetBool("Roll", true);
-            _hitCol.enabled = false;
-            //_rigid.AddForce();
             yield return null;
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && !onAir);
+            Debug.Log("'±∏∏•¥Ÿ'");
+            _animator.SetBool("Roll", true);
+
+            yield return new WaitForSeconds(rollCoolTime);
         }
     }
 
@@ -78,11 +78,12 @@ public class PlayerMove : MonoBehaviour
 
     private void Jump()
     {
-        if (OnAir)
+        if (onAir)
             return;
 
         _animator.SetBool("Land", true);
         _animator.SetBool("Jump", false);
+
         StartCoroutine(Land());
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -94,7 +95,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator Land()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         _animator.SetBool("Land", false);
     }
 }
