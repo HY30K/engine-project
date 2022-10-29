@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,30 +12,47 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Transform rayPos2;
 
     [SerializeField] private PlayerProficiency state;
-    [SerializeField] private GameObject visualSprite;
 
     private Animator _animator;
-
-    private bool isJumping;
-
     private Rigidbody2D _rigid;
+    private BoxCollider2D _boxCol;
+    private CapsuleCollider2D _hitCol;
+
+    bool OnAir = false;
 
     private void Awake()
     {
-        _animator = visualSprite.GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
+        _boxCol = GetComponent<BoxCollider2D>();
+        _hitCol = GetComponent<CapsuleCollider2D>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Roll());
     }
 
     private void Update()
     {
-        //_animator.SetBool("Attack", true);
-        //_animator.SetBool("AttackCombo", true);
-        //_animator.SetBool("Roll", true);
-        //_animator.SetBool("Death", true);
-        //_animator.SetBool("Land", true);
+        OnAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer);
 
         Jump();
         Move();
+    }
+
+    IEnumerator Roll()
+    {
+        while (true)
+        {
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && !OnAir);
+
+            _animator.SetBool("Roll", true);
+            _hitCol.enabled = false;
+            //_rigid.AddForce();
+            yield return null;
+        }
     }
 
     private void Move()
@@ -42,26 +60,41 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
 
         transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
-        h = 0;
-        _animator.SetBool("Walk", h != 0);
+
+        if (h == 0)
+            _animator.SetBool("Walk", false);
+        else
+            _animator.SetBool("Walk", true);
+
+        if (h > 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+        else if (h < 0)
+        {
+            transform.localScale = new Vector2(1, 1);
+        }
     }
 
     private void Jump()
     {
-        if (!Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer))
+        if (OnAir)
             return;
-        if (isJumping)
-        {
-            _animator.SetBool("Jump", true);
-            isJumping = false;
-        }
+
+        _animator.SetBool("Land", true);
+        _animator.SetBool("Jump", false);
+        StartCoroutine(Land());
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _animator.SetBool("Jump", true);
-            isJumping = true;
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         }
+    }
+
+    IEnumerator Land()
+    {
+        yield return new WaitForSeconds(0.1f);
+        _animator.SetBool("Land", false);
     }
 }
