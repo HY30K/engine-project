@@ -15,9 +15,10 @@ public class PlayerMove : MonoBehaviour
 
     private Animator _animator;
     private Rigidbody2D _rigid;
-    private BoxCollider2D _boxCol;
 
-    bool onAir = false;
+    private bool onAir = false;
+
+    public bool OnAir { get => onAir; }
 
     [SerializeField] private float rollCoolTime = 0;
     [SerializeField] private float attackDelay = 0;
@@ -26,7 +27,6 @@ public class PlayerMove : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
-        _boxCol = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -80,22 +80,13 @@ public class PlayerMove : MonoBehaviour
     {
         if (onAir)
             return;
-
-        _animator.SetBool("Land", true);
         _animator.SetBool("Jump", false);
-
-        StartCoroutine(Land());
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         }
-    }
-
-    IEnumerator Land()
-    {
-        yield return new WaitForSeconds(0.5f);
-        _animator.SetBool("Land", false);
     }
 }

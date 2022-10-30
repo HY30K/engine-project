@@ -6,6 +6,7 @@ using UnityEngine;
 public class HealingPotion : UseItem
 {
     public int healAmount;
+
     public override bool ExecuteRole()
     {
         //게임매니저에 플레이어 hp 연결해서 회복시키기

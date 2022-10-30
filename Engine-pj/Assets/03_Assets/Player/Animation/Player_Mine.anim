@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player_Jump
+  m_Name: Player_Mine
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.4, y: 0.588, z: 0}
+        value: {x: 0, y: 0.344, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -36,23 +36,15 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 93812c7d1930a9d458d2c9c132382277, type: 3}
+      value: {fileID: 21300000, guid: e5df08e747f600645912c51829e8373b, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 212b08a97bdd34843b4e178ddede6aab, type: 3}
+      value: {fileID: 21300000, guid: 583fe967ddc73a241a010600c7acd982, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: bb6d4b7eb763fba488faf9a294fd679e, type: 3}
+      value: {fileID: 21300000, guid: ac04fc19ebaba8a4db419176892f1158, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: 78dffbb57b952934da3f0c45146ecdb6, type: 3}
+      value: {fileID: 21300000, guid: 5c7d0e0023c68ee42a085440aa253ed4, type: 3}
     - time: 0.33333334
-      value: {fileID: 21300000, guid: 731450c65acc94b4885e7aa94e703feb, type: 3}
-    - time: 0.41666666
-      value: {fileID: 21300000, guid: 4ea9129b0d72a454ba4e237a1d6f91fe, type: 3}
-    - time: 0.5
-      value: {fileID: 21300000, guid: 80f25075eaad5e349a4b9907ccba1fa0, type: 3}
-    - time: 0.5833333
-      value: {fileID: 21300000, guid: c9238ef7d297b7b4781d690ed775ca1b, type: 3}
-    - time: 0.6666667
-      value: {fileID: 21300000, guid: b67e5240930673745b1acd71344a5ffb, type: 3}
+      value: {fileID: 21300000, guid: 55c82ad8b88d44e4081ea88e8e71394e, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -79,26 +71,22 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 93812c7d1930a9d458d2c9c132382277, type: 3}
-    - {fileID: 21300000, guid: 212b08a97bdd34843b4e178ddede6aab, type: 3}
-    - {fileID: 21300000, guid: bb6d4b7eb763fba488faf9a294fd679e, type: 3}
-    - {fileID: 21300000, guid: 78dffbb57b952934da3f0c45146ecdb6, type: 3}
-    - {fileID: 21300000, guid: 731450c65acc94b4885e7aa94e703feb, type: 3}
-    - {fileID: 21300000, guid: 4ea9129b0d72a454ba4e237a1d6f91fe, type: 3}
-    - {fileID: 21300000, guid: 80f25075eaad5e349a4b9907ccba1fa0, type: 3}
-    - {fileID: 21300000, guid: c9238ef7d297b7b4781d690ed775ca1b, type: 3}
-    - {fileID: 21300000, guid: b67e5240930673745b1acd71344a5ffb, type: 3}
+    - {fileID: 21300000, guid: e5df08e747f600645912c51829e8373b, type: 3}
+    - {fileID: 21300000, guid: 583fe967ddc73a241a010600c7acd982, type: 3}
+    - {fileID: 21300000, guid: ac04fc19ebaba8a4db419176892f1158, type: 3}
+    - {fileID: 21300000, guid: 5c7d0e0023c68ee42a085440aa253ed4, type: 3}
+    - {fileID: 21300000, guid: 55c82ad8b88d44e4081ea88e8e71394e, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 0.4166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
@@ -114,7 +102,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.4
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -133,7 +121,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.588
+        value: 0.344
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -169,11 +157,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.6666667
-    functionName: StartLanding
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []
