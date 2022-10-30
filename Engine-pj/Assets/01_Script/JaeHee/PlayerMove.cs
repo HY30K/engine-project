@@ -80,6 +80,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (onAir)
             return;
+
         _animator.SetBool("Jump", false);
 
         if (Input.GetKeyDown(KeyCode.Space))

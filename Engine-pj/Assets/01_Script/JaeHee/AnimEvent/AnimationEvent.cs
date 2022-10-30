@@ -42,6 +42,7 @@ public class AnimationEvent : MonoBehaviour
     }
     public IEnumerator StartLanding() //착지할때 애니메
     {
+        yield return null;
         yield return new WaitUntil(() => !playerMove.OnAir);
         _animator.SetBool("Land", true);
         _animator.SetBool("Jump", false);
