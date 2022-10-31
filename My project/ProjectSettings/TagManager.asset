@@ -3,10 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - FieldItem
-  - ToDg
-  - ToMine
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -14,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
+  - 
   - Mineral
   - 
   - 
-  - Enemy
   - 
   - 
-  - Ground
+  - 
+  - 
   - 
   - 
   - 
