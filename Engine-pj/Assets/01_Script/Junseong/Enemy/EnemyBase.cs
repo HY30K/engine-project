@@ -13,5 +13,6 @@ public class EnemyBase : MonoBehaviour
     {
         _enemyCollider = GetComponent<CapsuleCollider2D>();
         _transform = GetComponent<Transform>();
+        _animator = GetComponent<Animator>();
     }
 }

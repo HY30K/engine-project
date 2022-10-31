@@ -8,6 +8,7 @@ public class EnemyMovement : EnemyBase
     public float afterNoChasingTime = 0f;
 
     Vector2 dir;
+    public int Dir => (int)dir.x;
     Vector2 origin;
     public Transform target;
 
@@ -22,8 +23,7 @@ public class EnemyMovement : EnemyBase
     public bool _isThinking;
     public bool _isChasing;
     public bool _isCanDetectAttacking;
-
-    Coroutine runningCoroutine = null;
+    
     RaycastHit2D detectPlayer;
 
     EnemyAttack _enemyAttack;
@@ -35,7 +35,6 @@ public class EnemyMovement : EnemyBase
         _rigid = GetComponent<Rigidbody2D>();
         _transform = GetComponent<Transform>();
         _enemyAttack = GetComponent<EnemyAttack>();
-        //nextMove = Random.Range(-1,2);
 
         while (nextMove == 0)
         {
@@ -50,46 +49,63 @@ public class EnemyMovement : EnemyBase
     private void Update()
     {
         Debug.Log(nextMove);
-        _rigid.velocity = new Vector2(nextMove * speed, _rigid.velocity.y);
-        
-        //뒤집기
-        if(nextMove == -1)
+        if (!_enemyAttack._isAttacking)
         {
-            transform.rotation = Quaternion.Euler(0, -180, 0);
+            _rigid.velocity = new Vector2(nextMove * speed, _rigid.velocity.y);
         }
-        if(nextMove == 1)
+        else
         {
-            transform.rotation = Quaternion.identity;
+            //_animator.SetBool("moving", false);
+            _rigid.velocity = new Vector2(0,_rigid.velocity.y);
+        }
+        
+        if(nextMove != 0 && !_enemyAttack._isAttacking)
+        {
+            _animator.SetBool("moving", true);
+        }
+        else if(nextMove == 0)
+        {
+            _animator.SetBool("moving", false);
         }
 
-        dir = nextMove >= 0 ? Vector2.right : Vector2.left;
+        dir = (transform.localScale.x) >= 0 ? Vector2.right : Vector2.left; // 고쳐야될수도
         origin = (Vector2)transform.position + (nextMove >= 0 ? Vector2.right : Vector2.left);
-        if (_isThinking)
+        if (_isThinking && !_enemyAttack._isAttacking)
         {
-            if (nextMove != 0 && !_enemyAttack._isAttack)
+            PlatformCheck();
+            DetectPlayer();
+
+            if(nextMove == 1 && (!_enemyAttack._isAttack))
             {
-                _animator.SetBool("IsRun", true);
+                transform.localScale = new Vector3(1, 1, 1);
             }
-            else if (nextMove == 0 && !_isChasing)
+
+            if(nextMove == -1 && (!_enemyAttack._isAttack))
             {
-                speed = 0;
-                _animator.SetBool("IsRun", false);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            if (_isChasing)
+            {
+                FaceTarget();
+                nextMove = (int)dir.x;
             }
 
             if (_isChasing && !_enemyAttack._isAttack)
             {
                 speed = _enemy.AfterDetectSpeed();
-                //_isCanDetectAttacking = true;
                 afterNoChasingTime = 0;
+                //_animator.SetBool("moving", true);
             }
+
             if (!_isChasing)
             {
                 if (nextMove != 0)
                 {
                     speed = _enemy.BeforeDetectSpeed();
                 }
-                //_isCanDetectAttacking = false;
-                PlatformCheck();
+                //PlatformCheck();
+                //_animator.SetBool("moving", false);
                 afterNoChasingTime += Time.deltaTime;
                 if (afterNoChasingTime > randThinkTime)
                 {
@@ -97,19 +113,8 @@ public class EnemyMovement : EnemyBase
                     EnemyThink();
                 }
             }
-            //else if (_isChasing && _enemyAttack._isAttack)
-            //{
-            //    speed = 0;
-            //}
-           
-            if (_enemyAttack._isAttack)
-            {
-                //_animator.SetBool("IsRun", false);
-            }
-            DetectPlayer();
         }
 
-        //print(Random.Range(-1, 2));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -123,13 +128,13 @@ public class EnemyMovement : EnemyBase
 
     public void FaceTarget()
     {
-        if(target.position.x - transform.position.x < 0)
+        if (target.position.x - transform.position.x < 0) // 타겟이 왼쪽
         {
-            transform.rotation = Quaternion.Euler(0, -180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
-        else if( target.position.y - transform.position.y > 0)
+        else // 타겟이 오른쪽
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -155,29 +160,10 @@ public class EnemyMovement : EnemyBase
                 EnemyThink();
             }
         }
-
-        //if(runningCoroutine != null)
-        //{
-        //    StopCoroutine(runningCoroutine);
-        //}
-
-        //runningCoroutine = StartCoroutine(EnemyNextThinkTime(randThinkTime));
     }
 
-    //IEnumerator EnemyNextThinkTime(float randThinkTime)
-    //{
-    //    Debug.Log($"들어왔따 : { randThinkTime }");
-    //    yield return new WaitForSeconds(randThinkTime);
-    //    _isThinking = true;
-    //    _AfterChaseThink=true;
-    //}
-
-    void DetectPlayer()
+    void DetectPlayer() // 그냥 거리재는거로 바꿔야 될수도 살짝 부자연스러움
     {
-        //detectPlayer[0] = Physics2D.Raycast(origin, dir + (Vector2.up + dir * 7) / 8, _enemy.DetectRange(), layerMask);// 6은 플레이어 레이어
-        //detectPlayer[1] = Physics2D.Raycast(origin, dir, _enemy.DetectRange(), layerMask);
-        //detectPlayer[2] = Physics2D.Raycast(origin, dir + (Vector2.down + dir * 7) / 8, _enemy.DetectRange(), layerMask);
-        //DrawRays();
 
         detectPlayer = Physics2D.Raycast(origin, dir, _enemy.DetectRange(), layerMask);
 
@@ -191,13 +177,6 @@ public class EnemyMovement : EnemyBase
         }
         Debug.DrawRay(origin, dir * _enemy.DetectRange());
     }
-
-    //void DrawRays()
-    //{
-    //    Debug.DrawRay(origin, dir * _enemy.DetectRange());
-    //    Debug.DrawRay(origin, dir + (Vector2.up + dir * 7) / 8 * _enemy.DetectRange());
-    //    Debug.DrawRay(origin, dir + (Vector2.down + dir * 7) / 8 * _enemy.DetectRange());
-    //}
 
     void PlatformCheck()
     {

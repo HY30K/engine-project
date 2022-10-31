@@ -7,36 +7,92 @@ using UnityEngine.Events;
 public class EnemyAttack : EnemyBase
 {
     [SerializeField] Transform target;
-    public bool _isAttack = true;
-    float _attackDelay = 0f;
+    public bool _isAttack = false;
+    public bool _isAttacking = false;
+    public bool canAttack = true;
+    public bool _isAfterAttack = false;
+    public bool endAttacking = true;
+    public float _attackDelay = 0f;
+
+    public int afterAttackMove = 0;
 
     public UnityEvent AttackFeedBack;
+
+    EnemyMovement enemyMovement;
 
     protected override void Awake()
     {
         base.Awake();
-        //_animator = GetComponent<Animator>();
+        enemyMovement = GetComponent<EnemyMovement>();
     }
 
     private void Update()
     {
-        _attackDelay -= Time.deltaTime;
-        float distance = Vector3.Distance(transform.position, target.position);
-        if (_attackDelay == 0 && distance <= _enemy.AttackRange())
+        Debug.Log($"공격중인가요 : {_isAttacking}");
+        if (endAttacking)
         {
-            FaceTarget();
+            _attackDelay -= Time.deltaTime;
+        }
+        if (_attackDelay < 0f) _attackDelay = 0;
+
+        //if (_animator.GetCurrentAnimatorStateInfo(0).IsName("canAttack"))
+        //{
+        //    _isAttacking = true;
+        //}
+       // else _isAttacking = false;
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if (distance <= _enemy.AttackRange())
+        {
+            enemyMovement.nextMove = 0;
+            enemyMovement._isThinking = false;
+            enemyMovement.nextMove = 0;
+            afterAttackMove = (target.position.x - transform.position.x < 0) ? -1 : 1;
+            _isAttack = true;
+            if(_attackDelay == 0)
+            {
+                EnemyAttacking();
+                canAttack = true;
+                _isAttacking = true;
+                endAttacking = false;
+                _isAfterAttack = true;
+            }
+            else
+            {
+                canAttack = false;
+                _isAfterAttack=false;
+                enemyMovement.FaceTarget();
+                Debug.Log("돌아간다아ㅏ아아아아아아ㅏ아앙");
+            }
+
+        }
+        else if(distance > _enemy.AttackRange())
+        {
+            enemyMovement._isThinking = true;
+            _isAttack = false;
+            if (_isAfterAttack)
+            {
+                enemyMovement.nextMove = afterAttackMove;
+                _isAfterAttack=false;
+            }
         }
     }
 
-    void FaceTarget()
+    private void EnemyAttacking()
     {
-        if (target.position.x - transform.position.x < 0) // 타겟이 왼쪽
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else // 타겟이 오른쪽
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
+        AttackFeedBack?.Invoke();// 공격시 효과같은거 넣어주기
+        int randAttack = UnityEngine.Random.Range(1, 5);
+        _animator.SetInteger("Attack", randAttack);
+        _animator.SetTrigger("canAttack");
+        Debug.Log("randAttack : " + randAttack);
+        _attackDelay = _enemy.AttackDelay();
+        Debug.Log("endAttack");
+    }
+
+    public void EndAttacking()
+    {
+        Debug.Log("공격이 끝났습니다");
+        endAttacking = true;
+        _isAttacking = false;
     }
 }

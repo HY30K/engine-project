@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    
-    protected readonly int _attackHash = Animator.StringToHash("Attack");
-    protected readonly int _runHash = Animator.StringToHash("Run");
-    protected readonly int _DeadBoolHash = Animator.StringToHash("Dead");
-
     private void Awake()
     {
         
