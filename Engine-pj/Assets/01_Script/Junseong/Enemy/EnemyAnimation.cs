@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
+    
     protected readonly int _attackHash = Animator.StringToHash("Attack");
     protected readonly int _runHash = Animator.StringToHash("Run");
     protected readonly int _DeadBoolHash = Animator.StringToHash("Dead");
-    
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void IsStartAttack()
+    {
+
+    }
+
+    public void IsEnemyDead()
+    {
+
+    }
+
+    public void PlayDeadAnimation()
     {
         
     }
