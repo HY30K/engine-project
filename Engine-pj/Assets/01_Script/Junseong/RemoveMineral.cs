@@ -18,7 +18,6 @@ public class RemoveMineral : MonoBehaviour
     {
          _rigid = GetComponent<Rigidbody2D>();
         _capCollider = GetComponent<CapsuleCollider2D>();
-        
     }
 
     private void Update()
@@ -52,7 +51,6 @@ public class RemoveMineral : MonoBehaviour
             StopCoroutine("HitMineral");
             //hit = null;
         }
-
     }
 
     IEnumerator HitMineral()
