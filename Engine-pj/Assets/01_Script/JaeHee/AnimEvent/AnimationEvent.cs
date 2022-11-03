@@ -15,7 +15,7 @@ public class AnimationEvent : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Death()//죽으면 실행되는 애니매이벤트
+    public void Death() //죽으면 실행되는 애니매이벤트
     {
 
     }
@@ -27,12 +27,11 @@ public class AnimationEvent : MonoBehaviour
         playerBody.offset = new Vector2(-0.02f, -0.5f);
     }
 
-
     public void EndOfRolling() //구르기가 끝날때 애니매이벤트
     {
         hitBox.enabled = true;
         playerBody.size = new Vector2(0.75f, 1.9f);
-        playerBody.offset = new Vector2(-0.02f, -0.5f);
+        playerBody.offset = new Vector2(-0.02f, -0.05f);
         _animator.SetBool("Roll", false);
     }
 
@@ -40,6 +39,12 @@ public class AnimationEvent : MonoBehaviour
     {
 
     }
+
+    public void AttackCombo()
+    {
+        _animator.SetBool("AttackCombo", false);
+    }
+
     public IEnumerator StartLanding() //착지할때 애니메
     {
         yield return new WaitUntil(() => !playerMove.OnAir);
