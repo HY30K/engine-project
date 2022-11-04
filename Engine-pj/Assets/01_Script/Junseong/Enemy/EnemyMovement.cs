@@ -55,7 +55,7 @@ public class EnemyMovement : EnemyBase
         }
         else
         {
-            //_animator.SetBool("moving", false);
+            _animator.SetBool("moving", false);
             _rigid.velocity = new Vector2(0,_rigid.velocity.y);
         }
         
@@ -95,7 +95,7 @@ public class EnemyMovement : EnemyBase
             {
                 speed = _enemy.AfterDetectSpeed();
                 afterNoChasingTime = 0;
-                //_animator.SetBool("moving", true);
+                _animator.SetBool("moving", true);
             }
 
             if (!_isChasing)
