@@ -5,8 +5,11 @@ using UnityEngine;
 public class AnimationEvent : MonoBehaviour
 {
     [SerializeField] private CapsuleCollider2D hitBox;
-    [SerializeField] private PlayerMove playerMove;
     [SerializeField] private BoxCollider2D playerBody;
+    [SerializeField] private PlayerInput playerMove;
+
+    [SerializeField] private CircleCollider2D attackCol;
+    [SerializeField] private CircleCollider2D attackComboCol;
 
     Animator _animator;
 
@@ -35,14 +38,24 @@ public class AnimationEvent : MonoBehaviour
         _animator.SetBool("Roll", false);
     }
 
-    public void Attack() //공격할 때 애니매이벤트
+    public void AttackColOn() //콜라이터 켜기
     {
-
+        attackCol.enabled = true;
     }
 
-    public void AttackCombo()
+    public void AttackColOff() //콜라이더 켜기
     {
-        _animator.SetBool("AttackCombo", false);
+        attackCol.enabled = false;
+    }
+
+    public void AttackComboColOn()
+    {
+        attackComboCol.enabled = true;
+    }
+
+    public void AttackComboColOff()
+    {
+        attackComboCol.enabled = false;
     }
 
     public IEnumerator StartLanding() //착지할때 애니메
