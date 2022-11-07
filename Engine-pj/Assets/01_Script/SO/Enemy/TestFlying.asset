@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53dc3299ea4c72a4683c4353181d16fc, type: 3}
-  m_Name: TestMushROom
+  m_Name: TestFlying
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 2
   enemyName: 
-  hp: 3
-  damage: 2
-  beforeDetectSpeed: 3
-  afterDetectSpeed: 4
+  hp: 5
+  damage: 1
+  beforeDetectSpeed: 1
+  afterDetectSpeed: 2
   detectRange: 5
-  attackRange: 2
-  attackSpeed: 0.5
-  attackDelay: 0.5
+  attackRange: 3
+  attackSpeed: 2
+  attackDelay: 2

@@ -54,7 +54,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 11400000, guid: 777de168dfd0ee243bf65df3737ddcd9, type: 2}
-  target: {fileID: 0}
   _isAttack: 0
   _isAttacking: 0
   canAttack: 1
@@ -80,7 +79,6 @@ MonoBehaviour:
   _enemy: {fileID: 11400000, guid: 777de168dfd0ee243bf65df3737ddcd9, type: 2}
   speed: 0
   afterNoChasingTime: 0
-  target: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 64

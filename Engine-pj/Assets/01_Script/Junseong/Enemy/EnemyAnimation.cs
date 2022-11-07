@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class EnemyAnimation : EnemyBase
 {
-    private void Awake()
+    //[SerializeField]
+    //Animator _animator;
+
+    EnemyAttack enemyAttack;
+    EnemyMovement enemyMovement;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        enemyAttack = gameObject.transform.parent.GetComponentInChildren<EnemyAttack>();
+        enemyMovement = gameObject.transform.parent.GetComponentInChildren<EnemyMovement>();
     }
 
     public void IsStartAttack()
@@ -14,6 +22,11 @@ public class EnemyAnimation : EnemyBase
 
     }
 
+    public void IsEndAttack()
+    {
+        enemyAttack.endAttacking = true;
+        enemyAttack._isAttacking = false;
+    }
     public void IsEnemyDead()
     {
 

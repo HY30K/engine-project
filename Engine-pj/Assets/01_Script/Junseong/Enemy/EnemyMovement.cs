@@ -10,7 +10,6 @@ public class EnemyMovement : EnemyBase
     Vector2 dir;
     public int Dir => (int)dir.x;
     Vector2 origin;
-    public Transform target;
 
     public LayerMask layerMask;
     //LayerMask collisionAfterChangeDirLayer;
@@ -28,6 +27,9 @@ public class EnemyMovement : EnemyBase
 
     EnemyAttack _enemyAttack;
 
+    //[SerializeField]
+    //Animator _animator;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,10 +38,7 @@ public class EnemyMovement : EnemyBase
         _transform = GetComponent<Transform>();
         _enemyAttack = GetComponent<EnemyAttack>();
 
-        while (nextMove == 0)
-        {
-            nextMove = Random.Range(1, 2);
-        }
+        nextMove = Random.Range(-1, 2);
 
         _isThinking = true;
         _isChasing = false;
@@ -48,6 +47,7 @@ public class EnemyMovement : EnemyBase
 
     private void Update()
     {
+        Debug.Log($"현재 참조하는 애니메잍터 : {_animator.name}");
         Debug.Log(nextMove);
         if (!_enemyAttack._isAttacking)
         {
@@ -128,7 +128,7 @@ public class EnemyMovement : EnemyBase
 
     public void FaceTarget()
     {
-        if (target.position.x - transform.position.x < 0) // 타겟이 왼쪽
+        if (_target.position.x - transform.position.x < 0) // 타겟이 왼쪽
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
@@ -145,7 +145,7 @@ public class EnemyMovement : EnemyBase
         print(nextMove);
         if (nextMove != 0)
         {
-            randThinkTime = Random.Range(4f, 5f);
+            randThinkTime = Random.Range(3f, 5f);
         }
         else
         {

@@ -9,6 +9,9 @@ public class EnemyHpManager : EnemyBase
     int hp;
     int damage;
 
+    //[SerializeField]
+    //Animator _animator;
+
     protected override void Awake()
     {
         base.Awake();
