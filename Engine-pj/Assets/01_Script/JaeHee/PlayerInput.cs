@@ -3,8 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
+    public float raycastDistance = 15f;
+    RaycastHit2D hit;
+    bool _isHItting = false;
+    Vector3 mousePos;
+
     [SerializeField] float jumpPower;
     [SerializeField] float speed;
 
@@ -36,10 +41,11 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.GroundLayer);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
         Jump();
         Move();
+        DoMining();
     }
 
     IEnumerator Roll()
@@ -80,6 +86,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (onAir)
             return;
+
         _animator.SetBool("Jump", false);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -89,4 +96,44 @@ public class PlayerMove : MonoBehaviour
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
         }
     }
+
+    #region √§±§∫Œ∫–
+    public void DoMining()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            mousePos = Input.mousePosition;
+            mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+
+            hit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral | Define.Enemy);
+
+            Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
+            if (hit && !_isHItting)
+            {
+                _isHItting = true;
+                StartCoroutine("HitMineral");
+                Debug.Log("HIt");
+                //hit.transform.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            _isHItting = false;
+            StopCoroutine("HitMineral");
+        }
+    }
+
+    IEnumerator HitMineral()
+    {
+        yield return new WaitForSeconds(1f);
+
+        while (hit)
+        {
+            hit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1∫Œ∫–¿ª «√∑π¿ÃæÓ ∞Ó±™¿Ã¿« µ•πÃ¡ˆ∑Œ πŸ≤„¡‡æﬂ«‘;
+            Debug.Log($"±§ºÆ ¿Ã∏ß : {hit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : { hit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            yield return new WaitForSeconds(0.5f);                                                              // 
+        }
+    }
+    #endregion
 }
