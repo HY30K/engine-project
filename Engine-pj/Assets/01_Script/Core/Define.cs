@@ -30,4 +30,5 @@ public class Define : MonoBehaviour
     public static LayerMask Enemy = 1 << 10;
     public static LayerMask Mineral = 1 << 7;
     public static LayerMask Plane = 1 << 13;
+    public static LayerMask Player = 1 << 6;
 }

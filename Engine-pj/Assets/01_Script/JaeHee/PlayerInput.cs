@@ -97,7 +97,8 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    public void DoMining()// 플레이어에서 불러와줘야함
+    #region 채광부분
+    public void DoMining()
     {
         if (Input.GetMouseButton(0))
         {
@@ -120,7 +121,6 @@ public class PlayerInput : MonoBehaviour
         {
             _isHItting = false;
             StopCoroutine("HitMineral");
-            //hit = null;
         }
     }
 
@@ -135,4 +135,5 @@ public class PlayerInput : MonoBehaviour
             yield return new WaitForSeconds(0.5f);                                                              // 
         }
     }
+    #endregion
 }
