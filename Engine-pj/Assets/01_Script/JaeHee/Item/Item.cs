@@ -20,7 +20,6 @@ public class Item
         bool isUsed = false;
         foreach (UseItem uses in useItems)
         {
-            Debug.Log("¼Ò¿õ¾ð");
             isUsed = uses.ExecuteRole();
         }
         isUsed = true;
