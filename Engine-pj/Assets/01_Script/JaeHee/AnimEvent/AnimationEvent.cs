@@ -5,8 +5,11 @@ using UnityEngine;
 public class AnimationEvent : MonoBehaviour
 {
     [SerializeField] private CapsuleCollider2D hitBox;
-    [SerializeField] private PlayerMove playerMove;
     [SerializeField] private BoxCollider2D playerBody;
+    [SerializeField] private PlayerInput playerMove;
+
+    [SerializeField] private CircleCollider2D attackCol;
+    [SerializeField] private CircleCollider2D attackComboCol;
 
     Animator _animator;
 
@@ -15,7 +18,7 @@ public class AnimationEvent : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Death()//죽으면 실행되는 애니매이벤트
+    public void Death() //죽으면 실행되는 애니매이벤트
     {
 
     }
@@ -27,7 +30,6 @@ public class AnimationEvent : MonoBehaviour
         playerBody.offset = new Vector2(-0.02f, -0.5f);
     }
 
-
     public void EndOfRolling() //구르기가 끝날때 애니매이벤트
     {
         hitBox.enabled = true;
@@ -36,10 +38,26 @@ public class AnimationEvent : MonoBehaviour
         _animator.SetBool("Roll", false);
     }
 
-    public void Attack() //공격할 때 애니매이벤트
+    public void AttackColOn() //콜라이터 켜기
     {
-
+        attackCol.enabled = true;
     }
+
+    public void AttackColOff() //콜라이더 켜기
+    {
+        attackCol.enabled = false;
+    }
+
+    public void AttackComboColOn()
+    {
+        attackComboCol.enabled = true;
+    }
+
+    public void AttackComboColOff()
+    {
+        attackComboCol.enabled = false;
+    }
+
     public IEnumerator StartLanding() //착지할때 애니메
     {
         yield return new WaitUntil(() => !playerMove.OnAir);
