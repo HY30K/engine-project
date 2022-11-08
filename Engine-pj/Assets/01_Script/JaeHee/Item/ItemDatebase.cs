@@ -16,9 +16,16 @@ public class ItemDatebase : MonoBehaviour
 
     public GameObject fieldItemPrefabs;
 
+
     public void SpawnItem(Vector2 pos)
     {
         GameObject go = Instantiate(fieldItemPrefabs, pos, Quaternion.identity);
         go.GetComponent<FieldItems>().SetItem(itemList[Random.Range(0, itemList.Count)]);
+    }
+
+    public void SpawnItem(Vector2 pos, Item item)
+    {
+        GameObject go = Instantiate(fieldItemPrefabs, pos, Quaternion.identity);
+        go.GetComponent<FieldItems>().SetItem(item);
     }
 }
