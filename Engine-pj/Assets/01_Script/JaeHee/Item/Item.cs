@@ -7,6 +7,7 @@ public enum ItemType
     Potion,
     Mineral
 }
+
 [System.Serializable]
 public class Item
 {
