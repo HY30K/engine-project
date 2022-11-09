@@ -10,8 +10,17 @@ public class TerrainGeneration : MonoBehaviour
     private float _mineralSpeed;
     public int worldSize = 100;
 
+    public GameObject Mineral;
+    public GameObject Ground;
+    public GameObject Soil;
+    public GameObject Stone;
+    public GameObject Silver;
+    public GameObject Gold;
+    public GameObject Diamond;
+
     // ±¤¼®µé
     public Sprite ground;
+    public Sprite soil;
     public Sprite rockOre;
     public Sprite coalOre;
     public Sprite silverOre;
@@ -54,33 +63,33 @@ public class TerrainGeneration : MonoBehaviour
 
                 //if (isOreAlive[x, y])
                 //{
-                GameObject newObj = new();
-
-                newObj.AddComponent<SpriteRenderer>();
-                newObj.AddComponent<MineralScript>();
-                newObj.AddComponent<BoxCollider2D>();
-                newObj.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
+                
+                GameObject newObj = Instantiate(Mineral);
                 newObj.transform.parent = this.transform;
                 newObj.transform.position = new Vector2(x, y);
-                newObj.layer = LayerMask.NameToLayer("Mineral");
-                newObj.GetComponent<BoxCollider2D>().isTrigger = false;
-                newObj.GetComponent<SpriteRenderer>().color = Color.white;
                 newObj.GetComponent<SpriteRenderer>().sprite = ground;
+          
                 int OreSpawnPercent = UnityEngine.Random.Range(0, 100);
-                if (y >= -2)
+                if(y == 0)
                 {
                     newObj.GetComponent<SpriteRenderer>().sprite = ground;
-                    newObj.GetComponent<SpriteRenderer>().color = Color.red;
+                    //newObj.GetComponent<SpriteRenderer>().color = Color.red;
+                    newObj.GetComponent<MineralScript>().MineralType = MineralType.Ground;
+                }
+                else if (y >= -3)
+                {
+                    newObj.GetComponent<SpriteRenderer>().sprite = soil;
+                    //newObj.GetComponent<SpriteRenderer>().color = Color.red;
                     newObj.GetComponent<MineralScript>().MineralType = MineralType.Ground;
                 }
                 else
                 {
                     if (newObj.GetComponent<SpriteRenderer>().sprite == ground)
                     {
-                        if (y >= -5)//µ¹
+                        if (y >= -100)//µ¹
                         {
                             newObj.GetComponent<SpriteRenderer>().sprite = rockOre;
-                            newObj.GetComponent<SpriteRenderer>().color = Color.gray;
+                            //newObj.GetComponent<SpriteRenderer>().color = Color.gray;
                             newObj.GetComponent<MineralScript>().MineralType = MineralType.Rock;
                         }
                         if (y <= -5 && y >= -50)// ¼®Åº
@@ -89,7 +98,7 @@ public class TerrainGeneration : MonoBehaviour
                             if (OreSpawnPercent < coalSpawnPercent)
                             {
                                 newObj.GetComponent<SpriteRenderer>().sprite = coalOre;
-                                newObj.GetComponent<SpriteRenderer>().color = Color.black;
+                                //newObj.GetComponent<SpriteRenderer>().color = Color.black;
                                 newObj.GetComponent<MineralScript>().MineralType = MineralType.Coal;
                             }
                         }
@@ -98,7 +107,7 @@ public class TerrainGeneration : MonoBehaviour
                             if (OreSpawnPercent < silverSpawnPercent)
                             {
                                 newObj.GetComponent<SpriteRenderer>().sprite = silverOre;
-                                newObj.GetComponent<SpriteRenderer>().color = Color.cyan;
+                                //newObj.GetComponent<SpriteRenderer>().color = Color.cyan;
                                 newObj.GetComponent<MineralScript>().MineralType = MineralType.Silver;
                             }
 
@@ -108,7 +117,7 @@ public class TerrainGeneration : MonoBehaviour
                             if (OreSpawnPercent < GoldSpawnPercent)
                             {
                                 newObj.GetComponent<SpriteRenderer>().sprite = goldOre;
-                                newObj.GetComponent<SpriteRenderer>().color = Color.yellow;
+                                //newObj.GetComponent<SpriteRenderer>().color = Color.yellow;
                                 newObj.GetComponent<MineralScript>().MineralType = MineralType.Gold;
                             }
 
@@ -118,7 +127,7 @@ public class TerrainGeneration : MonoBehaviour
                             if (OreSpawnPercent < DiamondSpawnPercent)
                             {
                                 newObj.GetComponent<SpriteRenderer>().sprite = DiamondOre;
-                                newObj.GetComponent<SpriteRenderer>().color = Color.blue;
+                                //newObj.GetComponent<SpriteRenderer>().color = Color.blue;
                                 newObj.GetComponent<MineralScript>().MineralType = MineralType.Diamond;
                             }
                         }
