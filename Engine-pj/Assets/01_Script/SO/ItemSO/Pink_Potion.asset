@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fc886d64dfe4534eb834b497c196627, type: 3}
-  m_Name: TestPotion
+  m_Name: Pink_Potion
   m_EditorClassIdentifier: 
-  healAmount: 5
-  sprite: {fileID: 21300008, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
+  healAmount: 10
+  sprite: {fileID: 21300018, guid: ddf8838d0a06d8d4c9dec9e3bed69260, type: 3}
