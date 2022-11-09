@@ -16,8 +16,8 @@ TagManager:
   - UI
   - Player
   - Mineral
-  - 
-  - 
+  - PlayerHitBox
+  - Item
   - Enemy
   - 
   - 
