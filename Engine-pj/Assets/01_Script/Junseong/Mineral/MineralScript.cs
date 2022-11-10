@@ -17,9 +17,9 @@ public class MineralScript : MonoBehaviour
     public float hp;
     TerrainGeneration tg;
 
-    private void OnEnable()
+    private void Awake()
     {
-        SetType();
+        //SetType();
     }
 
     private void Update()
@@ -42,27 +42,27 @@ public class MineralScript : MonoBehaviour
     }
     void SetType()// 광석 타입에따른 피통 지정
     {
-        switch (MineralType)
-        {
-            case MineralType.Ground:
-                hp = 3;
-                break;
-            case MineralType.Rock:
-                hp = 4;
-                break;
-            case MineralType.Coal:
-                hp = 5;
-                break;
-            case MineralType.Silver:
-                hp = 6;
-                break;
-            case MineralType.Gold:
-                hp = 7;
-                break;
-            case MineralType.Diamond:
-                hp = 8;
-                break;
-        }
+    //    switch (MineralType)
+    //    {
+    //        case MineralType.Ground:
+    //            hp = 1;
+    //            break;
+    //        case MineralType.Rock:
+    //            hp = 2;
+    //            break;
+    //        case MineralType.Coal:
+    //            hp = 3;
+    //            break;
+    //        case MineralType.Silver:
+    //            hp = 4;
+    //            break;
+    //        case MineralType.Gold:
+    //            hp = 5;
+    //            break;
+    //        case MineralType.Diamond:
+    //            hp = 6;
+    //            break;
+    //    }
     }
 
 }
