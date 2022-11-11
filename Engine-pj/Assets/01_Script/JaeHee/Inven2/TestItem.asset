@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ac721aee05896a42b95a7418f7854ec, type: 3}
-  m_Name: NoneItem
+  m_Name: TestItem
   m_EditorClassIdentifier: 
-  itemName: NoneItem
-  itemImage: {fileID: -7500690451134026123, guid: f7fb89b82e205ea4ba8a88cee4d3070b, type: 3}
-  stackCount: 0
+  itemName: Test
+  itemImage: {fileID: 21300000, guid: 7aecb3d404e0b2c46bc23febaaa7849f, type: 3}
+  stackCount: 3

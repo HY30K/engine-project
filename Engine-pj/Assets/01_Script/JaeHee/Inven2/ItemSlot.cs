@@ -4,41 +4,46 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SEH00N
+public class ItemSlot : MonoBehaviour
 {
-    public class ItemSlot : MonoBehaviour
+    [SerializeField] Item currentItem = null;
+    public Item CurrentItem => currentItem;
+
+    private int currentStackCount = 0;
+    public int CurrentStackCount => currentStackCount;
+
+    private TextMeshProUGUI stackText = null;
+    private Image image = null;
+
+    private void Awake()
     {
-        [SerializeField] Item currentItem = null;
-        public Item CurrentItem => currentItem;
+        stackText = GetComponentInChildren<TextMeshProUGUI>();
+        image = transform.GetChild(1).GetComponent<Image>();
+        image.sprite = currentItem.ItemData.ItemImage;
+    }
 
-        private int currentStackCount = 0;
-        public int CurrentStackCount => currentStackCount;
+    public void AddItem()
+    {
+        currentStackCount++;
+        stackText.text = $"{currentStackCount}";
+    }
 
-        private TextMeshProUGUI stackText = null;
-        private Image image = null;
-
-        private void Awake() 
+    public void RemoveItem()
+    {
+        if (currentStackCount >= 0)
         {
-            stackText = GetComponentInChildren<TextMeshProUGUI>();
-            image = transform.GetChild(1).GetComponent<Image>();
-
-            image.sprite = currentItem.ItemData.ItemImage;
-        }
-
-        public void AddItem()
-        {
-            currentStackCount ++;
+            currentStackCount--;
             stackText.text = $"{currentStackCount}";
         }
+    }
 
-        public void SetItem(Item item, int count = 1)
-        {
-            currentItem = item;
-            currentStackCount = count;
+    public void SetItem(Item item, int count = 1)
+    {
+        currentItem = item;
+        currentStackCount = count;
 
-            image.sprite = currentItem.ItemData.ItemImage;
+        image.sprite = currentItem.ItemData.ItemImage;
 
-            stackText.text = $"{currentStackCount}";
-        }
+        stackText.text = $"{currentStackCount}";
     }
 }

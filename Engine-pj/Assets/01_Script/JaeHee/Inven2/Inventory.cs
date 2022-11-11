@@ -2,33 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SEH00N
+public class Inventory : MonoBehaviour
 {
-    public class Inventory : MonoBehaviour
+    [SerializeField] List<ItemSlot> slots = new List<ItemSlot>();
+
+    public static Inventory instance = null;
+
+    private void Awake()
     {
-        [SerializeField] List<ItemSlot> slots = new List<ItemSlot>();
-
-        private void Awake() 
+        if (instance == null)
         {
-            transform.GetComponentsInChildren<ItemSlot>(slots);
+            instance = this;
         }
+        Debug.Log(transform.name);
+        transform.GetComponentsInChildren<ItemSlot>(slots);
+    }
 
-        public void AddItem(Item item)
+    public bool AddItem(Item item)
+    {
+        foreach (ItemSlot slot in slots)
         {
-            foreach (ItemSlot slot in slots)
-            {
-                if (slot.CurrentItem.ItemData.ItemName == item.ItemData.ItemName)
-                    if (slot.CurrentStackCount < item.ItemData.StackCount)
-                    {
-                        slot.AddItem();
-                        break;
-                    }
-                if (slot.CurrentItem.ItemData.ItemName == "NoneItem")
+            if (slot.CurrentItem.ItemData.ItemName == item.ItemData.ItemName)
+                if (slot.CurrentStackCount < item.ItemData.StackCount)
                 {
-                    slot.SetItem(item);
-                    break;
+                    slot.AddItem();
+                    return true;
                 }
+            if (slot.CurrentItem.ItemData.ItemName == "NoneItem")
+            {
+                slot.SetItem(item);
+                return true;
             }
         }
+        return false;
     }
 }
+
