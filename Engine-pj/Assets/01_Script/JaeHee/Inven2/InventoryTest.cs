@@ -8,6 +8,6 @@ public class InventoryTest : MonoBehaviour
 
     public void IvenTest()
     {
-        bool a = Inventory.instance.AddItem(test);
+        Inventory.instance.AddItem(test);
     }
 }

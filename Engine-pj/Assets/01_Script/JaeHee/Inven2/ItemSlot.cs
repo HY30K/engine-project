@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] Item currentItem = null;
     public Item CurrentItem => currentItem;
@@ -22,28 +23,45 @@ public class ItemSlot : MonoBehaviour
         image.sprite = currentItem.ItemData.ItemImage;
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (currentItem.ItemData.ItemType == Type.Interectable)
+        {
+            Use();
+        }
+    }
+
+    public void Use()
+    {
+        if (currentStackCount > 0)
+        {
+            currentStackCount--;
+            currentItem.UseItem(currentItem.ItemData.ItemName);
+            Inventory.instance.ItemList.Remove(currentItem);
+
+            if (currentStackCount <= 0)
+            {
+                currentItem = Inventory.instance.NoneItem;
+                image.sprite = currentItem.ItemData.ItemImage;
+            }
+        }
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
+    }
+
     public void AddItem()
     {
         currentStackCount++;
         stackText.text = $"{currentStackCount}";
     }
 
-    public void RemoveItem()
-    {
-        if (currentStackCount >= 0)
-        {
-            currentStackCount--;
-            stackText.text = $"{currentStackCount}";
-        }
-    }
-
-    public void SetItem(Item item, int count = 1)
+    public void SetItem(Item item, int count)
     {
         currentItem = item;
         currentStackCount = count;
 
         image.sprite = currentItem.ItemData.ItemImage;
 
-        stackText.text = $"{currentStackCount}";
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
     }
+
 }

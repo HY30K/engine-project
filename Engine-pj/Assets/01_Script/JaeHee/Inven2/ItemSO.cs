@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Type
+{
+    Mineral,
+    Interectable,
+    None
+}
+
 [CreateAssetMenu(fileName = "ItemSO")]
 public class ItemSO : ScriptableObject
 {
@@ -13,5 +20,8 @@ public class ItemSO : ScriptableObject
 
     [SerializeField] int stackCount;
     public int StackCount => stackCount;
+
+    [SerializeField] Type itemType;
+    public Type ItemType => itemType;
 }
 

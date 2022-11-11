@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: NoneItem
   itemImage: {fileID: -7500690451134026123, guid: f7fb89b82e205ea4ba8a88cee4d3070b, type: 3}
   stackCount: 0
+  itemType: 2
