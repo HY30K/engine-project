@@ -6,9 +6,11 @@ public enum EnemyType
 {
     NormalEnemy,
     ShieldEnemy,
+    FlyingEnemy,
     Boss
 }
-[CreateAssetMenu(menuName = "Asset/EnemySO")]
+
+[CreateAssetMenu(menuName = "SO/EnemySO")]
 public class EnemySO : ScriptableObject
 {
     public EnemyType enemyType;

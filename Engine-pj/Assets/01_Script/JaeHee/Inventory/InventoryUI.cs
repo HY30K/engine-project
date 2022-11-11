@@ -29,6 +29,7 @@ public class InventoryUI : MonoBehaviour
         {
             slots[i].RemoveSlot();
         }
+
         for (int i = 0; i < inven.items.Count; i++)
         {
             slots[i].item = inven.items[i];

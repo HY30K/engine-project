@@ -8,8 +8,8 @@ public class EnemyMovement : EnemyBase
     public float afterNoChasingTime = 0f;
 
     Vector2 dir;
+    public int Dir => (int)dir.x;
     Vector2 origin;
-    public Transform target;
 
     public LayerMask layerMask;
     //LayerMask collisionAfterChangeDirLayer;
@@ -22,11 +22,13 @@ public class EnemyMovement : EnemyBase
     public bool _isThinking;
     public bool _isChasing;
     public bool _isCanDetectAttacking;
-
-    Coroutine runningCoroutine = null;
+    
     RaycastHit2D detectPlayer;
 
     EnemyAttack _enemyAttack;
+
+    //[SerializeField]
+    //Animator _animator;
 
     protected override void Awake()
     {
@@ -35,12 +37,8 @@ public class EnemyMovement : EnemyBase
         _rigid = GetComponent<Rigidbody2D>();
         _transform = GetComponent<Transform>();
         _enemyAttack = GetComponent<EnemyAttack>();
-        //nextMove = Random.Range(-1,2);
 
-        while (nextMove == 0)
-        {
-            nextMove = Random.Range(1, 2);
-        }
+        nextMove = Random.Range(-1, 2);
 
         _isThinking = true;
         _isChasing = false;
@@ -49,47 +47,65 @@ public class EnemyMovement : EnemyBase
 
     private void Update()
     {
+        Debug.Log($"현재 참조하는 애니메잍터 : {_animator.name}");
         Debug.Log(nextMove);
-        _rigid.velocity = new Vector2(nextMove * speed, _rigid.velocity.y);
-        
-        //뒤집기
-        if(nextMove == -1)
+        if (!_enemyAttack._isAttacking)
         {
-            transform.rotation = Quaternion.Euler(0, -180, 0);
+            _rigid.velocity = new Vector2(nextMove * speed, _rigid.velocity.y);
         }
-        if(nextMove == 1)
+        else
         {
-            transform.rotation = Quaternion.identity;
+            _animator.SetBool("moving", false);
+            _rigid.velocity = new Vector2(0,_rigid.velocity.y);
+        }
+        
+        if(nextMove != 0 && !_enemyAttack._isAttacking)
+        {
+            _animator.SetBool("moving", true);
+        }
+        else if(nextMove == 0)
+        {
+            _animator.SetBool("moving", false);
         }
 
-        dir = nextMove >= 0 ? Vector2.right : Vector2.left;
+        dir = (transform.localScale.x) >= 0 ? Vector2.right : Vector2.left; // 고쳐야될수도
         origin = (Vector2)transform.position + (nextMove >= 0 ? Vector2.right : Vector2.left);
-        if (_isThinking)
+        if (_isThinking && !_enemyAttack._isAttacking)
         {
-            if (nextMove != 0 && !_enemyAttack._isAttack)
+            PlatformCheck();
+            DetectPlayer();
+
+            if(nextMove == 1 && (!_enemyAttack._isAttack))
             {
-                _animator.SetBool("IsRun", true);
+                transform.localScale = new Vector3(1, 1, 1);
             }
-            else if (nextMove == 0 && !_isChasing)
+
+            if(nextMove == -1 && (!_enemyAttack._isAttack))
             {
-                speed = 0;
-                _animator.SetBool("IsRun", false);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            if (_isChasing)
+            {
+                FaceTarget();
+                nextMove = (int)dir.x;
             }
 
             if (_isChasing && !_enemyAttack._isAttack)
             {
                 speed = _enemy.AfterDetectSpeed();
-                //_isCanDetectAttacking = true;
                 afterNoChasingTime = 0;
+                _animator.SetBool("moving", true);
             }
+
             if (!_isChasing)
             {
                 if (nextMove != 0)
                 {
                     speed = _enemy.BeforeDetectSpeed();
                 }
-                //_isCanDetectAttacking = false;
-                PlatformCheck();
+                //PlatformCheck();
+                //_animator.SetBool("moving", false);
                 afterNoChasingTime += Time.deltaTime;
                 if (afterNoChasingTime > randThinkTime)
                 {
@@ -97,19 +113,8 @@ public class EnemyMovement : EnemyBase
                     EnemyThink();
                 }
             }
-            //else if (_isChasing && _enemyAttack._isAttack)
-            //{
-            //    speed = 0;
-            //}
-           
-            if (_enemyAttack._isAttack)
-            {
-                //_animator.SetBool("IsRun", false);
-            }
-            DetectPlayer();
         }
 
-        //print(Random.Range(-1, 2));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -123,13 +128,13 @@ public class EnemyMovement : EnemyBase
 
     public void FaceTarget()
     {
-        if(target.position.x - transform.position.x < 0)
+        if (_target.position.x - transform.position.x < 0) // 타겟이 왼쪽
         {
-            transform.rotation = Quaternion.Euler(0, -180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
-        else if( target.position.y - transform.position.y > 0)
+        else // 타겟이 오른쪽
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
@@ -140,7 +145,7 @@ public class EnemyMovement : EnemyBase
         print(nextMove);
         if (nextMove != 0)
         {
-            randThinkTime = Random.Range(4f, 5f);
+            randThinkTime = Random.Range(3f, 5f);
         }
         else
         {
@@ -155,31 +160,13 @@ public class EnemyMovement : EnemyBase
                 EnemyThink();
             }
         }
-
-        //if(runningCoroutine != null)
-        //{
-        //    StopCoroutine(runningCoroutine);
-        //}
-
-        //runningCoroutine = StartCoroutine(EnemyNextThinkTime(randThinkTime));
     }
 
-    //IEnumerator EnemyNextThinkTime(float randThinkTime)
-    //{
-    //    Debug.Log($"들어왔따 : { randThinkTime }");
-    //    yield return new WaitForSeconds(randThinkTime);
-    //    _isThinking = true;
-    //    _AfterChaseThink=true;
-    //}
-
-    void DetectPlayer()
+    void DetectPlayer() // 그냥 거리재는거로 바꿔야 될수도 살짝 부자연스러움
     {
-        //detectPlayer[0] = Physics2D.Raycast(origin, dir + (Vector2.up + dir * 7) / 8, _enemy.DetectRange(), layerMask);// 6은 플레이어 레이어
-        //detectPlayer[1] = Physics2D.Raycast(origin, dir, _enemy.DetectRange(), layerMask);
-        //detectPlayer[2] = Physics2D.Raycast(origin, dir + (Vector2.down + dir * 7) / 8, _enemy.DetectRange(), layerMask);
-        //DrawRays();
 
-        detectPlayer = Physics2D.Raycast(origin, dir, _enemy.DetectRange(), layerMask);
+        //detectPlayer = Physics2D.Raycast(origin, dir, _enemy.DetectRange(), layerMask);
+        detectPlayer = BoxCast(transform.position, new Vector2(4f, 1.5f), 0, dir, _enemy.DetectRange(), layerMask);
 
         if (detectPlayer.collider == null)
         {
@@ -191,13 +178,6 @@ public class EnemyMovement : EnemyBase
         }
         Debug.DrawRay(origin, dir * _enemy.DetectRange());
     }
-
-    //void DrawRays()
-    //{
-    //    Debug.DrawRay(origin, dir * _enemy.DetectRange());
-    //    Debug.DrawRay(origin, dir + (Vector2.up + dir * 7) / 8 * _enemy.DetectRange());
-    //    Debug.DrawRay(origin, dir + (Vector2.down + dir * 7) / 8 * _enemy.DetectRange());
-    //}
 
     void PlatformCheck()
     {
@@ -217,4 +197,60 @@ public class EnemyMovement : EnemyBase
 
         }
     }
+    #region BoxCast
+    static public RaycastHit2D BoxCast(Vector2 origen, Vector2 size, float angle, Vector2 direction, float distance, int mask)
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(origen, size, angle, direction, distance, mask);
+
+        //Setting up the points to draw the cast
+        Vector2 p1, p2, p3, p4, p5, p6, p7, p8;
+        float w = size.x * 0.5f;
+        float h = size.y * 0.5f;
+        p1 = new Vector2(-w, h);
+        p2 = new Vector2(w, h);
+        p3 = new Vector2(w, -h);
+        p4 = new Vector2(-w, -h);
+
+        Quaternion q = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+        p1 = q * p1;
+        p2 = q * p2;
+        p3 = q * p3;
+        p4 = q * p4;
+
+        p1 += origen;
+        p2 += origen;
+        p3 += origen;
+        p4 += origen;
+
+        Vector2 realDistance = direction.normalized * distance;
+        p5 = p1 + realDistance;
+        p6 = p2 + realDistance;
+        p7 = p3 + realDistance;
+        p8 = p4 + realDistance;
+
+
+        //Drawing the cast
+        Color castColor = hit ? Color.red : Color.green;
+        Debug.DrawLine(p1, p2, castColor);
+        Debug.DrawLine(p2, p3, castColor);
+        Debug.DrawLine(p3, p4, castColor);
+        Debug.DrawLine(p4, p1, castColor);
+
+        Debug.DrawLine(p5, p6, castColor);
+        Debug.DrawLine(p6, p7, castColor);
+        Debug.DrawLine(p7, p8, castColor);
+        Debug.DrawLine(p8, p5, castColor);
+
+        Debug.DrawLine(p1, p5, Color.grey);
+        Debug.DrawLine(p2, p6, Color.grey);
+        Debug.DrawLine(p3, p7, Color.grey);
+        Debug.DrawLine(p4, p8, Color.grey);
+        if (hit)
+        {
+            Debug.DrawLine(hit.point, hit.point + hit.normal.normalized * 0.2f, Color.yellow);
+        }
+
+        return hit;
+    }
+#endregion
 }
