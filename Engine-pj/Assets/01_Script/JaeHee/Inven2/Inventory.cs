@@ -4,37 +4,72 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] List<ItemSlot> slots = new List<ItemSlot>();
+    [SerializeField] List<ItemSlot> slots = new List<ItemSlot>(); //슬롯리스트
+
+    [SerializeField] Item noneItem; //빈 슬롯을 표시
+    public Item NoneItem => noneItem;
+
+    List<Item> itemList = new List<Item>(); //소지한 아이템 리스트
+    public List<Item> ItemList
+    {
+        get { return itemList; }
+        set { itemList = value; }
+    }
 
     public static Inventory instance = null;
-
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
-        Debug.Log(transform.name);
-        transform.GetComponentsInChildren<ItemSlot>(slots);
+
+        transform.GetComponentsInChildren<ItemSlot>(slots); //인벤토리 찾아오기
     }
 
-    public bool AddItem(Item item)
+    public void RedrawInven()
     {
         foreach (ItemSlot slot in slots)
         {
-            if (slot.CurrentItem.ItemData.ItemName == item.ItemData.ItemName)
+            slot.SetItem(noneItem, noneItem.ItemData.StackCount);
+        }
+        Debug.Log(itemList.Count);
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            foreach (ItemSlot slot in slots)
+            {
+                if (slot.CurrentItem.ItemData.ItemName == itemList[i].ItemData.ItemName) //이미 있으면 스택에 추가
+                    if (slot.CurrentStackCount < itemList[i].ItemData.StackCount)
+                    {
+                        slot.AddItem();
+                        break;
+                    }
+                if (slot.CurrentItem.ItemData.ItemName == "NoneItem") //없으면 생성
+                {
+                    slot.SetItem(itemList[i], 1);
+                    break;
+                }
+            }
+        }
+    }//itemList[i]
+
+    public void AddItem(Item item) //슬롯에 아이템 추가하기
+    {
+        itemList.Add(item);
+        foreach (ItemSlot slot in slots)
+        {
+            if (slot.CurrentItem.ItemData.ItemName == item.ItemData.ItemName) //이미 있으면 스택에 추가
                 if (slot.CurrentStackCount < item.ItemData.StackCount)
                 {
                     slot.AddItem();
-                    return true;
+                    break;
                 }
-            if (slot.CurrentItem.ItemData.ItemName == "NoneItem")
+            if (slot.CurrentItem.ItemData.ItemName == "NoneItem") //없으면 생성
             {
-                slot.SetItem(item);
-                return true;
+                slot.SetItem(item, 1);
+                break;
             }
         }
-        return false;
     }
 }
 
