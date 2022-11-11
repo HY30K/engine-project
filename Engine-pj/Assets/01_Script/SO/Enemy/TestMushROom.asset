@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dc3299ea4c72a4683c4353181d16fc, type: 3}
+  m_Name: TestMushROom
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyName: 
+  hp: 3
+  damage: 2
+  beforeDetectSpeed: 3
+  afterDetectSpeed: 4
+  detectRange: 5
+  attackRange: 2
+  attackSpeed: 0.5
+  attackDelay: 0.5

@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimation : MonoBehaviour
+public class EnemyAnimation : EnemyBase
 {
-    
-    protected readonly int _attackHash = Animator.StringToHash("Attack");
-    protected readonly int _runHash = Animator.StringToHash("Run");
-    protected readonly int _DeadBoolHash = Animator.StringToHash("Dead");
+    //[SerializeField]
+    //Animator _animator;
 
-    private void Awake()
+    EnemyAttack enemyAttack;
+    EnemyMovement enemyMovement;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        enemyAttack = gameObject.transform.parent.GetComponentInChildren<EnemyAttack>();
+        enemyMovement = gameObject.transform.parent.GetComponentInChildren<EnemyMovement>();
     }
 
     public void IsStartAttack()
@@ -19,6 +22,11 @@ public class EnemyAnimation : MonoBehaviour
 
     }
 
+    public void IsEndAttack()
+    {
+        enemyAttack.endAttacking = true;
+        enemyAttack._isAttacking = false;
+    }
     public void IsEnemyDead()
     {
 
@@ -27,5 +35,18 @@ public class EnemyAnimation : MonoBehaviour
     public void PlayDeadAnimation()
     {
         
+    }
+    public void Idle()
+    {
+        _animator.SetBool("moving", false);
+    }
+    public void Run()
+    {
+        _animator.SetBool("moving", true);
+    }
+
+    public void TakeHit()
+    {
+        _animator.SetTrigger("TakeHit");
     }
 }
