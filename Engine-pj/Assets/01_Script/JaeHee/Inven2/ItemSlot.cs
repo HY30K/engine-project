@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerDownHandler
+public class ItemSlot : MonoBehaviour, IPointerUpHandler
 {
     [SerializeField] Item currentItem = null;
     public Item CurrentItem => currentItem;
@@ -23,7 +23,7 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
         image.sprite = currentItem.ItemData.ItemImage;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         if (currentItem.ItemData.ItemType == Type.Interectable)
         {
