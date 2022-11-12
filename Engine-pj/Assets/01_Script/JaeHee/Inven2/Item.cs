@@ -9,9 +9,10 @@ public class Item : MonoBehaviour
 
     public void UseItem(string name)
     {
+        Debug.Log("사용!");
         switch (name)
         {
-            case "TestItem":
+            case "Potion":
                 //Do Someting
                 Debug.Log("회복을 해요");
                 break;
