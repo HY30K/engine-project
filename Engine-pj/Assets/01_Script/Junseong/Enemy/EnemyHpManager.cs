@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class EnemyHpManager : EnemyBase
 {
-    int hp;
+    public int hp;
     int damage;
 
     //[SerializeField]

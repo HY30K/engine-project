@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     public float raycastDistance = 15f;
-    RaycastHit2D hit;
+    RaycastHit2D EnemyHit;
+    RaycastHit2D MineralHit;
     bool _isHItting = false;
     Vector3 mousePos;
 
@@ -106,10 +107,10 @@ public class PlayerInput : MonoBehaviour
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
 
-            hit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral | Define.Enemy);
+            MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
 
             Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
-            if (hit && !_isHItting)
+            if (MineralHit && !_isHItting)
             {
                 _isHItting = true;
                 StartCoroutine("HitMineral");
@@ -128,12 +129,48 @@ public class PlayerInput : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        while (hit)
+        while (MineralHit)
         {
-            hit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
-            Debug.Log($"광석 이름 : {hit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : { hit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
+            Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
             yield return new WaitForSeconds(0.5f);                                                              // 
         }
     }
     #endregion
+    public void DoAttacking()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            mousePos = Input.mousePosition;
+            mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+
+            EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
+
+            Debug.DrawRay(transform.position, (mousePos - transform.position), Color.green, 0.5f);
+            if (EnemyHit && !_isHItting)
+            {
+                _isHItting = true;
+                StartCoroutine("HitEnemy");
+                Debug.Log("HIt");
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            _isHItting = false;
+            StopCoroutine("HitEnemy");
+        }
+
+        IEnumerator HitEnemy()
+        {
+            yield return new WaitForSeconds(1f);
+
+            while (EnemyHit)
+            {
+                Debug.Log("적때림");
+                EnemyHit.collider.gameObject.GetComponent<EnemyHpManager>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
+                yield return new WaitForSeconds(0.5f);                                                              // 
+            }
+        }
+    }
 }
