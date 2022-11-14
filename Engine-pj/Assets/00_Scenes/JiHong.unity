@@ -285,14 +285,13 @@ GameObject:
   - component: {fileID: 50175349}
   - component: {fileID: 50175348}
   - component: {fileID: 50175347}
-  - component: {fileID: 50175346}
   m_Layer: 0
   m_Name: Wizard_Skill (9)
   m_TagString: Untagged
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &50175345
 Transform:
   m_ObjectHideFlags: 0
@@ -308,19 +307,6 @@ Transform:
   m_Father: {fileID: 961276991}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: -45}
---- !u!114 &50175346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50175344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1d43291f9861b40b4e9028dd3aa938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rand_value: 0
 --- !u!58 &50175347
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -331,7 +317,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.017775744, y: -0.53771913}
@@ -347,7 +333,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4755035, y: -0.057771504}
@@ -363,7 +349,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.6577054, y: 0.42813778}
@@ -1165,14 +1151,13 @@ GameObject:
   - component: {fileID: 847750603}
   - component: {fileID: 847750602}
   - component: {fileID: 847750601}
-  - component: {fileID: 847750600}
   m_Layer: 0
   m_Name: Wizard_Skill (6)
   m_TagString: Untagged
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &847750599
 Transform:
   m_ObjectHideFlags: 0
@@ -1188,19 +1173,6 @@ Transform:
   m_Father: {fileID: 961276991}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 45}
---- !u!114 &847750600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847750598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1d43291f9861b40b4e9028dd3aa938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rand_value: 0
 --- !u!58 &847750601
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1211,7 +1183,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.017775744, y: -0.53771913}
@@ -1227,7 +1199,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4755035, y: -0.057771504}
@@ -1243,7 +1215,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.6577054, y: 0.42813778}
@@ -1310,13 +1282,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 961276991}
+  - component: {fileID: 961276992}
   m_Layer: 0
   m_Name: Wizard_Skill_Shoot
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &961276991
 Transform:
   m_ObjectHideFlags: 0
@@ -1336,6 +1309,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961276992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961276990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 528e273b26047a846af2d413d4106372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1056814606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1754,7 @@ Transform:
   m_GameObject: {fileID: 1301873403}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -8.5, y: -0.5, z: 0}
-  m_LocalScale: {x: 4.2181, y: 4.2181, z: 4.2181}
+  m_LocalScale: {x: 4, y: 4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1787,10 +1772,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0150cb495372e0d4380076b7e9ba5772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  warpCooltime: 0
+  skillCooltime: 0
+  skillnum: 0
   Skills:
-  - {fileID: 0}
+  - {fileID: 2231238168821939301, guid: 9f160d641288acd4181122a6ad0150fc, type: 3}
   - {fileID: 6374244844786366143, guid: 2a08c2a4e9c4cd34183639ac41a2db51, type: 3}
-  - {fileID: 0}
+  - {fileID: 4001806737845311831, guid: d4ea5cb3c42cbbb4e9d733e179dfe1e5, type: 3}
 --- !u!1 &1534006922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,7 +1944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1557090764
 Transform:
   m_ObjectHideFlags: 0
@@ -2019,14 +2007,13 @@ GameObject:
   - component: {fileID: 1689390238}
   - component: {fileID: 1689390237}
   - component: {fileID: 1689390236}
-  - component: {fileID: 1689390235}
   m_Layer: 0
   m_Name: Wizard_Skill (8)
   m_TagString: Untagged
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1689390234
 Transform:
   m_ObjectHideFlags: 0
@@ -2042,19 +2029,6 @@ Transform:
   m_Father: {fileID: 961276991}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: -135}
---- !u!114 &1689390235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689390233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1d43291f9861b40b4e9028dd3aa938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rand_value: 0
 --- !u!58 &1689390236
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2065,7 +2039,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.017775744, y: -0.53771913}
@@ -2081,7 +2055,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4755035, y: -0.057771504}
@@ -2097,7 +2071,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.6577054, y: 0.42813778}
@@ -2345,7 +2319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030886501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.61, y: -2.45, z: 0}
+  m_LocalPosition: {x: 7.97, y: -3.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2402,14 +2376,13 @@ GameObject:
   - component: {fileID: 2090666985}
   - component: {fileID: 2090666984}
   - component: {fileID: 2090666983}
-  - component: {fileID: 2090666982}
   m_Layer: 0
   m_Name: Wizard_Skill (7)
   m_TagString: Untagged
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2090666981
 Transform:
   m_ObjectHideFlags: 0
@@ -2418,26 +2391,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090666980}
   m_LocalRotation: {x: 0.92387956, y: 0.38268343, z: 0, w: 0}
-  m_LocalPosition: {x: 0.07, y: 1.41, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 961276991}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 135}
---- !u!114 &2090666982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090666980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1d43291f9861b40b4e9028dd3aa938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rand_value: 0
 --- !u!58 &2090666983
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2448,7 +2408,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.017775744, y: -0.53771913}
@@ -2464,7 +2424,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.4755035, y: -0.057771504}
@@ -2480,7 +2440,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.6577054, y: 0.42813778}

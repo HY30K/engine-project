@@ -1,22 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-enum SkillName //Wave ´Â ÆÄµµ°°Àº°Å, Rain Àº ºñ³»¸®´Â°Å°°Àº°Å, Shoot´Â rotation°ª¿¡µû¶ó ÇÑ¹ø ¹ß»ç(¿©·¯°³)
+using UnityEngine.Events;
+enum SkillName //Wave ï¿½ï¿½ ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Rain ï¿½ï¿½ ï¿½ñ³»¸ï¿½ï¿½Â°Å°ï¿½ï¿½ï¿½ï¿½ï¿½, Shootï¿½ï¿½ rotationï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ ï¿½ß»ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 {
-    Wave=5,Rain=8,Shoot=6
+    Wave=6,Rain=11,Shoot=9
 }
 public class Wizard_Movement : MonoBehaviour
 {
     GameObject player;
     Animator animator;
     private bool warpDistance=false;
+    [SerializeField]
     private float warpCooltime = 0;
+    [SerializeField]
     private float skillCooltime = 0;
+    [SerializeField]
     private int skillnum;
     protected bool changeRot=false;
     protected float wizardHP = 40;
     [SerializeField]
     GameObject[] Skills;
+    bool BFanimate = true;
+    
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -25,14 +31,15 @@ public class Wizard_Movement : MonoBehaviour
     private void Start()
     {
         skillnum = Random.Range(1, 4);
+        skillCooltime = 0;
     }
     void Update()
     {
         ChangeRotation();
         CoolTime();
-        Skill();
+        SkillController();
     }   
-    private void CoolTime() //ÄðÅ¸ÀÓ ¼¼ÆÃ
+    private void CoolTime() //ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         WarpDis();
         if (warpCooltime < 0 && (warpDistance))
@@ -43,7 +50,7 @@ public class Wizard_Movement : MonoBehaviour
         else if (warpCooltime > 0) { warpCooltime -= Time.deltaTime; }
         else warpCooltime -= Time.deltaTime;
     }
-    private void ChangeRotation()  //¹Ù¶óº¸´Â ¹æÇâ ¹Ù²Ù±â
+    private void ChangeRotation()  //ï¿½Ù¶óº¸´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½
     {
         if (player.transform.position.x > this.transform.position.x)
         {
@@ -60,7 +67,7 @@ public class Wizard_Movement : MonoBehaviour
             new WaitForSeconds(0.1f);
         }
     }
-    private void WarpDis()//°Å¸® Ã¼Å© (¿öÇÁÁ¶°Ç) - xÁÂÇ¥ ÁÖº¯ 3 , 8 / -8 ÀÌ»ó/ÀÌÇÏ
+    private void WarpDis()//ï¿½Å¸ï¿½ Ã¼Å© (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) - xï¿½ï¿½Ç¥ ï¿½Öºï¿½ 3 , 8 / -8 ï¿½Ì»ï¿½/ï¿½ï¿½ï¿½ï¿½
     {
         if ((!(this.transform.position.x -3 > player.transform.position.x )&& this.transform.position.x >= 8) || 
             (!(this.transform.position.x +3 < player.transform.position.x )&&this.transform.position.x<=-8 ))
@@ -72,7 +79,7 @@ public class Wizard_Movement : MonoBehaviour
             warpDistance = false;
         }
     }
-    private void Warp() //¿öÇÁ
+    private void Warp() //ï¿½ï¿½ï¿½ï¿½
     {
         if (this.transform.position.x <= -6)
         {
@@ -84,7 +91,7 @@ public class Wizard_Movement : MonoBehaviour
         }
         warpDistance = false;
     }
-    int SkillCooltimeSet(int skill) //½ºÅ³ ÄðÅ¸ÀÓ ¼¼ÆÃ + C#¼öÇàÀÎ ¶÷´Ù½Ä ÇØ°á
+    int SkillCooltimeSet(int skill) //ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + C#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù½ï¿½ ï¿½Ø°ï¿½
     {
         return skill switch
         {
@@ -94,31 +101,64 @@ public class Wizard_Movement : MonoBehaviour
             _=> 0
         };
     }
-    void Skill() //½ºÅ³Äð Ã¼Å© ¹×½ºÅ³ »ç¿ë
+    void SkillController() //ï¿½ï¿½Å³ï¿½ï¿½ Ã¼Å© ï¿½×½ï¿½Å³ ï¿½ï¿½ï¿½
     {
-        skillCooltime+=Time.deltaTime;
-        if(SkillCooltimeSet(skillnum) < skillCooltime&&warpCooltime<10&&warpCooltime>2)
+        skillCooltime -= Time.deltaTime;
+        if (0 >= skillCooltime)
         {
-            skillCooltime = 0;
-            SkillUse(skillnum);
-            skillnum = Random.Range(1, 4);
+            if (/*skillnum == 1*/true)
+            {
+                StartCoroutine(animations("Attack1", true));
+                if (BFanimate)
+                {
+                    Invoke("Skill", 1);
+                    BFanimate = false;
+                }
+            }
         }
     }
-    void SkillUse(int skill) // À§¿¡ º´ÇÕÇÒ ¿¹Á¤
+    void Skill()
     {
-        GameObject thisskill = Instantiate(Skills[skill],this.transform);
+            GameObject thisskill = Instantiate(Skills[skillnum - 1]);
+            thisskill.transform.SetParent(this.transform);
+            skillnum = Random.Range(1, 4);
+            skillCooltime = SkillCooltimeSet(skillnum);
+        BFanimate = true;
+    }
+    IEnumerator animations(string animation,bool setbool)
+    {
+        animator.SetBool(animation, setbool);
+        yield return new WaitForSeconds(0);
+        animator.SetBool(animation, !setbool);
+    }
+    void SkillUse(int skill) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        GameObject thisskill = Instantiate(Skills[skill], this.transform);
         thisskill.transform.SetParent(this.transform);
     }
-    //private void OnCollisionEnter2D(Collision2D collision) //ÇÃ·¹ÀÌ¾î °ø°Ý °¨Áö
-    //{
-    //    if (collision.gameObject.CompareTag("PlayerAttack"))
-    //    {
-    //        if(Random.Range(1, 11) < 3)
-    //        {
-    //            wizardHP -= 4;
-    //        }
-    //        else
-    //        wizardHP -= 2;
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision) //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        if (collision.gameObject.CompareTag("PlayerAttack"))
+        {
+            animator.SetBool("Take hit", true);
+            if (Random.Range(1, 11) < 3)
+            {
+                wizardHP -= 4;
+            }
+            else
+                wizardHP -= 2;
+        }
+        if (wizardHP <= 0)
+        {
+            animator.SetBool("Death", true);
+            Destroy(gameObject);
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerAttack"))
+        {
+            animator.SetBool("Take hit", true);     
+        }
+    }
 }

@@ -8,6 +8,7 @@ public class Wizard_Skill_Wave : MonoBehaviour
     GameObject player;
     int rotate=90;
     int rotation_y;
+    int setxpos;
     float continuoustime = 0.5f; // 지속시간
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class Wizard_Skill_Wave : MonoBehaviour
     private void Start()
     {
         SetDirection();
+        transform.position = new Vector3(player.transform.position.x+setxpos, player.transform.position.y-1);
     }
     private void Update()
     {
@@ -28,15 +30,16 @@ public class Wizard_Skill_Wave : MonoBehaviour
         if(wizard_Transform.position.x < player.transform.position.x)
         {
             rotation_y = 0;
+            setxpos = -2;
         }
         else
         {
             rotation_y = 180;
+            setxpos = 2;
         }
     }
     IEnumerator Rotating()
     {
-        Debug.Log("On");
         if (rotate <= 180)
         {  
             this.transform.rotation = Quaternion.Euler(0, rotation_y, rotate);

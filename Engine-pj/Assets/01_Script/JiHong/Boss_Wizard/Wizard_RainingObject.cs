@@ -7,7 +7,7 @@ public class Wizard_RainingObject : MonoBehaviour
     Wizard_Skill_Rain Boss;
     Vector3 dir;
     float falling_Speed = 7;
-    float destroyTime = 3;
+    float destroyTime = 1;
     [SerializeField]
     int rand_value=0;
     int Rotateing(int input)
