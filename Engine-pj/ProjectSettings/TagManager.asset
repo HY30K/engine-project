@@ -46,3 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 653062807
+    locked: 0
+  - name: BedRock
+    uniqueID: 1825300833
+    locked: 0
