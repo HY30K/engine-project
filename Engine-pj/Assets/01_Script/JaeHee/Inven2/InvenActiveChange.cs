@@ -10,7 +10,7 @@ public class InvenActiveChange : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ui.SetActive(!ui.activeSelf);
+            ReverseActive();
         }
     }
 

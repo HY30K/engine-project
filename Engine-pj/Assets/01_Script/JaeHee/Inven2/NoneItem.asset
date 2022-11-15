@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NoneItem
   m_EditorClassIdentifier: 
   itemName: NoneItem
-  itemImage: {fileID: -7500690451134026123, guid: f7fb89b82e205ea4ba8a88cee4d3070b, type: 3}
+  itemImage: {fileID: 21300000, guid: ed5c91c32b9b0af4e851c25c03211f16, type: 3}
   stackCount: 0
   itemType: 2
