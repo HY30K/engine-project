@@ -12,6 +12,7 @@ public class AnimationEvent : MonoBehaviour
     [SerializeField] private CircleCollider2D attackComboCol;
 
     Animator _animator;
+    bool attackCom;
 
     private void Awake()
     {
@@ -56,6 +57,8 @@ public class AnimationEvent : MonoBehaviour
     public void AttackComboColOff()
     {
         attackComboCol.enabled = false;
+        attackCom = false;
+        _animator.SetBool("AttackCom", false);
     }
 
     public IEnumerator StartLanding() //착지할때 애니메
@@ -65,5 +68,28 @@ public class AnimationEvent : MonoBehaviour
         _animator.SetBool("Jump", false);
         yield return new WaitForSeconds(0.7f);
         _animator.SetBool("Land", false);
+    }
+
+    public void AttackStart()
+    {
+        attackCom = false;
+    }
+
+    public void AttackEnd()
+    {
+        _animator.SetBool("Attack", false);
+
+        if (attackCom)
+        {
+            _animator.SetBool("AttackCom", true);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            attackCom = true;
+        }
     }
 }
