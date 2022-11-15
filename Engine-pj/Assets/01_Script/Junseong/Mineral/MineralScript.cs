@@ -9,7 +9,10 @@ public enum MineralType
     Coal,
     Silver,
     Gold,
-    Diamond
+    Diamond,
+    Brown,
+    Ruby,
+    Emerald
 }
 public class MineralScript : MonoBehaviour
 {
@@ -40,7 +43,7 @@ public class MineralScript : MonoBehaviour
             //hp 0 일때 실행할것들
         }
     }
-    void SetType()// 광석 타입에따른 피통 지정
+    public void SetType()// 광석 타입에따른 피통 지정
     {
     //    switch (MineralType)
     //    {
