@@ -16,6 +16,7 @@ public class Wizard_Skill_Rain : MonoBehaviour
     GameObject[] rainObject;
     float speed=4;
     public bool Upanimation= true;
+    
     int rotate(int rotation) => rotation==0 ? -1 : 1;   
     private void Awake()
     {
@@ -84,5 +85,8 @@ public class Wizard_Skill_Rain : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
     }
-    
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
 }

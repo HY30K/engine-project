@@ -36,6 +36,7 @@ public class Wizard_RainingObject : MonoBehaviour
     }
     void Update()
     {
+        
         if (!Boss.Upanimation)
         {
             Raining();
@@ -59,6 +60,6 @@ public class Wizard_RainingObject : MonoBehaviour
     IEnumerator DestroyCount()
     {
         yield return new WaitForSeconds(destroyTime);
-        Destroy(gameObject);
+        Boss.Destroy();
     }
 }

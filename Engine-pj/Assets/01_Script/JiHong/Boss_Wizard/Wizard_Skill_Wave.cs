@@ -30,12 +30,12 @@ public class Wizard_Skill_Wave : MonoBehaviour
         if(wizard_Transform.position.x < player.transform.position.x)
         {
             rotation_y = 0;
-            setxpos = -2;
+            setxpos = -5;
         }
         else
         {
             rotation_y = 180;
-            setxpos = 2;
+            setxpos = 5;
         }
     }
     IEnumerator Rotating()

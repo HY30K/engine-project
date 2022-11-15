@@ -22,7 +22,6 @@ public class Wizard_Movement : MonoBehaviour
     [SerializeField]
     GameObject[] Skills;
     bool BFanimate = true;
-    
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -106,7 +105,7 @@ public class Wizard_Movement : MonoBehaviour
         skillCooltime -= Time.deltaTime;
         if (0 >= skillCooltime)
         {
-            if (/*skillnum == 1*/true)
+            if (skillnum == 1)
             {
                 StartCoroutine(animations("Attack1", true));
                 if (BFanimate)
@@ -136,24 +135,24 @@ public class Wizard_Movement : MonoBehaviour
         GameObject thisskill = Instantiate(Skills[skill], this.transform);
         thisskill.transform.SetParent(this.transform);
     }
-    private void OnCollisionEnter2D(Collision2D collision) //�÷��̾� ���� ����
-    {
-        if (collision.gameObject.CompareTag("PlayerAttack"))
-        {
-            animator.SetBool("Take hit", true);
-            if (Random.Range(1, 11) < 3)
-            {
-                wizardHP -= 4;
-            }
-            else
-                wizardHP -= 2;
-        }
-        if (wizardHP <= 0)
-        {
-            animator.SetBool("Death", true);
-            Destroy(gameObject);
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D collision) //�÷��̾� ���� ����
+    //{
+    //    if (collision.gameObject.CompareTag("PlayerAttack"))
+    //    {
+    //        animator.SetBool("Take hit", true);
+    //        if (Random.Range(1, 11) < 3)
+    //        {
+    //            wizardHP -= 4;
+    //        }
+    //        else
+    //            wizardHP -= 2;
+    //    }
+    //    if (wizardHP <= 0)
+    //    {
+    //        animator.SetBool("Death", true);
+    //        Destroy(gameObject);
+    //    }
+    //}
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("PlayerAttack"))
