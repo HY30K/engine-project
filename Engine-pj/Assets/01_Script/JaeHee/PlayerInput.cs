@@ -29,6 +29,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float rollCoolTime = 0;
     [SerializeField] private float attackDelay = 0;
 
+    private bool doAttack;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -42,8 +44,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral);
         Jump();
         Move();
         DoMining();
@@ -107,11 +109,21 @@ public class PlayerInput : MonoBehaviour
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
 
-            MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
+            MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
+
+            if (MineralHit)
+            {
+                _animator.SetBool("Mine", true);
+            }
+            else
+            {
+                _animator.SetTrigger("Attack");
+            }
 
             Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
             if (MineralHit && !_isHItting)
             {
+                _animator.SetBool("Mine", true);
                 _isHItting = true;
                 StartCoroutine("HitMineral");
                 Debug.Log("HIt");
@@ -120,6 +132,7 @@ public class PlayerInput : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
+            _animator.SetBool("Mine", false);
             _isHItting = false;
             StopCoroutine("HitMineral");
         }
@@ -133,44 +146,8 @@ public class PlayerInput : MonoBehaviour
         {
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
             Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            yield return new WaitForSeconds(0.5f);                                                              // 
+            yield return new WaitForSeconds(0.5f);
         }
     }
     #endregion
-    public void DoAttacking()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            mousePos = Input.mousePosition;
-            mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
-            mousePos.z = 0;
-
-            EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
-
-            Debug.DrawRay(transform.position, (mousePos - transform.position), Color.green, 0.5f);
-            if (EnemyHit && !_isHItting)
-            {
-                _isHItting = true;
-                StartCoroutine("HitEnemy");
-                Debug.Log("HIt");
-            }
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            _isHItting = false;
-            StopCoroutine("HitEnemy");
-        }
-
-        IEnumerator HitEnemy()
-        {
-            yield return new WaitForSeconds(1f);
-
-            while (EnemyHit)
-            {
-                Debug.Log("적때림");
-                EnemyHit.collider.gameObject.GetComponent<EnemyHpManager>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
-                yield return new WaitForSeconds(0.5f);                                                              // 
-            }
-        }
-    }
 }
