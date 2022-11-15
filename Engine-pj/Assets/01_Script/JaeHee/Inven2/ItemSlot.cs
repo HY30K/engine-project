@@ -63,5 +63,4 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
 
         stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
     }
-
 }

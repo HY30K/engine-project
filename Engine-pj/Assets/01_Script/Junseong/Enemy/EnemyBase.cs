@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,5 +21,6 @@ public class EnemyBase : MonoBehaviour
         //}
         _animator = GetComponentInChildren<Animator>();
         _target = GameObject.Find("Player").GetComponent<Transform>();
+        
     }
 }
