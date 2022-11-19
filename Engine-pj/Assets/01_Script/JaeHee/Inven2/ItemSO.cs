@@ -21,7 +21,9 @@ public class ItemSO : ScriptableObject
     [SerializeField] int stackCount;
     public int StackCount => stackCount;
 
+    [SerializeField] int price;
+    public int Price => price;
+
     [SerializeField] Type itemType;
     public Type ItemType => itemType;
 }
-

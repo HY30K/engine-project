@@ -36,7 +36,7 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
         if (currentStackCount > 0)
         {
             currentStackCount--;
-            currentItem.UseItem(currentItem.ItemData.ItemName);
+            currentItem.Use();
             Inventory.instance.ItemList.Remove(currentItem);
 
             if (currentStackCount <= 0)

@@ -7,18 +7,13 @@ public class Item : MonoBehaviour
     [SerializeField] ItemSO itemData;
     public ItemSO ItemData => itemData;
 
-    public void UseItem(string name)
+    [SerializeField] ItemEffect[] effect;
+
+    public void Use()
     {
-        Debug.Log("사용!");
-        switch (name)
+        for (int i = 0; i < effect.Length; i++)
         {
-            case "Potion":
-                //Do Someting
-                Debug.Log("회복을 해요");
-                break;
-            default:
-                Debug.LogWarning("ItemEffect doesn't exist");
-                break;
+            effect[i].Effect();
         }
     }
 }

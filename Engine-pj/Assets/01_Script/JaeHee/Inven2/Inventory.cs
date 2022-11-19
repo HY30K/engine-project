@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
-    }//itemList[i]
+    }
 
     public void AddItem(Item item) //슬롯에 아이템 추가하기
     {
