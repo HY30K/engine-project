@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
 
-    [SerializeField] private PlayerProficiency state; //Ω∫≈»
+    [SerializeField] private PlayerProperty state; //Ω∫≈»
 
     private Animator _animator;
     private Rigidbody2D _rigid;
