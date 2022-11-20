@@ -1004,9 +1004,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8338244465139c04682979951b433114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastDistance: 15
   jumpPower: 5
   speed: 5
+  rayPos1: {fileID: 0}
+  rayPos2: {fileID: 0}
   state: {fileID: 752906116}
+  rollCoolTime: 0
+  attackDelay: 0
 --- !u!1 &783264969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,7 +1694,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1322298286}
-  - component: {fileID: 1322298285}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -1697,30 +1701,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1322298285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322298284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8032a68ee508f5d4ca9e81bf3ffb583a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mineralInfo: []
-  worldSize: 100
-  ground: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  rockOre: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  coalOre: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  silverOre: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  goldOre: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  DiamondOre: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  coalSpawnPercent: 12
-  silverSpawnPercent: 7
-  GoldSpawnPercent: 5
-  DiamondSpawnPercent: 0.1
 --- !u!4 &1322298286
 Transform:
   m_ObjectHideFlags: 0
