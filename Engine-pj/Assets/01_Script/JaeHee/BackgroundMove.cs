@@ -5,12 +5,24 @@ using UnityEngine;
 public class BackgroundMove : MonoBehaviour
 {
     [SerializeField] private Transform traget;
-    [SerializeField] private float moveAmount = 2;
+    public float speed = .1f;
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector2 pos = traget.position;
+        transform.localPosition = new Vector2(pos.x/speed, -(pos.y/speed/4));
+
+
+    }
 
     void FixedUpdate()
     {
-        Vector3 pos = new Vector3(traget.transform.position.x, 0, 0);
+        //Vector3 pos = new Vector3(traget.transform.position.x, 0, 0);
 
-        transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * moveAmount);
+        ////transform.position = Vector3.Lerp(transform.position, -pos,Time.deltaTime * moveAmount);
+        //transform.position = 
+
     }
 }
