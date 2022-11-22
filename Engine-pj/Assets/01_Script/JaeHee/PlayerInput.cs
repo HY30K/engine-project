@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] float jumpPower;
     [SerializeField] float speed;
+    [SerializeField] float mineDmg;
+    public float damage;
 
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
@@ -94,6 +96,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            state.JumpPower += 0.05f;
             _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
@@ -110,14 +113,22 @@ public class PlayerInput : MonoBehaviour
             mousePos.z = 0;
 
             MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
+            EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
 
             if (MineralHit)
             {
                 _animator.SetBool("Mine", true);
+                _animator.SetBool("Attack", false);
             }
             else
             {
                 _animator.SetTrigger("Attack");
+            }
+
+            if (EnemyHit)
+            {
+                _animator.SetTrigger("Attack");
+                _animator.SetBool("Mine", false);
             }
 
             Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
@@ -127,7 +138,6 @@ public class PlayerInput : MonoBehaviour
                 _isHItting = true;
                 StartCoroutine("HitMineral");
                 Debug.Log("HIt");
-                //hit.transform.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
         if (Input.GetMouseButtonUp(0))
@@ -144,9 +154,29 @@ public class PlayerInput : MonoBehaviour
 
         while (MineralHit)
         {
-            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
             Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+    #endregion
+
+    #region 레벨관리
+    public void Level()
+    {
+        if (state.JumpPower == 1)
+        {
+            jumpPower += 0.2f;
+        }
+
+        if (state.MiningDmg == 1)
+        {
+            mineDmg += 0.2f;
+        }
+
+        if (state.Damage == 1)
+        {
+            damage += 0.2f;
         }
     }
     #endregion

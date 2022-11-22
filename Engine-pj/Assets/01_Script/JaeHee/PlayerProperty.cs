@@ -40,7 +40,7 @@ public class PlayerProperty : MonoBehaviour
         set { health = value; }
     }
 
-    public float MininngSpeed
+    public float MiningDmg
     {
         get { return miningSpeed; }
         set { miningSpeed = value; }

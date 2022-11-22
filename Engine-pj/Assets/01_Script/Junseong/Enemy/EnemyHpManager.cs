@@ -6,8 +6,10 @@ using UnityEngine.Events;
 
 public class EnemyHpManager : EnemyBase
 {
-    public int hp;
-    int damage;
+    public float hp;
+    //int damage;
+    PlayerProperty state;
+    PlayerInput player;
 
     //[SerializeField]
     //Animator _animator;
@@ -16,14 +18,14 @@ public class EnemyHpManager : EnemyBase
     {
         base.Awake();
         this.hp = _enemy.HP();
-        this.damage = _enemy.Damage();
+        //this.damage = _enemy.Damage();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "PlayerWeapon")
         {
-            //hp -= player.damage; 
+            hp -= player.damage;
             EnemyOnDamaged();
         }        
         if(collision.gameObject.tag == "PlayerBody")
@@ -33,6 +35,7 @@ public class EnemyHpManager : EnemyBase
         }
         if(hp <= 0)
         {
+            state.Damage += 0.2f;
             EnemyDead();
         }
     }
