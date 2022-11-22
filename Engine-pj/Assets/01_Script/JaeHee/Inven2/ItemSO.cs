@@ -2,18 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SEH00N
+public enum Type
 {
-    [CreateAssetMenu(fileName = "ItemSO")]
-    public class ItemSO : ScriptableObject 
-    {
-        [SerializeField] string itemName;
-        public string ItemName => itemName;
+    Mineral,
+    Interectable,
+    None
+}
 
-        [SerializeField] Sprite itemImage;
-        public Sprite ItemImage => itemImage;    
+[CreateAssetMenu(fileName = "ItemSO")]
+public class ItemSO : ScriptableObject
+{
+    [SerializeField] string itemName;
+    public string ItemName => itemName;
 
-        [SerializeField] int stackCount;
-        public int StackCount => stackCount;
-    }
+    [SerializeField] Sprite itemImage;
+    public Sprite ItemImage => itemImage;
+
+    [SerializeField] int stackCount;
+    public int StackCount => stackCount;
+
+    [SerializeField] int price;
+    public int Price => price;
+
+    [SerializeField] Type itemType;
+    public Type ItemType => itemType;
 }

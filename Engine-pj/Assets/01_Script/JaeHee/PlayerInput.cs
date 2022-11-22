@@ -6,17 +6,20 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     public float raycastDistance = 15f;
-    RaycastHit2D hit;
+    RaycastHit2D EnemyHit;
+    RaycastHit2D MineralHit;
     bool _isHItting = false;
     Vector3 mousePos;
 
     [SerializeField] float jumpPower;
     [SerializeField] float speed;
+    [SerializeField] float mineDmg;
+    public float damage;
 
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
 
-    [SerializeField] private PlayerProficiency state; //Ω∫≈»
+    [SerializeField] private PlayerProperty state; //Ω∫≈»
 
     private Animator _animator;
     private Rigidbody2D _rigid;
@@ -27,6 +30,8 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private float rollCoolTime = 0;
     [SerializeField] private float attackDelay = 0;
+
+    private bool doAttack;
 
     private void Awake()
     {
@@ -41,8 +46,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral);
         Jump();
         Move();
         DoMining();
@@ -91,6 +96,7 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            state.JumpPower += 0.05f;
             _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
             _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
@@ -106,19 +112,37 @@ public class PlayerInput : MonoBehaviour
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
 
-            hit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral | Define.Enemy);
+            MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
+            EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
+
+            if (MineralHit)
+            {
+                _animator.SetBool("Mine", true);
+                _animator.SetBool("Attack", false);
+            }
+            else
+            {
+                _animator.SetTrigger("Attack");
+            }
+
+            if (EnemyHit)
+            {
+                _animator.SetTrigger("Attack");
+                _animator.SetBool("Mine", false);
+            }
 
             Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
-            if (hit && !_isHItting)
+            if (MineralHit && !_isHItting)
             {
+                _animator.SetBool("Mine", true);
                 _isHItting = true;
                 StartCoroutine("HitMineral");
                 Debug.Log("HIt");
-                //hit.transform.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
+            _animator.SetBool("Mine", false);
             _isHItting = false;
             StopCoroutine("HitMineral");
         }
@@ -128,11 +152,31 @@ public class PlayerInput : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        while (hit)
+        while (MineralHit)
         {
-            hit.collider.gameObject.GetComponent<MineralScript>().hp -= 1;// 1∫Œ∫–¿ª «√∑π¿ÃæÓ ∞Ó±™¿Ã¿« µ•πÃ¡ˆ∑Œ πŸ≤„¡‡æﬂ«‘;
-            Debug.Log($"±§ºÆ ¿Ã∏ß : {hit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : { hit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            yield return new WaitForSeconds(0.5f);                                                              // 
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1∫Œ∫–¿ª «√∑π¿ÃæÓ ∞Ó±™¿Ã¿« µ•πÃ¡ˆ∑Œ πŸ≤„¡‡æﬂ«‘;
+            Debug.Log($"±§ºÆ ¿Ã∏ß : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    #endregion
+
+    #region ∑π∫ß∞¸∏Æ
+    public void Level()
+    {
+        if (state.JumpPower == 1)
+        {
+            jumpPower += 0.2f;
+        }
+
+        if (state.MiningDmg == 1)
+        {
+            mineDmg += 0.2f;
+        }
+
+        if (state.Damage == 1)
+        {
+            damage += 0.2f;
         }
     }
     #endregion

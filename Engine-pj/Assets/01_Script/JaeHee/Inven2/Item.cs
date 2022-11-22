@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SEH00N
+public class Item : MonoBehaviour
 {
-    public class Item : MonoBehaviour
+    [SerializeField] ItemSO itemData;
+    public ItemSO ItemData => itemData;
+
+    [SerializeField] ItemEffect[] effect;
+
+    public void Use()
     {
-        [SerializeField] ItemSO itemData;
-        public ItemSO ItemData => itemData;
+        for (int i = 0; i < effect.Length; i++)
+        {
+            effect[i].Effect();
+        }
     }
 }
+
