@@ -20,6 +20,8 @@ public class TeleportCollider : MonoBehaviour
     public GameObject ShopCam;
     public GameObject DungeonCam;
     public GameObject MineCam;
+    //public GameObject currentBackGround;
+    //public GameObject otherBackGround;
 
     public Image Panel;
 
@@ -28,7 +30,8 @@ public class TeleportCollider : MonoBehaviour
    
     private void Awake()
     {
-       
+       //currentBackGround.SetActive(true);
+       //otherBackGround.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,8 +72,10 @@ public class TeleportCollider : MonoBehaviour
         }
         time = 0f;
         CurrentCam.SetActive(false);
+        //currentBackGround.SetActive(false);
         yield return new WaitForSeconds(0.7f);
         playerScaffolding.SetActive(false);
+        //otherBackGround.SetActive(true);
         otherCam.SetActive(true);
 
         while (alpha.a > 0f)

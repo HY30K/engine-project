@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class BackgroundMove : MonoBehaviour
 {
-    [SerializeField] private Transform traget;
+    [SerializeField] private Transform target;
     public float speed = .1f;
 
+    float fistYPos;
+    float fistXPos;
 
+    private void Awake()
+    {
+        fistXPos = transform.position.x;
+        fistYPos = transform.position.y;
+    }
     // Update is called once per frame
     void Update()
     {
-        Vector2 pos = traget.position;
-        transform.localPosition = new Vector2(pos.x/speed, -(pos.y/speed/4));
+        Vector2 pos = target.position;
+        transform.position = new Vector2(fistXPos - pos.x/speed, fistYPos-(pos.y/speed/4));
 
 
     }
