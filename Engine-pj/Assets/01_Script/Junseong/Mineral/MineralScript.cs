@@ -18,6 +18,8 @@ public class MineralScript : MonoBehaviour
 {
     public MineralType MineralType;
     public float hp;
+
+    PlayerProperty state;
     TerrainGeneration tg;
 
     private void Awake()
@@ -40,6 +42,7 @@ public class MineralScript : MonoBehaviour
         if(hp < 0)
         {
             tg.isOreAlive[(int)transform.position.x, (int)transform.position.y] = false;// 해당위치에 bool값 false로 변환
+            state.MiningDmg += 0.02f;
             //hp 0 일때 실행할것들
         }
     }
