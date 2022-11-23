@@ -22,8 +22,8 @@ public class AppearAction : MonoBehaviour
     private void OnEnable()
     {
         targetImage.color = new Color(255, 255, 255, 0);
-        seq.Append(object2Move.transform.DOMove(targetPos.position, 1.5f));
-        seq.Join(targetImage.DOFade(1, 1.5f));
+        seq.Append(object2Move.transform.DOMove(targetPos.position, 2f));
+        seq.Join(targetImage.DOFade(1, 2));
     }
 
     private void OnDisable()
