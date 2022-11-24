@@ -26,13 +26,14 @@ public class GameStart : MonoBehaviour
 
     Image _player;
     Image _npcImage;
-
+    Sequence seq;
     private void Awake()
     {
         _player = playerImage.transform.GetComponent<Image>();
         _npcImage = npcImage.transform.GetComponent<Image>();
         originPos = dialogUI.transform.position;
         if (instance == null) instance = this;
+        seq = DOTween.Sequence();
     }
 
     private void Update()
@@ -45,8 +46,9 @@ public class GameStart : MonoBehaviour
 
     public void StartBtn()
     {
-        if (!isStart)
+        if (!isStart && text.gameObject.activeSelf)
         {
+            
             isStart = true;
             dialogOUi.SetActive(true);
             text.gameObject.SetActive(false);
@@ -55,20 +57,20 @@ public class GameStart : MonoBehaviour
         }
     }
 
-
     IEnumerator Dialog()
     {
         while (loop)
         {
-            yield return new WaitForSeconds(arr[arrCnt].Length * 0.13f);
+            yield return new WaitForSeconds(arr[arrCnt].Length * 0.15f);
             yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
-            mainText.text = " ";
-
-            Sequence seq = DOTween.Sequence();
-            seq.PrependInterval(0.1f);
 
             Invoke("ChangeSize", 0.2f);
 
+            seq.PrependCallback(() =>
+            {
+                mainText.text = " ";
+            });
+            
             seq.Append(mainText.DOText(arr[arrCnt], arr[arrCnt].Length * 0.12f))
             .Join(dialogUI.transform.DOShakePosition(arr[arrCnt++].Length * 0.1f, 3, 10, 0))
             .OnComplete(() =>

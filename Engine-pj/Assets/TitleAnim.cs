@@ -9,13 +9,16 @@ public class TitleAnim : MonoBehaviour
 {
     [SerializeField] GameObject targetPos;
     [SerializeField] TextMeshProUGUI text;
-    Sequence seq;
-
+    [SerializeField] GameObject startText;
     private void Start()
     {
-        seq.Append(transform.DOMove(targetPos.transform.position, 4f).SetEase(Ease.InOutBack));
-        seq.Append(text.DOText("전생에 마왕을 잡은 세계 최강의 용사였던 내가 환생하고 나니 마왕의 저주에 걸려 곡괭이 밖에 못쓰게 되버려 삼류광부로 전직해 마왕을 잡으러 가게 된 건에 대하여", 5));
-
+        Sequence seq = DOTween.Sequence()
+        .Append(transform.DOMove(targetPos.transform.position, 3f).SetEase(Ease.InOutBack))
+        .Append(text.DOText("전생에 마왕을 잡은 세계 최강의 용사였던 내가 환생하고 나니 마왕의 저주에 걸려 곡괭이 밖에 못쓰게 되버려 삼류광부로 전직해 마왕을 잡으러 가게 된 건에 대하여.", 5))
+        .OnComplete(() =>
+        {
+            startText.SetActive(true);
+        });
     }
 
 }
