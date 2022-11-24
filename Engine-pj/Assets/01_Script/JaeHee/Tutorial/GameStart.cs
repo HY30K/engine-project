@@ -12,14 +12,20 @@ public class GameStart : MonoBehaviour
     [SerializeField] string[] arr;
     int arrCnt = 0;
 
-    [SerializeField] GameObject dialogOUi;
+    [SerializeField] GameObject dialogUi;
     [SerializeField] TextMeshProUGUI mainText;
     [SerializeField] GameObject dialogUI;
     [SerializeField] GameObject playerImage;
     [SerializeField] GameObject npcImage;
     [SerializeField] GameObject playerStun;
+    [SerializeField] GameObject mainPanel;
+
+    Vector2 titleOrigin;
     Vector2 originPos;
+
+    bool endOfSentence = true;
     bool loop = true;
+
     private bool isStart = false;
 
     [SerializeField] TextMeshProUGUI text;
@@ -27,13 +33,14 @@ public class GameStart : MonoBehaviour
     Image _player;
     Image _npcImage;
     Sequence seq;
+
     private void Awake()
     {
         _player = playerImage.transform.GetComponent<Image>();
         _npcImage = npcImage.transform.GetComponent<Image>();
         originPos = dialogUI.transform.position;
+        titleOrigin = mainPanel.transform.position;
         if (instance == null) instance = this;
-        seq = DOTween.Sequence();
     }
 
     private void Update()
@@ -48,12 +55,20 @@ public class GameStart : MonoBehaviour
     {
         if (!isStart && text.gameObject.activeSelf)
         {
-            
-            isStart = true;
-            dialogOUi.SetActive(true);
-            text.gameObject.SetActive(false);
-            playerStun.SetActive(false);
-            StartCoroutine(Dialog());
+            seq = DOTween.Sequence();
+            seq.Append(mainPanel.transform.DOMove(titleOrigin, 2).SetEase(Ease.InBack))
+            .Join(text.DOFade(0, 1))
+            .Join(playerStun.GetComponent<SpriteRenderer>().DOFade(0, 1))
+            .OnComplete(() =>
+            {
+                Debug.Log("½Ã¹ß");
+                text.gameObject.SetActive(false);
+                playerStun.SetActive(false);
+                isStart = true;
+                dialogUi.SetActive(true);
+                seq.Kill();
+                StartCoroutine(Dialog());
+            });
         }
     }
 
@@ -61,22 +76,25 @@ public class GameStart : MonoBehaviour
     {
         while (loop)
         {
-            yield return new WaitForSeconds(arr[arrCnt].Length * 0.15f);
-            yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)));
-
+            yield return new WaitForSeconds(arr[arrCnt].Length * 0.01f);
+            yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            && endOfSentence);
+            endOfSentence = false;
             Invoke("ChangeSize", 0.2f);
 
-            seq.PrependCallback(() =>
+            seq = DOTween.Sequence();
+            seq.AppendCallback(() =>
             {
                 mainText.text = " ";
             });
-            
-            seq.Append(mainText.DOText(arr[arrCnt], arr[arrCnt].Length * 0.12f))
-            .Join(dialogUI.transform.DOShakePosition(arr[arrCnt++].Length * 0.1f, 3, 10, 0))
-            .OnComplete(() =>
+
+            seq.Append(mainText.DOText(arr[arrCnt], arr[arrCnt].Length * 0.12f).SetEase(Ease.Linear));
+            seq.Join(dialogUI.transform.DOShakePosition(arr[arrCnt++].Length * 0.1f, 3, 10, 0));
+            seq.OnComplete(() =>
             {
-                seq.Kill();
                 dialogUI.transform.position = originPos;
+                endOfSentence = true;
+                seq.Kill();
             });
             if (arrCnt > arr.Length) loop = false;
         }
