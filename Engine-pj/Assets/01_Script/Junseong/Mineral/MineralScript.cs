@@ -46,6 +46,36 @@ public class MineralScript : MonoBehaviour
             //hp 0 일때 실행할것들
         }
     }
+
+    public void DropItem()
+    {
+        switch (MineralType)
+        {
+            case MineralType.Ground:
+                
+                break;
+            case MineralType.Rock:
+                break;
+            case MineralType.Coal:
+                break;
+            case MineralType.Silver:
+                break;
+            case MineralType.Gold:
+                break;
+            case MineralType.Diamond:
+                break;
+            case MineralType.Brown:
+                break;
+            case MineralType.Ruby:
+                break;
+            case MineralType.Emerald:
+                break;
+
+            default:
+                break;
+        }
+    }
+
     public void SetType()// 광석 타입에따른 피통 지정
     {
     //    switch (MineralType)

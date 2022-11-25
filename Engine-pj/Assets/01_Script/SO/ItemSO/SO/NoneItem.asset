@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: NoneItem
   itemImage: {fileID: 21300000, guid: ed5c91c32b9b0af4e851c25c03211f16, type: 3}
   stackCount: 0
+  price: 0
   itemType: 2
