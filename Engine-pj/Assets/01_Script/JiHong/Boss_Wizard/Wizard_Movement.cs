@@ -22,6 +22,8 @@ public class Wizard_Movement : MonoBehaviour
     [SerializeField]
     GameObject[] Skills;
     bool BFanimate = true;
+    float upypos = -7.5f;
+    float downypos = -18.5f;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -68,8 +70,8 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void WarpDis()//�Ÿ� üũ (��������) - x��ǥ �ֺ� 3 , 8 / -8 �̻�/����
     {
-        if ((!(this.transform.position.x -3 > player.transform.position.x )&& this.transform.position.x >= 8) || 
-            (!(this.transform.position.x +3 < player.transform.position.x )&&this.transform.position.x<=-8 ))
+        if ((!(this.transform.position.x -3 > player.transform.position.x )&& this.transform.position.x >= 60) || 
+            (!(this.transform.position.x +3 < player.transform.position.x )&&this.transform.position.x<=40 ))
         {
             warpDistance = true;
         }
@@ -80,13 +82,13 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void Warp() //����
     {
-        if (this.transform.position.x <= -6)
+        if (this.transform.position.x <= 40)
         {
-            transform.position = new Vector2(Random.Range(8f,10f), this.transform.position.y);
+            transform.position = new Vector2(Random.Range(60f,62f), Random.Range(0,2)<1?upypos:downypos);
         }
-        else if(this.transform.position.x >= 6)
+        else if(this.transform.position.x >= 60)
         {
-            transform.position = new Vector2(Random.Range(-8f,-10f), this.transform.position.y);
+            transform.position = new Vector2(Random.Range(38f,40f), Random.Range(0, 2) < 1 ? upypos : downypos);
         }
         warpDistance = false;
     }
