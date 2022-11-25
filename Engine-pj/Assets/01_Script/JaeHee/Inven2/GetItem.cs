@@ -8,9 +8,10 @@ public class GetItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("FieldItem"))
+        if (collision.CompareTag("FieldItem"))
         {
-            item = collision.transform.GetComponent<Item>();
+            item = collision.GetComponent<Item>();
+            //Debug.Log(collision.name);
             Inventory.instance.AddItem(item);
             item.gameObject.SetActive(false);// Ç®¸µ
         }

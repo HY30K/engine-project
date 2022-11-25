@@ -29,6 +29,26 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
         {
             Use();
         }
+        else if (Inventory.instance.SaleToggle && currentItem.ItemData.ItemType != Type.None)
+        {
+            Sale();
+        }   
+    }
+
+    private void Sale()
+    {
+        if (currentStackCount > 0)
+        {
+            currentStackCount--;
+            Inventory.instance.ItemList.Remove(currentItem);
+            GameManager.instance.Money += currentItem.ItemData.Price;
+            if (currentStackCount <= 0)
+            {
+                currentItem = Inventory.instance.NoneItem;
+                image.sprite = currentItem.ItemData.ItemImage;
+            }
+        }
+        stackText.text = currentStackCount == 0 ? string.Empty : $"{currentStackCount}";
     }
 
     public void Use()
