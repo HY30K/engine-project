@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     public float Money
     {
         get { return money; }
-        set { money = value; }
+        set 
+        { 
+            money = value;
+        }
     }
 
     private void Awake()

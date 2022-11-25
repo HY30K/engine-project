@@ -19,12 +19,15 @@ public class GameStart : MonoBehaviour
     [SerializeField] GameObject npcImage;
     [SerializeField] GameObject playerStun;
     [SerializeField] GameObject mainPanel;
+    [SerializeField] GameObject player;
 
     Vector2 titleOrigin;
     Vector2 originPos;
 
     bool endOfSentence = true;
     bool loop = true;
+
+    bool isFirstClick = true;
 
     private bool isStart = false;
 
@@ -38,14 +41,14 @@ public class GameStart : MonoBehaviour
     {
         _player = playerImage.transform.GetComponent<Image>();
         _npcImage = npcImage.transform.GetComponent<Image>();
-        originPos = dialogUI.transform.position;
+
         titleOrigin = mainPanel.transform.position;
         if (instance == null) instance = this;
     }
 
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && isFirstClick)
         {
             StartBtn();
         }
@@ -55,13 +58,13 @@ public class GameStart : MonoBehaviour
     {
         if (!isStart && text.gameObject.activeSelf)
         {
+            isFirstClick = false;
             seq = DOTween.Sequence();
             seq.Append(mainPanel.transform.DOMove(titleOrigin, 2).SetEase(Ease.InBack))
             .Join(text.DOFade(0, 1))
             .Join(playerStun.GetComponent<SpriteRenderer>().DOFade(0, 1))
             .OnComplete(() =>
             {
-                Debug.Log("시발");
                 text.gameObject.SetActive(false);
                 playerStun.SetActive(false);
                 isStart = true;
@@ -76,7 +79,8 @@ public class GameStart : MonoBehaviour
     {
         while (loop)
         {
-            yield return new WaitForSeconds(arr[arrCnt].Length * 0.01f);
+            originPos = dialogUI.transform.position;
+            yield return new WaitForSeconds(arrCnt <= arr.Length ? arr[arrCnt].Length * 0.01f : 1);
             yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             && endOfSentence);
             endOfSentence = false;
@@ -96,8 +100,11 @@ public class GameStart : MonoBehaviour
                 endOfSentence = true;
                 seq.Kill();
             });
-            if (arrCnt > arr.Length) loop = false;
+            if (arrCnt == arr.Length) loop = false;
         }
+        Debug.Log("대화 종료");
+        dialogUi.SetActive(false);
+        player.SetActive(true);
     }
 
     private void ChangeSize()
