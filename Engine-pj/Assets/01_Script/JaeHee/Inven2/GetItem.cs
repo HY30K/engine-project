@@ -6,14 +6,16 @@ public class GetItem : MonoBehaviour
 {
     private Item item;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+        
+    
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("FieldItem"))
+        if (collision.transform.CompareTag("FieldItem"))
         {
-            item = collision.GetComponent<Item>();
+            item = collision.transform.GetComponent<Item>();
             //Debug.Log(collision.name);
             Inventory.instance.AddItem(item);
-            item.gameObject.SetActive(false);// 풀링
+            PoolManager.Instance.Push(item);// 풀링
         }
     }
 }

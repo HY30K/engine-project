@@ -148,14 +148,16 @@ public class PlayerInput : MonoBehaviour
             {
                 if (groundCheck)
                 {
-                    if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
-                    }
-                    else
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
-                    }
+                    miningParticle = PoolManager.Instance.Pop($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}") as MiningParticle;
+                    Debug.Log($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}");
+                    //if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
+                    //}
+                    //else
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
+                    //}
                     groundCheck = false;
                 }
 
