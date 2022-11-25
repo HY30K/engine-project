@@ -11,7 +11,7 @@ public class GetItem : MonoBehaviour
         if (collision.CompareTag("FieldItem"))
         {
             item = collision.GetComponent<Item>();
-            Debug.Log(collision.name);
+            //Debug.Log(collision.name);
             Inventory.instance.AddItem(item);
             item.gameObject.SetActive(false);// Ç®¸µ
         }

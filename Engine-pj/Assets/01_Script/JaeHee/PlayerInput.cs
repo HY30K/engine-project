@@ -29,9 +29,15 @@ public class PlayerInput : MonoBehaviour
     public bool OnAir { get => onAir; }
 
     [SerializeField] private float rollCoolTime = 0;
-    [SerializeField] private float attackDelay = 0;
 
     private bool doAttack;
+    public bool canParticleSpawn = false;
+    public bool particleWaiting = true;
+    private bool groundCheck;
+
+    MiningParticle miningParticle;
+
+    private Vector3 curretMiningMinePos;
 
     private void Awake()
     {
@@ -103,6 +109,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    int cnt = 0;
     #region Ã¤±¤ºÎºÐ
     public void DoMining()
     {
@@ -131,32 +138,84 @@ public class PlayerInput : MonoBehaviour
                 _animator.SetBool("Mine", false);
             }
 
-            Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
-            if (MineralHit && !_isHItting)
+            Vector3 dir = (mousePos - transform.position);
+            dir = dir.normalized;
+
+            Debug.DrawRay(transform.position, dir * raycastDistance, Color.red, 0.5f);
+
+            if (MineralHit)
             {
-                _animator.SetBool("Mine", true);
-                _isHItting = true;
-                StartCoroutine("HitMineral");
-                Debug.Log("HIt");
+                if (groundCheck)
+                {
+                    if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
+                    {
+                        miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
+                    }
+                    else
+                    {
+                        miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
+                    }
+                    groundCheck = false;
+                }
+
+                if (curretMiningMinePos != MineralHit.transform.position)
+                {
+                    groundCheck = true;
+                    if (miningParticle != null) miningParticle.DestroyMiningParticle();
+                }
+                else
+                {
+                    Debug.Log("°°Àº°Å ÆÄ´Â£O");
+                }
+
+                if (miningParticle != null)
+                {
+                    miningParticle.SetPositionAndRotation(MineralHit.transform.position, Quaternion.identity);
+                }
+
+                if (!_isHItting)
+                {
+                    _animator.SetBool("Mine", true);
+                    _isHItting = true;
+                    StartCoroutine("HitMineral");
+                }
+                else
+                {
+                    curretMiningMinePos = MineralHit.transform.position;
+                }
+            }
+            else
+            {
+                if (miningParticle != null) miningParticle.DestroyMiningParticle();
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
             _animator.SetBool("Mine", false);
+            canParticleSpawn = false;
+            particleWaiting = true;
             _isHItting = false;
+
             StopCoroutine("HitMineral");
+            if (miningParticle != null)
+                miningParticle.DestroyMiningParticle();
         }
     }
 
     IEnumerator HitMineral()
     {
-        yield return new WaitForSeconds(1f);
-
+        Debug.Log($"mineral cnt : { cnt++}");
+        //miningParticle.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        //canParticleSpawn = true;
         while (MineralHit)
         {
+            //miningParticle.enabled = true;
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1ºÎºÐÀ» ÇÃ·¹ÀÌ¾î °î±ªÀÌÀÇ µ¥¹ÌÁö·Î ¹Ù²ãÁà¾ßÇÔ;
-            Debug.Log($"±¤¼® ÀÌ¸§ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            yield return new WaitForSeconds(0.5f);
+            //Debug.Log($"¸ÂÀº ±¤¹° : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
+            //Debug.Log($"±¤¼® ÀÌ¸§ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            Debug.Log("ÇÇ±ï´Â¤¤Áß");
+            yield return new WaitForSeconds(state.MiningDelay);
         }
     }
     #endregion

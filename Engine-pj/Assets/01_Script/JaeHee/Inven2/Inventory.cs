@@ -16,7 +16,14 @@ public class Inventory : MonoBehaviour
         set { itemList = value; }
     }
 
+    private bool saleToggle = true;
+    public bool SaleToggle
+    {
+        get { return saleToggle; }
+    }
+
     public static Inventory instance = null;
+
     private void Awake()
     {
         if (instance == null)
@@ -25,6 +32,12 @@ public class Inventory : MonoBehaviour
         }
 
         transform.GetComponentsInChildren<ItemSlot>(slots); //인벤토리 찾아오기
+    }
+
+    public void SaleToggleChange()
+    {
+        saleToggle = !saleToggle;
+        Debug.Log(saleToggle);
     }
 
     public void RedrawInven()

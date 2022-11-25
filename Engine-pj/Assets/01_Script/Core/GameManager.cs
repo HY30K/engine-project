@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PoolingListSO _poolingList;
+
+    [SerializeField] TextMeshProUGUI _money;
     private float money;
     public float Money
     {
         get { return money; }
-        set { money = value; }
+        set
+        {
+            money = value;
+            _money.text = $"{money}$";
+        }
     }
 
     private void Awake()
@@ -29,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void CreatePool()
     {
-        for(int i = 0; i< _poolingList.list.Count; i++)
+        for (int i = 0; i < _poolingList.list.Count; i++)
         {
             PoolManager.Instance.CreatePool(_poolingList.list[i].prefab, _poolingList.list[i].poolCount);
         }
