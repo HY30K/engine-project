@@ -14,7 +14,6 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] float jumpPower;
     [SerializeField] float speed;
     [SerializeField] float mineDmg;
-    public float miningDelay;
     public float damage;
 
     [SerializeField] Transform rayPos1;
@@ -216,7 +215,7 @@ public class PlayerInput : MonoBehaviour
             //Debug.Log($"¸ÂÀº ±¤¹° : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
             //Debug.Log($"±¤¼® ÀÌ¸§ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
             Debug.Log("ÇÇ±ï´Â¤¤Áß");
-            yield return new WaitForSeconds(miningDelay);
+            yield return new WaitForSeconds(state.MiningDelay);
         }
     }
     #endregion
