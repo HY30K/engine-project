@@ -16,10 +16,11 @@ public class Wizard_Skill_Rain : MonoBehaviour
     GameObject[] rainObject;
     float speed=4;
     public bool Upanimation= true;
+    
     int rotate(int rotation) => rotation==0 ? -1 : 1;   
     private void Awake()
     {
-        wizard_Transform = this.GetComponentInParent<Transform>();
+        wizard_Transform = FindObjectOfType<Wizard_Movement>().transform;
         player = GameObject.FindGameObjectWithTag("Player");
         child_transform = GetComponentInChildren<Transform>();
     }
@@ -36,7 +37,7 @@ public class Wizard_Skill_Rain : MonoBehaviour
     }
     private void Update() 
     {
-        wizard_Transform = this.GetComponentInParent<Transform>();
+        wizard_Transform = GetComponentInParent<Transform>();
         GoUpAnimate();
     }
     void GoUpAnimate()
@@ -75,7 +76,7 @@ public class Wizard_Skill_Rain : MonoBehaviour
         foreach (GameObject obj in rainObject)
         {
             obj.SetActive(true);
-            obj.transform.position = new Vector2((2*i*rotate(rotation_y))-2, 12); //Random.Range(i-3,i+3)
+            obj.transform.position = new Vector2((2*i)+player.transform.position.x-5, player.transform.position.y+10); //Random.Range(i-3,i+3)
             obj.transform.SetParent(this.gameObject.transform);
             ++i;
         }
@@ -84,5 +85,8 @@ public class Wizard_Skill_Rain : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
     }
-    
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
 }

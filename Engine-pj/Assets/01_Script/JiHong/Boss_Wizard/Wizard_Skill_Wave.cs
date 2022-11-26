@@ -12,14 +12,15 @@ public class Wizard_Skill_Wave : MonoBehaviour
     float continuoustime = 0.5f; // 지속시간
     private void Awake()
     {
-        wizard_Transform = this.GetComponentInParent<Transform>();
+        wizard_Transform = FindObjectOfType<Wizard_Movement>().transform;
         player = GameObject.FindGameObjectWithTag("Player");
+        
 
     }
     private void Start()
     {
         SetDirection();
-        transform.position = new Vector3(player.transform.position.x+setxpos, player.transform.position.y-1);
+        transform.position = new Vector3(player.transform.position.x + setxpos, player.transform.position.y - 1);
     }
     private void Update()
     {
@@ -30,12 +31,12 @@ public class Wizard_Skill_Wave : MonoBehaviour
         if(wizard_Transform.position.x < player.transform.position.x)
         {
             rotation_y = 0;
-            setxpos = -2;
+            setxpos = -5;
         }
         else
         {
             rotation_y = 180;
-            setxpos = 2;
+            setxpos = 5;
         }
     }
     IEnumerator Rotating()
