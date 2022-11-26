@@ -12,7 +12,9 @@ public class UpDownObj : MonoBehaviour
     float moveSpeed=5;
     [SerializeField]
     GameObject floor;
-    
+    [SerializeField]
+    GameObject Boss;
+    bool repeat=true;
     private void Update()
     {
         if (goup&&transform.position.y<high_ypos)
@@ -23,9 +25,15 @@ public class UpDownObj : MonoBehaviour
         {
             transform.position += Vector3.down * Time.deltaTime * moveSpeed;
         }
-        if (transform.position.y >= low_ypos)
+        if (repeat)
         {
-            floor.SetActive(true);
+            if (transform.position.y >= low_ypos && (floor.activeInHierarchy == false || Boss.activeInHierarchy == false))
+            {
+                floor.SetActive(true);
+                Boss.SetActive(true);
+                Boss = null;
+                repeat=false;
+            }
         }
     }
     IEnumerator GoUpandDown()
@@ -44,6 +52,7 @@ public class UpDownObj : MonoBehaviour
         collision.transform.SetParent(this.transform);
         if (Input.GetKeyDown(KeyCode.F) && collision.gameObject.CompareTag("Player"))
         {
+            Boss.SetActive(true);
             StartCoroutine(GoUpandDown());
         }
     }
