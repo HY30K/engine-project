@@ -9,6 +9,7 @@ TagManager:
   - ToMine
   - EnemyWeapon
   - Enemy
+  - PlayerWeapon
   layers:
   - Default
   - TransparentFX

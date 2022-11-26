@@ -11,6 +11,10 @@ public class EnemyHpManager : EnemyBase
     PlayerProperty state;
     PlayerInput player;
 
+    #region 사운드 플레이(유니티이벤트)
+    [field: SerializeField] public UnityEvent OnDie { get; set; }
+    [field: SerializeField] public UnityEvent OnGetHit { get; set; }
+    #endregion
     //[SerializeField]
     //Animator _animator;
 
@@ -31,6 +35,7 @@ public class EnemyHpManager : EnemyBase
         if(collision.gameObject.tag == "PlayerBody")
         {
             //hp -= player.bodyDamage;
+           
             EnemyOnDamaged();
         }
         if(hp <= 0)
@@ -42,6 +47,7 @@ public class EnemyHpManager : EnemyBase
 
     private void EnemyDead()
     {
+        OnDie?.Invoke();                            // die 사운드 실행
         _animator.SetTrigger("IsDead");            // die 애니메이션 실행
         GetComponent<EnemyMovement>().enabled = false;    // 추적 비활성화
         GetComponent<CapsuleCollider2D>().enabled = false; // 몸통 비활성화
@@ -54,6 +60,7 @@ public class EnemyHpManager : EnemyBase
 
     void EnemyOnDamaged() // OnDamaged에 넣어줘야함
     {
+        OnGetHit?.Invoke(); // 맞는 사운드 실행
         _animator.SetTrigger("IsHit");
     } 
 
