@@ -33,7 +33,7 @@ public class AnimationEvent : MonoBehaviour
     IEnumerator WaitingDieScene()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("DieScene");
+        SceneManager.LoadScene("GameOver");
     }
 
     public void RollStart() //구를때 애니매이벤트

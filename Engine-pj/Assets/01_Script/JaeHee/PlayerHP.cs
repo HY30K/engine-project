@@ -8,6 +8,8 @@ public class PlayerHP : MonoBehaviour
 {
     public int hp = 100;
     public UnityEvent Dead;
+    [field: SerializeField] public UnityEvent OnHit { get; set; }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyWeapon")){
@@ -15,6 +17,10 @@ public class PlayerHP : MonoBehaviour
             if (hp <= 0)
             {
                 PlayerDead();
+            }
+            else
+            {
+                OnHit?.Invoke();
             }
         }
     }

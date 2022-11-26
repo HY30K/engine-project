@@ -107,4 +107,12 @@ public class EnemyAttack : EnemyBase
         _isAttacking = false;
         _animator.SetBool("IsAttacking", false);
     }
+
+    public void SetHitAnim()
+    {
+        //if (!_isAttacking)
+        //{
+            _animator.SetTrigger("IsHit");
+        //}
+    }
 }

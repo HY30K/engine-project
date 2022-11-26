@@ -35,9 +35,6 @@ public class PlayerInput : MonoBehaviour
 
     private Vector3 curretMiningMinePos;
     #region 사운드 플레이(유니티이벤트)
-    [field : SerializeField] public UnityEvent OnDie { get; set; }
-    [field: SerializeField] public UnityEvent OnGetHit { get; set; }
-    [field: SerializeField] public UnityEvent OnHit { get; set; }
     [field: SerializeField] public UnityEvent OnMine { get; set; }
     #endregion
 
@@ -130,13 +127,11 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
             }
 
             if (EnemyHit)
             {
-                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
                 _animator.SetBool("Mine", false);
             }
