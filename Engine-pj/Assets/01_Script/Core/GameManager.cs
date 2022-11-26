@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PoolingListSO _poolingList;
 
+
     [SerializeField] TextMeshProUGUI _money;
-    private float money;
+    private float money = 1;
     public float Money
     {
         get { return money; }
@@ -20,6 +22,30 @@ public class GameManager : MonoBehaviour
         {
             money = value;
             _money.text = $"{money}$";
+        }
+    }
+
+
+    [SerializeField] Slider _slider;
+
+    private float maxHealth = 100;//최대 체력
+    private float health = 100; //체력
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+        set
+        {
+            maxHealth = value;
+            _slider.value = health / maxHealth;
+        }
+    }
+    public float Health
+    {
+        get { return health; }
+        set
+        {
+            health = value;
+            _slider.value = health / maxHealth;
         }
     }
 
