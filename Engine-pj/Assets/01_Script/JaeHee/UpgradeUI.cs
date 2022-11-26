@@ -32,15 +32,9 @@ public class UpgradeUI : MonoBehaviour
         {
             GameManager.instance.Money -= price;
             price += 166;
-            PlayerProperty.instance.Damage += increaseDamage;
-            PlayerProperty.instance.MiningDelay -= increaseAttackDelay;
+            PlayerProperty.Instance.Damage += increaseDamage;
+            PlayerProperty.Instance.MiningDelay -= increaseAttackDelay;
             level++;
-            Debug.Log($"price : {price}, Damage : {PlayerProperty.instance.Damage}, Delay : {PlayerProperty.instance.MiningDelay }");
-        }
-        else
-        {
-            Debug.Log("µ·¾øÀ½");
-            Debug.Log($"price : {price}, Damage : {PlayerProperty.instance.Damage}, Delay : {PlayerProperty.instance.MiningDelay }");
         }
     }
 

@@ -14,8 +14,6 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
 
-    [SerializeField] private PlayerProperty state; //Ω∫≈»
-
     private Animator _animator;
     private Rigidbody2D _rigid;
 
@@ -25,7 +23,6 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private float rollCoolTime = 0;
 
-    private bool doAttack;
     public bool canParticleSpawn = false;
     public bool particleWaiting = true;
     private bool groundCheck;
@@ -71,7 +68,7 @@ public class PlayerInput : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * state.Speed;
+        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * PlayerProperty.Instance.Speed;
 
         if (h == 0)
             _animator.SetBool("Walk", false);
@@ -99,7 +96,7 @@ public class PlayerInput : MonoBehaviour
         {
             _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
-            _rigid.AddForce(Vector3.up * state.JumpPower, ForceMode2D.Impulse);
+            _rigid.AddForce(Vector3.up * PlayerProperty.Instance.JumpPower, ForceMode2D.Impulse);
         }
     }
 
@@ -205,11 +202,11 @@ public class PlayerInput : MonoBehaviour
         while (MineralHit)
         {
             //miningParticle.enabled = true;
-            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= state.Damage;// 1∫Œ∫–¿ª «√∑π¿ÃæÓ ∞Ó±™¿Ã¿« µ•πÃ¡ˆ∑Œ πŸ≤„¡‡æﬂ«‘;
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= PlayerProperty.Instance.Damage;// 1∫Œ∫–¿ª «√∑π¿ÃæÓ ∞Ó±™¿Ã¿« µ•πÃ¡ˆ∑Œ πŸ≤„¡‡æﬂ«‘;
             //Debug.Log($"∏¬¿∫ ±§π∞ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
             //Debug.Log($"±§ºÆ ¿Ã∏ß : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
             Debug.Log("««±Ô¥¬§§¡ﬂ");
-            yield return new WaitForSeconds(state.MiningDelay);
+            yield return new WaitForSeconds(PlayerProperty.Instance.MiningDelay);
         }
     }
     #endregion
