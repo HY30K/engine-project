@@ -1141,8 +1141,8 @@ TextureImporter:
       - - {x: 6, y: 15}
         - {x: -12, y: 24}
         - {x: -16, y: 24}
-        - {x: -16, y: -24}
-        - {x: 16, y: -24}
+        - {x: -16, y: 5}
+        - {x: 15, y: -11}
         - {x: 16, y: 8}
       tessellationDetail: 0.1
       bones: []
@@ -2191,7 +2191,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 6}
+        - {x: 8, y: 1}
+        - {x: 8, y: 16}
       tessellationDetail: 0
       bones: []
       spriteID: 57a3939ea3afcd64597188ed984014b9
@@ -2212,7 +2216,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: 16.5}
+        - {x: -16, y: -2.5}
+        - {x: 16, y: -2.5}
+        - {x: 16, y: 16.5}
       tessellationDetail: 0
       bones: []
       spriteID: 55f8827968eb4c0489cbb9ccc85a41e7
@@ -2233,7 +2241,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 16.5}
+        - {x: -8, y: 1.5}
+        - {x: 8, y: 5.5}
+        - {x: 8, y: 16.5}
       tessellationDetail: 0
       bones: []
       spriteID: cc403e00ccb37504ba8fa5e0593876ce
@@ -2254,7 +2266,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 4}
+        - {x: 8, y: 1}
+        - {x: 8, y: 16}
       tessellationDetail: 0
       bones: []
       spriteID: 29ea501a6e890d448b885cca91ecbbb4
@@ -2275,7 +2291,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: 16.5}
+        - {x: -16, y: -3.5}
+        - {x: 16, y: -3.5}
+        - {x: 16, y: 16.5}
       tessellationDetail: 0
       bones: []
       spriteID: ceeb2bd75c961b54f95ec6fb39ead61a
@@ -2296,7 +2316,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: 16.5}
+        - {x: -16, y: -6.5}
+        - {x: 16, y: -6.5}
+        - {x: 16, y: 16.5}
       tessellationDetail: 0
       bones: []
       spriteID: 06d52346c56434d439512b67fd462001
@@ -2317,7 +2341,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: 16.5}
+        - {x: -16, y: -4.5}
+        - {x: 16, y: -4.5}
+        - {x: 16, y: 16.5}
       tessellationDetail: 0
       bones: []
       spriteID: bce9a09df1413f443b63d912c1c98077
@@ -2338,7 +2366,11 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 6}
+        - {x: 8, y: 6}
+        - {x: 8, y: 16}
       tessellationDetail: 0
       bones: []
       spriteID: 07b4c8d6b468b87458a7139ab5e54e38
@@ -4594,6 +4626,82 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Trap
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 816
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 6.5}
+        - {x: -16, y: -24.5}
+        - {x: 16, y: -24.5}
+        - {x: 16, y: 21.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0abb38141cbf37e469b72328004dfb16
+      internalID: 279523775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jumpmap
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 816
+        width: 32
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 0, y: 16.5}
+        - {x: -16, y: 13.5}
+        - {x: -16, y: -16.5}
+        - {x: 16, y: -16.5}
+        - {x: 16, y: 16.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c59b5af05dd46249a4487daeb267833
+      internalID: -458310000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trap_2R
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 816
+        width: 32
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 22.5}
+        - {x: -16, y: -24.5}
+        - {x: 16, y: -24.5}
+        - {x: 16, y: 6.5}
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c733e12171ded4eb72f72561f586e7
+      internalID: -271703925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -4695,6 +4803,7 @@ TextureImporter:
       mainlev_build_198: 273095692
       mainlev_build_17: -1816693450
       mainlev_build_114: 1266267436
+      Trap_2R: -271703925
       mainlev_build_131: 1559103599
       mainlev_build_54: -1883203784
       mainlev_build_149: 15311677
@@ -4784,9 +4893,11 @@ TextureImporter:
       mainlev_build_111: -832348601
       mainlev_build_117: 190423921
       mainlev_build_161: -1877231941
+      Trap: 279523775
       mainlev_build_181: 839395354
       mainlev_build_209: -444275721
       mainlev_build_81: 825048206
+      jumpmap: -458310000
       mainlev_build_5: -286699354
       mainlev_build_151: -1138513290
       mainlev_build_87: -2090921328
