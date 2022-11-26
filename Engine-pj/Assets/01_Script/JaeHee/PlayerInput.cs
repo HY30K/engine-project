@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -33,6 +34,12 @@ public class PlayerInput : MonoBehaviour
     MiningParticle miningParticle;
 
     private Vector3 curretMiningMinePos;
+    #region 사운드 플레이(유니티이벤트)
+    [field : SerializeField] public UnityEvent OnDie { get; set; }
+    [field: SerializeField] public UnityEvent OnGetHit { get; set; }
+    [field: SerializeField] public UnityEvent OnHit { get; set; }
+    [field: SerializeField] public UnityEvent OnMine { get; set; }
+    #endregion
 
     private void Awake()
     {
@@ -123,11 +130,13 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
+                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
             }
 
             if (EnemyHit)
             {
+                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
                 _animator.SetBool("Mine", false);
             }
@@ -210,7 +219,7 @@ public class PlayerInput : MonoBehaviour
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= state.Damage;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
             //Debug.Log($"맞은 광물 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
             //Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            Debug.Log("피깍는ㄴ중");
+            Debug.Log("피깍는중");
             yield return new WaitForSeconds(state.MiningDelay);
         }
     }
