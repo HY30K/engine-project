@@ -6,7 +6,7 @@ using Cinemachine;
 public class Define : MonoBehaviour
 {
     private static Camera _mainCam = null;
-
+    
     public static Camera MainCam
     {
         get

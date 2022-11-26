@@ -13,7 +13,39 @@ MonoBehaviour:
   m_Name: PoolingList
   m_EditorClassIdentifier: 
   list:
+  - prefab: {fileID: 3299434233451026204, guid: a7ada6bce71e4164cb86db8af6db8eb1, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: f1ef82043a03f5f42a83bf01e5dd5ae4, type: 3}
+    poolCount: 3
   - prefab: {fileID: 3299434233451026204, guid: ce3cf210f29dd7c49be5cf2409708b91, type: 3}
     poolCount: 3
-  - prefab: {fileID: 3299434233451026204, guid: a7ada6bce71e4164cb86db8af6db8eb1, type: 3}
+  - prefab: {fileID: 4417079351828674192, guid: 2be2bda25f0003143a1fee4bd59a5be0, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 8619914619499380846, guid: 6fa6d6359da86e144a3a3931328c1cd0, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 3129740765421295406, guid: fddf9b7cfaed79d47921e150a2e431c6, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 7583082154026197964, guid: 875b899b42a135045a8abfc85d6b3a1c, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 7768480541571730385, guid: aed7456b33fcd404bafe25c55abf8c67, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 2778472097951374784, guid: abcde1a5669704e4db40b521950a30af, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 2297408843312242567, guid: 404cd984b8aa3fe44b05b8e4255dcf1e, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 8142043244575784236, guid: 628defc2fd793554693cbaf8500d332c, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 7620459097242880645, guid: 1b907e89580827448b80728d62eca035, type: 3}
+    poolCount: 5
+  - prefab: {fileID: 3299434233451026204, guid: 02d322c07391d534b9544e46a17648d1, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: e7bad12f1f7b62a4d82c9da691c3ea88, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: 034e862bd487dfa41b67c7616ca6f274, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: 840bd45e8eafef947b3402ce4a84eccd, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: 47faa822da0f43b4aa9836bee7beab61, type: 3}
+    poolCount: 3
+  - prefab: {fileID: 3299434233451026204, guid: a951899aecfb79a45ad810a92e54ccff, type: 3}
     poolCount: 3

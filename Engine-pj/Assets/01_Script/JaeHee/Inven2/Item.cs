@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : PoolAbleMono
 {
     [SerializeField] ItemSO itemData;
     public ItemSO ItemData => itemData;
@@ -15,6 +15,11 @@ public class Item : MonoBehaviour
         {
             effect[i].Effect();
         }
+    }
+
+    public override void Init()
+    {
+        
     }
 }
 

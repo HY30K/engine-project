@@ -12,11 +12,6 @@ public class PlayerInput : MonoBehaviour
     bool _isHItting = false;
     Vector3 mousePos;
 
-    [SerializeField] float jumpPower;
-    [SerializeField] float speed;
-    [SerializeField] float mineDmg;
-    public float damage;
-
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
 
@@ -83,7 +78,7 @@ public class PlayerInput : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
+        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * state.Speed;
 
         if (h == 0)
             _animator.SetBool("Walk", false);
@@ -109,10 +104,9 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            state.JumpPower += 0.05f;
             _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
-            _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+            _rigid.AddForce(Vector3.up * state.JumpPower, ForceMode2D.Impulse);
         }
     }
 
@@ -156,14 +150,16 @@ public class PlayerInput : MonoBehaviour
             {
                 if (groundCheck)
                 {
-                    if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
-                    }
-                    else
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
-                    }
+                    miningParticle = PoolManager.Instance.Pop($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}") as MiningParticle;
+                    Debug.Log($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}");
+                    //if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
+                    //}
+                    //else
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
+                    //}
                     groundCheck = false;
                 }
 
@@ -220,31 +216,11 @@ public class PlayerInput : MonoBehaviour
         while (MineralHit)
         {
             //miningParticle.enabled = true;
-            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= state.Damage;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
             //Debug.Log($"맞은 광물 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
             //Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
             Debug.Log("피깍는중");
             yield return new WaitForSeconds(state.MiningDelay);
-        }
-    }
-    #endregion
-
-    #region 레벨관리
-    public void Level()
-    {
-        if (state.JumpPower == 1)
-        {
-            jumpPower += 0.2f;
-        }
-
-        if (state.MiningDmg == 1)
-        {
-            mineDmg += 0.2f;
-        }
-
-        if (state.Damage == 1)
-        {
-            damage += 0.2f;
         }
     }
     #endregion
