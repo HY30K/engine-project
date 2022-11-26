@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Potion_L
   itemImage: {fileID: -2026331740, guid: a7335cfe7ce7b9746a3a30c5af79dc95, type: 3}
-  stackCount: 3
+  stackCount: 5
   price: 150
   itemType: 1

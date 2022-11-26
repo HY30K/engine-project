@@ -5,7 +5,20 @@ using UnityEngine.UI;
 
 public class PlayerProperty : MonoBehaviour
 {
-    public static PlayerProperty instance = null;
+    private static PlayerProperty instance = null;
+    public static PlayerProperty Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject obj = new GameObject("PlayerProperty");
+                instance =  obj.AddComponent<PlayerProperty>();
+                DontDestroyOnLoad(obj);
+            }
+            return instance;
+        }
+    }
 
     private float jumpPower = 10; //점프파워
     private float speed = 5;
@@ -60,9 +73,4 @@ public class PlayerProperty : MonoBehaviour
         set { evasion = value; }
     }
 
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this;
-    }
 }
