@@ -12,6 +12,7 @@ public class EnemyAttack : EnemyBase
     public bool _isAfterAttack = false;
     public bool endAttacking = true;
     public float _attackDelay = 0f;
+    public int damage = 0;
 
     public int afterAttackMove = 0;
 
@@ -26,6 +27,7 @@ public class EnemyAttack : EnemyBase
     {
         base.Awake();
         enemyMovement = GetComponent<EnemyMovement>();
+        damage = _enemy.Damage();
         //if(_enemy.enemyType == EnemyType.FlyingEnemy)
         //{
         //    _animator = GameObject.Find("VisualEnemy").GetComponent<Animator>();

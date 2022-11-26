@@ -1188,15 +1188,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastDistance: 15
-  jumpPower: 10
-  speed: 5
-  mineDmg: 0
-  damage: 0
   rayPos1: {fileID: 392645987}
   rayPos2: {fileID: 1802263518}
   state: {fileID: 787049102}
   rollCoolTime: 1
-  attackDelay: 3
+  canParticleSpawn: 0
+  particleWaiting: 1
 --- !u!61 &787049104
 BoxCollider2D:
   m_ObjectHideFlags: 0
