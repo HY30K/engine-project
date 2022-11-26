@@ -11,6 +11,8 @@ public class PlayerProperty : MonoBehaviour
     private float health = 1; //체력
     private float miningSpeed = 1; //얜 왜있지
     private float evasion = 1; //방어력
+    private float miningDelay = 1;
+
 
     public float JumpPower
     {
@@ -46,6 +48,12 @@ public class PlayerProperty : MonoBehaviour
         set { miningSpeed = value; }
     }
 
+    public float MiningDelay
+    {
+        get { return miningDelay; }
+        set { miningDelay = value; }
+    }
+
     public float Evasion
     {
         get { return evasion; }
@@ -54,6 +62,7 @@ public class PlayerProperty : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance != null)
+            instance = this;
     }
 }

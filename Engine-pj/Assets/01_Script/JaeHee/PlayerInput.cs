@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -29,9 +30,21 @@ public class PlayerInput : MonoBehaviour
     public bool OnAir { get => onAir; }
 
     [SerializeField] private float rollCoolTime = 0;
-    [SerializeField] private float attackDelay = 0;
 
     private bool doAttack;
+    public bool canParticleSpawn = false;
+    public bool particleWaiting = true;
+    private bool groundCheck;
+
+    MiningParticle miningParticle;
+
+    private Vector3 curretMiningMinePos;
+    #region 사운드 플레이(유니티이벤트)
+    [field : SerializeField] public UnityEvent OnDie { get; set; }
+    [field: SerializeField] public UnityEvent OnGetHit { get; set; }
+    [field: SerializeField] public UnityEvent OnHit { get; set; }
+    [field: SerializeField] public UnityEvent OnMine { get; set; }
+    #endregion
 
     private void Awake()
     {
@@ -103,6 +116,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    int cnt = 0;
     #region 채광부분
     public void DoMining()
     {
@@ -122,41 +136,95 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
+                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
             }
 
             if (EnemyHit)
             {
+                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
                 _animator.SetBool("Mine", false);
             }
 
-            Debug.DrawRay(transform.position, (mousePos - transform.position), Color.red, 0.5f);
-            if (MineralHit && !_isHItting)
+            Vector3 dir = (mousePos - transform.position);
+            dir = dir.normalized;
+
+            Debug.DrawRay(transform.position, dir * raycastDistance, Color.red, 0.5f);
+
+            if (MineralHit)
             {
-                _animator.SetBool("Mine", true);
-                _isHItting = true;
-                StartCoroutine("HitMineral");
-                Debug.Log("HIt");
+                if (groundCheck)
+                {
+                    if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
+                    {
+                        miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
+                    }
+                    else
+                    {
+                        miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
+                    }
+                    groundCheck = false;
+                }
+
+                if (curretMiningMinePos != MineralHit.transform.position)
+                {
+                    groundCheck = true;
+                    if (miningParticle != null) miningParticle.DestroyMiningParticle();
+                }
+                else
+                {
+                    Debug.Log("같은거 파는즁");
+                }
+
+                if (miningParticle != null)
+                {
+                    miningParticle.SetPositionAndRotation(MineralHit.transform.position, Quaternion.identity);
+                }
+
+                if (!_isHItting)
+                {
+                    _animator.SetBool("Mine", true);
+                    _isHItting = true;
+                    StartCoroutine("HitMineral");
+                }
+                else
+                {
+                    curretMiningMinePos = MineralHit.transform.position;
+                }
+            }
+            else
+            {
+                if (miningParticle != null) miningParticle.DestroyMiningParticle();
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
             _animator.SetBool("Mine", false);
+            canParticleSpawn = false;
+            particleWaiting = true;
             _isHItting = false;
+
             StopCoroutine("HitMineral");
+            if (miningParticle != null)
+                miningParticle.DestroyMiningParticle();
         }
     }
 
     IEnumerator HitMineral()
     {
-        yield return new WaitForSeconds(1f);
-
+        Debug.Log($"mineral cnt : { cnt++}");
+        //miningParticle.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        //canParticleSpawn = true;
         while (MineralHit)
         {
+            //miningParticle.enabled = true;
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
-            Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            yield return new WaitForSeconds(0.5f);
+            //Debug.Log($"맞은 광물 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
+            //Debug.Log($"광석 이름 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            Debug.Log("피깍는중");
+            yield return new WaitForSeconds(state.MiningDelay);
         }
     }
     #endregion

@@ -17,6 +17,7 @@ public enum MineralType
 public class MineralScript : MonoBehaviour
 {
     public MineralType MineralType;
+    public PlayerInput player; //오디오 실행때매 참조
     public float hp;
 
     PlayerProperty state;
@@ -31,6 +32,7 @@ public class MineralScript : MonoBehaviour
     {
          if(hp < 0)
          {
+            player.OnMine?.Invoke();
             Destroy(gameObject);//나중에 풀링해줘야함
             //gameObject.SetActive(false);
             Debug.Log("광물hp 0");
