@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class DamageUpBuff : BuffMono
+public class DamageUpBuff : BuffMono 
 {
     private float time = 0;
 

@@ -107,6 +107,13 @@ public class GameStart : MonoBehaviour
         player.SetActive(true);
     }
 
+    public void Skip()
+    {
+        loop = false;
+        dialogUi.SetActive(false);
+        player.SetActive(true);
+    }
+
     private void ChangeSize()
     {
         if (mainText.text.Substring(0, 1) == "[")

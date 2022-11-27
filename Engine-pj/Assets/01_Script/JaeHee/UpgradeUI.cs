@@ -36,6 +36,7 @@ public class UpgradeUI : MonoBehaviour
             PlayerProperty.Instance.MiningDelay -= increaseAttackDelay;
             level++;
         }
+        playerLevelText.text = $"ฟ๋ป็ (Lv. {level})";
     }
 
     private void Awake()
