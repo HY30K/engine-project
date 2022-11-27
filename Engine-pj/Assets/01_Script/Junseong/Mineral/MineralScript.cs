@@ -20,16 +20,10 @@ public class MineralScript : PoolAbleMono
     public MineralType MineralType;
     public float hp;
     public string itemName;
-
-    [SerializeField] PlayerProperty state;
     [SerializeField] GameManager gameManager;   
     TerrainGeneration tg;
     Item item;
 
-    private void Awake()
-    {
-        state = PlayerProperty.instance;
-    }
 
     private void Update()
     {
@@ -47,7 +41,7 @@ public class MineralScript : PoolAbleMono
         if(hp < 0)
         {
             tg.isOreAlive[(int)transform.position.x, (int)transform.position.y] = false;// 해당위치에 bool값 false로 변환
-            state.MiningDmg += 0.02f;
+            //state.MiningDmg += 0.02f;
 
             //hp 0 일때 실행할것들
         }

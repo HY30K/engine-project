@@ -25666,6 +25666,18 @@ MonoBehaviour:
   rollCoolTime: 1
   canParticleSpawn: 0
   particleWaiting: 1
+  <OnDie>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnGetHit>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnHit>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnMine>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1563111894
 BoxCollider2D:
   m_ObjectHideFlags: 0
