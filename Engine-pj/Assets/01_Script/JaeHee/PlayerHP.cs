@@ -13,18 +13,45 @@ public class PlayerHP : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyWeapon")){
-            hp -= collision.transform.parent.GetComponent<EnemyAttack>().damage;
-            if (hp <= 0)
+
+            if (hp > 0)
             {
-                PlayerDead();
+                if (collision.transform.root.name != "FlyingEye")
+                {
+                    hp -= collision.transform.parent.GetComponent<EnemyAttack>().damage;
+                }
+                else
+                {
+                    hp -= collision.transform.parent.parent.GetComponent<EnemyAttack>().damage;
+                    Debug.Log(collision.gameObject.name);
+                    //throw new Exception("ÀÌ¹Ì Á×À½");
+                }
+                
             }
             else
             {
-                OnHit?.Invoke();
+                PlayerDead();
+            }
+            PlayerHit();
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            if(hp > 0)
+            {
+                hp -= 5;
+                PlayerHit();
+            }
+            else
+            {
+                PlayerDead();
             }
         }
     }
 
+    private void PlayerHit()
+    {
+        OnHit.Invoke();
+    }
     private void PlayerDead()
     {
         Dead?.Invoke();

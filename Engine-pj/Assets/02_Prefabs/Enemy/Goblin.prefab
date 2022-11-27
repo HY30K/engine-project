@@ -145,6 +145,7 @@ MonoBehaviour:
   _hitClip: {fileID: 8300000, guid: f62d735a43b7f504d9848a479a286d06, type: 3}
   _deathClip: {fileID: 8300000, guid: f62d735a43b7f504d9848a479a286d06, type: 3}
   _attackClip: {fileID: 8300000, guid: a23cb57aecbe9a748bacb339f1550278, type: 3}
+  _mineClip: {fileID: 0}
 --- !u!1 &3874849362297156905
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,10 +207,23 @@ MonoBehaviour:
   _isAfterAttack: 0
   endAttacking: 1
   _attackDelay: 0
+  damage: 0
   afterAttackMove: 0
   AttackFeedBack:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6014842007213547757}
+        m_TargetAssemblyTypeName: Sound, Assembly-CSharp
+        m_MethodName: PlayAttackSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3874849362297156904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,12 +263,25 @@ MonoBehaviour:
   _enemy: {fileID: 11400000, guid: c089fe18551a52b42956f0fd11902a48, type: 2}
   _animator: {fileID: 0}
   hp: 0
+  isDead: 0
   <OnDie>k__BackingField:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6014842007213547757}
         m_TargetAssemblyTypeName: Sound, Assembly-CSharp
         m_MethodName: PlayDeathSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3874849362297156926}
+        m_TargetAssemblyTypeName: EnemyHpManager, Assembly-CSharp
+        m_MethodName: EnemyDeadInit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -279,12 +306,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <OnHit>k__BackingField:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6014842007213547757}
-        m_TargetAssemblyTypeName: Sound, Assembly-CSharp
-        m_MethodName: PlayAttackSound
+      - m_Target: {fileID: 3874849362297156903}
+        m_TargetAssemblyTypeName: EnemyAttack, Assembly-CSharp
+        m_MethodName: SetHitAnim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3874849362297156926}
+        m_TargetAssemblyTypeName: EnemyHpManager, Assembly-CSharp
+        m_MethodName: EnemyDontDamage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -389,7 +425,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 4723107735738678597, guid: c1cdd26cc09ad224884556bc4d8296ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

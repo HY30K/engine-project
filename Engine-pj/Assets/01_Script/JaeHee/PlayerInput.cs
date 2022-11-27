@@ -38,10 +38,13 @@ public class PlayerInput : MonoBehaviour
     [field: SerializeField] public UnityEvent OnMine { get; set; }
     #endregion
 
+    SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -90,6 +93,17 @@ public class PlayerInput : MonoBehaviour
         {
             transform.localScale = new Vector2(1, 1);
         }
+
+        RaycastHit2D ground = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
+        if(!ground && !onAir)
+        {
+            // 堡拱 芭电 家府
+        }
+        else
+        {
+            //弊成 叭绰家府;
+        }
+
     }
 
     private void Jump()
@@ -117,6 +131,8 @@ public class PlayerInput : MonoBehaviour
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
 
+            //FaceDirection(mousePos);
+
             MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
             EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
 
@@ -143,6 +159,7 @@ public class PlayerInput : MonoBehaviour
 
             if (MineralHit)
             {
+                OnMine?.Invoke();
                 if (groundCheck)
                 {
                     miningParticle = PoolManager.Instance.Pop($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}") as MiningParticle;
@@ -220,4 +237,11 @@ public class PlayerInput : MonoBehaviour
     }
     #endregion
 
+    public void FaceDirection(Vector2 pointerInput)
+    {
+        Vector3 direction = (Vector3)pointerInput - transform.position;
+        Vector3 result = Vector3.Cross(Vector2.up, direction);
+
+        spriteRenderer.flipX = result.z > 0;
+    }
 }
