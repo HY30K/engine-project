@@ -12,15 +12,8 @@ public class PlayerInput : MonoBehaviour
     bool _isHItting = false;
     Vector3 mousePos;
 
-    [SerializeField] float jumpPower;
-    [SerializeField] float speed;
-    [SerializeField] float mineDmg;
-    public float damage;
-
     [SerializeField] Transform rayPos1;
     [SerializeField] Transform rayPos2;
-
-    [SerializeField] private PlayerProperty state; //½ºÅÈ
 
     private Animator _animator;
     private Rigidbody2D _rigid;
@@ -31,7 +24,6 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField] private float rollCoolTime = 0;
 
-    private bool doAttack;
     public bool canParticleSpawn = false;
     public bool particleWaiting = true;
     private bool groundCheck;
@@ -39,7 +31,7 @@ public class PlayerInput : MonoBehaviour
     MiningParticle miningParticle;
 
     private Vector3 curretMiningMinePos;
-    #region »ç¿îµå ÇÃ·¹ÀÌ(À¯´ÏÆ¼ÀÌº¥Æ®)
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½Ìºï¿½Æ®)
     [field : SerializeField] public UnityEvent OnDie { get; set; }
     [field: SerializeField] public UnityEvent OnGetHit { get; set; }
     [field: SerializeField] public UnityEvent OnHit { get; set; }
@@ -72,7 +64,7 @@ public class PlayerInput : MonoBehaviour
         {
             yield return null;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && !onAir);
-            Debug.Log("'±¸¸¥´Ù'");
+            Debug.Log("'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'");
             _animator.SetBool("Roll", true);
 
             yield return new WaitForSeconds(rollCoolTime);
@@ -83,7 +75,7 @@ public class PlayerInput : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * speed;
+        transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * PlayerProperty.Instance.Speed;
 
         if (h == 0)
             _animator.SetBool("Walk", false);
@@ -109,15 +101,14 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            state.JumpPower += 0.05f;
             _animator.SetBool("Land", false);
             _animator.SetBool("Jump", true);
-            _rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+            _rigid.AddForce(Vector3.up * PlayerProperty.Instance.JumpPower, ForceMode2D.Impulse);
         }
     }
 
     int cnt = 0;
-    #region Ã¤±¤ºÎºÐ
+    #region Ã¤ï¿½ï¿½ï¿½Îºï¿½
     public void DoMining()
     {
         if (Input.GetMouseButton(0))
@@ -156,14 +147,16 @@ public class PlayerInput : MonoBehaviour
             {
                 if (groundCheck)
                 {
-                    if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
-                    }
-                    else
-                    {
-                        miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
-                    }
+                    miningParticle = PoolManager.Instance.Pop($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}") as MiningParticle;
+                    Debug.Log($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}");
+                    //if (MineralHit.transform.GetComponent<MineralScript>().MineralType == MineralType.Ground)
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningGround") as MiningParticle;
+                    //}
+                    //else
+                    //{
+                    //    miningParticle = PoolManager.Instance.Pop("MiningOre") as MiningParticle;
+                    //}
                     groundCheck = false;
                 }
 
@@ -174,7 +167,7 @@ public class PlayerInput : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("°°Àº°Å ÆÄ´Â£O");
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä´Â£O");
                 }
 
                 if (miningParticle != null)
@@ -220,32 +213,13 @@ public class PlayerInput : MonoBehaviour
         while (MineralHit)
         {
             //miningParticle.enabled = true;
-            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= mineDmg;// 1ºÎºÐÀ» ÇÃ·¹ÀÌ¾î °î±ªÀÌÀÇ µ¥¹ÌÁö·Î ¹Ù²ãÁà¾ßÇÔ;
-            //Debug.Log($"¸ÂÀº ±¤¹° : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
-            //Debug.Log($"±¤¼® ÀÌ¸§ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
-            Debug.Log("ÇÇ±ï´ÂÁß");
-            yield return new WaitForSeconds(state.MiningDelay);
+            MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= PlayerProperty.Instance.Damage;// 1ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½î±ªï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
+            //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
+            //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}, hp : {MineralHit.collider.gameObject.GetComponent<MineralScript>().hp}");
+            Debug.Log("ï¿½Ç±ï¿½Â¤ï¿½ï¿½ï¿½");
+            yield return new WaitForSeconds(PlayerProperty.Instance.MiningDelay);
         }
     }
     #endregion
 
-    #region ·¹º§°ü¸®
-    public void Level()
-    {
-        if (state.JumpPower == 1)
-        {
-            jumpPower += 0.2f;
-        }
-
-        if (state.MiningDmg == 1)
-        {
-            mineDmg += 0.2f;
-        }
-
-        if (state.Damage == 1)
-        {
-            damage += 0.2f;
-        }
-    }
-    #endregion
 }
