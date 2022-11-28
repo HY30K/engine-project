@@ -47,7 +47,6 @@ public class EnemyMovement : EnemyBase
 
     private void Update()
     {
-        Debug.Log($"현재 참조하는 애니메잍터 : {_animator.name}");
         Debug.Log(nextMove);
         if (!_enemyAttack._isAttacking)
         {
@@ -140,7 +139,6 @@ public class EnemyMovement : EnemyBase
 
     public void EnemyThink()
     {
-        Debug.Log("ENemyTHinkOpen");
         nextMove = Random.Range(-1, 2);
         print(nextMove);
         if (nextMove != 0)
@@ -185,10 +183,8 @@ public class EnemyMovement : EnemyBase
         RaycastHit2D platformCheckHit = Physics2D.Raycast(origin, rayDir, 3);
         Debug.DrawRay(origin, rayDir, Color.red, 0.1f);
 
-        Debug.Log(platformCheckHit.collider);
         if (platformCheckHit.collider == null)
         {
-            Debug.Log("isNull");
             nextMove = -nextMove;
             //afterNoChasingTime = 2;
             //_isThinking = false;
