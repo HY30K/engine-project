@@ -1,0 +1,1024 @@
+fileFormatVersion: 2
+guid: 47e7442af98a0004f80255664a99b6f2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 250
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: KeyCap_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1987
+        width: 735
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc5e8dc7ad506e24fa9e8c72ff2c16f4
+      internalID: -610502179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_1
+      rect:
+        serializedVersion: 2
+        x: 1118
+        y: 1985
+        width: 554
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d888a51c2f4dd20489484561c1a3520b
+      internalID: -1620406713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_2
+      rect:
+        serializedVersion: 2
+        x: 1933
+        y: 1975
+        width: 384
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03b0531b9b993a2489e696f86699b16b
+      internalID: 440931247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_3
+      rect:
+        serializedVersion: 2
+        x: 2439
+        y: 1966
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d69c7e4e3cfb57c489b66e5c8a7ec088
+      internalID: -885629766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_4
+      rect:
+        serializedVersion: 2
+        x: 2917
+        y: 1971
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1baba869ed89c542ba093b688a09713
+      internalID: -1488264684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_5
+      rect:
+        serializedVersion: 2
+        x: 3411
+        y: 1971
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd07f3239a6e364d98598f3c899f0d6
+      internalID: -1352532300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_6
+      rect:
+        serializedVersion: 2
+        x: 3907
+        y: 1964
+        width: 384
+        height: 374
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8245862b86a03f440b2e0b3646851e73
+      internalID: 1362942580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_7
+      rect:
+        serializedVersion: 2
+        x: 4390
+        y: 1960
+        width: 385
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f820f2963f76ba4ca170f8b2716ce6c
+      internalID: 855141311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_8
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 1453
+        width: 734
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4822cdf88f962d479ca5c82778f165f
+      internalID: 1255432138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_9
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 1477
+        width: 557
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f3421b5f302e5d47afe9c33c7861351
+      internalID: -1567872415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_10
+      rect:
+        serializedVersion: 2
+        x: 1936
+        y: 1456
+        width: 383
+        height: 374
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc071312c6a60a49bedad1e2e591c5f
+      internalID: 536633076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_11
+      rect:
+        serializedVersion: 2
+        x: 2442
+        y: 1465
+        width: 386
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd11c474cb128a646a2bbaa35c65c6fe
+      internalID: 1901678718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_12
+      rect:
+        serializedVersion: 2
+        x: 2919
+        y: 1493
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4df7727ba992da4faae4668227b909c
+      internalID: 96609724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_13
+      rect:
+        serializedVersion: 2
+        x: 3411
+        y: 1500
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: befb7a2fbdcdf104489ceb01cfc6dfd7
+      internalID: 1789276124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_14
+      rect:
+        serializedVersion: 2
+        x: 3919
+        y: 1493
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0282b0252267f34997b3535c1a17dac
+      internalID: -258088986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_15
+      rect:
+        serializedVersion: 2
+        x: 4390
+        y: 1491
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44b5621c94d93204e9d3f821d1e2480e
+      internalID: -1099654458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_16
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 947
+        width: 948
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f84e2ab45a9e75459ef6004c374abb2
+      internalID: -1795603752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_17
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 961
+        width: 556
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 580c490f4371cee4aa4c2050a319e14e
+      internalID: -1719867227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_18
+      rect:
+        serializedVersion: 2
+        x: 1941
+        y: 947
+        width: 383
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96caa4fa36f5b10498f81822204a0f75
+      internalID: 844924873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_19
+      rect:
+        serializedVersion: 2
+        x: 2453
+        y: 952
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8506c44d2400cb42ad53bb62062785e
+      internalID: -455016741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_20
+      rect:
+        serializedVersion: 2
+        x: 2928
+        y: 964
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a73253cc13ec5ab4cb56dba8ec315f08
+      internalID: 1480352529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_21
+      rect:
+        serializedVersion: 2
+        x: 3413
+        y: 987
+        width: 384
+        height: 374
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80ca92703edf7c04da727a319f5c6175
+      internalID: -1663839677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_22
+      rect:
+        serializedVersion: 2
+        x: 3915
+        y: 978
+        width: 383
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c12c8de557b9de14b9619f6f96a4b8f6
+      internalID: 1248184751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_23
+      rect:
+        serializedVersion: 2
+        x: 4401
+        y: 997
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 675fe252b06bb1842a464c53028a2569
+      internalID: -344284009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_24
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 474
+        width: 555
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc50306358a5af346ac44415005985c4
+      internalID: -722171886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_25
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 467
+        width: 384
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38f25a8f0daef934fa83601ccaf7075c
+      internalID: 373601016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_26
+      rect:
+        serializedVersion: 2
+        x: 1950
+        y: 472
+        width: 384
+        height: 373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ba96ffd964b07642980cce7c8de5eb4
+      internalID: -1430303825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_27
+      rect:
+        serializedVersion: 2
+        x: 2460
+        y: 491
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51d6151b4c5304f4dba636ec6e24baab
+      internalID: -1970558310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_28
+      rect:
+        serializedVersion: 2
+        x: 2940
+        y: 507
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb3e963e3018206458290626421333bd
+      internalID: 1114636592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_29
+      rect:
+        serializedVersion: 2
+        x: 3409
+        y: 517
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c0bcc5061b58f4b9160aacdcee3f76
+      internalID: -1919291247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_30
+      rect:
+        serializedVersion: 2
+        x: 3919
+        y: 507
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cae06cb966a320d44b9aa5c890d16477
+      internalID: 283400039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_31
+      rect:
+        serializedVersion: 2
+        x: 4411
+        y: 512
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0404dae84434fa14a94d62b3d07473e4
+      internalID: -1730260773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_32
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 32
+        width: 584
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44bca7dd29f56ef4eb0756acbe26947d
+      internalID: 1630820667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_33
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 20
+        width: 386
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02ab17f44ce7cb743a2b66348cfaeab0
+      internalID: -927898109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_34
+      rect:
+        serializedVersion: 2
+        x: 1240
+        y: 13
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8e71541e02ebfe47a943dbf50d47c24
+      internalID: 334871916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_35
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 13
+        width: 385
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db49c1302bb54634b8f0420318e56a24
+      internalID: 1876948181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_36
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 11
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bbd4886c6c28ab459421057fcc141b8
+      internalID: 1973871410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_37
+      rect:
+        serializedVersion: 2
+        x: 2751
+        y: 16
+        width: 383
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b5f61f6b54e311499d6cabd4e2d227c
+      internalID: -1449181758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_38
+      rect:
+        serializedVersion: 2
+        x: 3234
+        y: 18
+        width: 385
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bb49a61f3ef2a438a4171c1825605b
+      internalID: 783625505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_39
+      rect:
+        serializedVersion: 2
+        x: 3711
+        y: 13
+        width: 384
+        height: 374
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5902c62c560d04b9fd039573e04619
+      internalID: -100807682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KeyCap_40
+      rect:
+        serializedVersion: 2
+        x: 4177
+        y: 6
+        width: 384
+        height: 372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 681fe77c078c44a4f8be8c58a9d709e9
+      internalID: -1660878577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      KeyCap_7: 855141311
+      KeyCap_14: -258088986
+      KeyCap_8: 1255432138
+      KeyCap_4: -1488264684
+      KeyCap_12: 96609724
+      KeyCap_11: 1901678718
+      KeyCap_16: -1795603752
+      KeyCap_6: 1362942580
+      KeyCap_20: 1480352529
+      KeyCap_9: -1567872415
+      KeyCap_19: -455016741
+      KeyCap_18: 844924873
+      KeyCap_0: -610502179
+      KeyCap_26: -1430303825
+      KeyCap_5: -1352532300
+      KeyCap_27: -1970558310
+      KeyCap_10: 536633076
+      KeyCap_13: 1789276124
+      KeyCap_29: -1919291247
+      KeyCap_35: 1876948181
+      KeyCap_36: 1973871410
+      KeyCap_30: 283400039
+      KeyCap_37: -1449181758
+      KeyCap_22: 1248184751
+      KeyCap_24: -722171886
+      KeyCap_31: -1730260773
+      KeyCap_40: -1660878577
+      KeyCap_32: 1630820667
+      KeyCap_21: -1663839677
+      KeyCap_33: -927898109
+      KeyCap_2: 440931247
+      KeyCap_25: 373601016
+      KeyCap_38: 783625505
+      KeyCap_34: 334871916
+      KeyCap_15: -1099654458
+      KeyCap_3: -885629766
+      KeyCap_23: -344284009
+      KeyCap_28: 1114636592
+      KeyCap_1: -1620406713
+      KeyCap_17: -1719867227
+      KeyCap_39: -100807682
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

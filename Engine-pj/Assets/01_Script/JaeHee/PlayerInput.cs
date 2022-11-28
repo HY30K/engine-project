@@ -86,6 +86,7 @@ public class PlayerInput : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
         }
+
         else if (h < 0)
         {
             transform.localScale = new Vector2(1, 1);

@@ -7,19 +7,19 @@ using TMPro;
 
 public class GameStart : MonoBehaviour
 {
-    public static GameStart instance = null;
 
     [SerializeField] string[] arr;
     int arrCnt = 0;
 
     [SerializeField] GameObject dialogUi;
     [SerializeField] TextMeshProUGUI mainText;
-    [SerializeField] GameObject dialogUI;
+    [SerializeField] GameObject dialogBox;
     [SerializeField] GameObject playerImage;
     [SerializeField] GameObject npcImage;
     [SerializeField] GameObject playerStun;
     [SerializeField] GameObject mainPanel;
     [SerializeField] GameObject player;
+    [SerializeField] RectTransform titleTargetPos;
 
     Vector2 titleOrigin;
     Vector2 originPos;
@@ -42,8 +42,13 @@ public class GameStart : MonoBehaviour
         _player = playerImage.transform.GetComponent<Image>();
         _npcImage = npcImage.transform.GetComponent<Image>();
 
+        Sequence title = DOTween.Sequence();
         titleOrigin = mainPanel.transform.position;
-        if (instance == null) instance = this;
+        title.Append(mainPanel.transform.DOMove(titleTargetPos.position, 2).SetEase(Ease.OutElastic))
+        .OnComplete(() =>
+        {
+            mainPanel.GetComponent<TitleAnim>().TitleStart();
+        });
     }
 
     private void Update()
@@ -79,7 +84,7 @@ public class GameStart : MonoBehaviour
     {
         while (loop)
         {
-            originPos = dialogUI.transform.position;
+            originPos = dialogBox.transform.position;
             yield return new WaitForSeconds(arrCnt <= arr.Length ? arr[arrCnt].Length * 0.01f : 1);
             yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             && endOfSentence);
@@ -93,10 +98,10 @@ public class GameStart : MonoBehaviour
             });
 
             seq.Append(mainText.DOText(arr[arrCnt], arr[arrCnt].Length * 0.12f).SetEase(Ease.Linear));
-            seq.Join(dialogUI.transform.DOShakePosition(arr[arrCnt++].Length * 0.1f, 3, 10, 0));
+            seq.Join(dialogBox.transform.DOShakePosition(arr[arrCnt++].Length * 0.1f, 3, 10, 0));
             seq.OnComplete(() =>
             {
-                dialogUI.transform.position = originPos;
+                dialogBox.transform.position = originPos;
                 endOfSentence = true;
                 seq.Kill();
             });
