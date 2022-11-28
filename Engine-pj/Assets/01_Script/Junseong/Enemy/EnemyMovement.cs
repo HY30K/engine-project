@@ -119,7 +119,7 @@ public class EnemyMovement : EnemyBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 7)
+        if (collision.gameObject.layer == 13)
         {
             nextMove = -nextMove;
             afterNoChasingTime = Random.Range(0f, 1f);//벽충돌후 적 생각쿨타임

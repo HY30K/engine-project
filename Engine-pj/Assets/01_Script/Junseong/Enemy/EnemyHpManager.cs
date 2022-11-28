@@ -56,6 +56,7 @@ public class EnemyHpManager : EnemyBase
     private void EnemyDead()
     {
         OnDie?.Invoke();// die 사운드 실행
+        GameManager.instance.Money += 15;
     }
 
     public void EnemyDeadInit()
