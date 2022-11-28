@@ -13,15 +13,14 @@ public class Boss_Movement : MonoBehaviour
     float bossHP=200;
     float ct;
     float skillcool = 6;
-    float speed = 6;
+    float speed = 3;
     int Skillnum = 0;
     [SerializeField]
     GameObject jumpParticle;
     bool sum_Particle = false;
     public LayerMask layermask;
-    int right;
-    Vector3 dir;
     void Destroy()=> Destroy(gameObject);
+    void Particleoff() => jumpParticle.SetActive(false);
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -74,13 +73,13 @@ public class Boss_Movement : MonoBehaviour
         }
         else if (Skillnum == 2)
         {
-            if (bossHP < 2000)
+            if (bossHP < 50)
             {
-                skillcool = 5;
+                skillcool = 7;
             }
             else
             {
-                skillcool = 10;
+                skillcool = 13;
             }
         }
         else { Skill_Set(); }
@@ -106,13 +105,11 @@ public class Boss_Movement : MonoBehaviour
         {
             dir = Vector3.left*speed;
             animator.SetBool("Walk", true);
-            right = -1;
         }
         else if(transformx > transform.position.x)
         {
             dir = Vector3.right*speed;
             animator.SetBool("Walk", true);
-            right = 1;
         }
         else { dir = Vector3.zero; animator.SetBool("Walk", false); }
         transform.position += dir * Time.deltaTime;
@@ -139,11 +136,23 @@ public class Boss_Movement : MonoBehaviour
                 Invoke("Destroy", 2.2f);
             }
         }
-        if(collision.gameObject.layer == layermask&&sum_Particle)
+        if(collision.gameObject.tag == "Ground" && sum_Particle)
         {
+            Debug.Log("enter");
             sum_Particle = false;
             jumpParticle.SetActive(true);
+            Invoke("Particleoff", 3);
         }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //if (collision.gameObject.tag == "Ground" && sum_Particle)
+        //{
+        //    Debug.Log("stay");
+        //    sum_Particle = false;
+        //    jumpParticle.SetActive(true);
+        //    Invoke("Particleoff", 3);
+        //}
     }
     IEnumerator ChangeRotation()  
     {
@@ -177,19 +186,9 @@ public class Boss_Movement : MonoBehaviour
         skillcool -= Time.deltaTime;
         if(skillcool < 0)
         {
-            //dir = new Vector3(player.transform.position.x - 1, transform.position.y + 6, transform.position.z);
-            //dir.Normalize();
-            //StartCoroutine(jumpmove());
-            rb.AddForce(Vector2.up * 3);
+            rb.AddForce(Vector2.up * 9, ForceMode2D.Impulse);
             sum_Particle = true;
             Skill_Set();
         }
-    }
-    IEnumerator jumpmove()
-    {
-        transform.position += dir * Time.deltaTime * 10;
-        yield return null;
-        if(transform.position.x < player.transform.position.x*right*-1)
-        StartCoroutine(jumpmove());
     }
 }
