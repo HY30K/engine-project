@@ -13,11 +13,14 @@ public class AnimationEvent : MonoBehaviour
     [SerializeField] private CircleCollider2D attackComboCol;
 
     Animator _animator;
+    SpriteRenderer _spriteRenderer;
+
     bool attackCom;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Death() //죽으면 실행되는 애니매이벤트
@@ -33,7 +36,7 @@ public class AnimationEvent : MonoBehaviour
     IEnumerator WaitingDieScene()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("DieScene");
+        SceneManager.LoadScene("GameOver");
     }
 
     public void RollStart() //구를때 애니매이벤트

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00_Scenes/JiHong.unity
     guid: 0d0772a9bd124594ab7f248183046fb9
+  - enabled: 1
+    path: Assets/00_Scenes/GameOver.unity
+    guid: 8d4f98b54c48cac44afd5e5f281244e0
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
