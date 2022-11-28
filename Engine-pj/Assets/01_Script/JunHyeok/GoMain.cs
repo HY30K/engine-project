@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,29 +9,71 @@ public class GoMain : MonoBehaviour
     Vector3 firstPos;
 
     private bool waiting = false;
+    private bool isClickB = false;
     public bool canTp = false;
     [SerializeField] GameObject prefabs;
+    [SerializeField] GameObject _currentCam;
+    [SerializeField] GameObject shopCamera;
+    
 
+    GameObject Effect;
+
+    private void Awake()
+    {
+        _currentCam = shopCamera;
+    }
     void Update()
     {
+        if(_currentCam != null)
+        {
+            ICinemachineCamera currentCam
+           = CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
+            _currentCam = currentCam.VirtualCameraGameObject;
+        }
+
         if (Input.GetKeyDown(KeyCode.B))
         {
             firstPos = transform.position;
+            //isClickB = true;
             StartCoroutine(DelayTime());
+            Effect = Instantiate(prefabs, transform.position, Quaternion.identity);
         }
+
+        
+        if (firstPos != transform.position)
+        {
+               
+            StopCoroutine("DelayTime");
+            if(Effect != null)
+            {
+                Destroy(Effect);
+                //PoolManager.Instance.Push(Effect);
+            }
+            
+        }
+
         if (canTp)
         {
-            transform.position = new Vector3(6, -2, 0);
+            isClickB = false;
             canTp = false;
+            transform.position = new Vector3(6, -2, 0);
+            _currentCam.SetActive(false);
+            shopCamera.SetActive(true);
+            if(Effect != null)
+            {
+                Destroy(Effect);
+                //PoolManager.Instance.Push(Effect);
+            }
         }
+
     }
 
     IEnumerator DelayTime()
     {
-        GameObject Effect = Instantiate(prefabs, transform.position, Quaternion.identity);
-
+        isClickB = true;
         waiting = true;
-        yield return new WaitForSeconds(3f);
+
+        yield return new WaitForSeconds(2f);
 
         if(firstPos == transform.position)
         {
@@ -39,11 +82,5 @@ public class GoMain : MonoBehaviour
 
         waiting = false;
 
-        if (firstPos != transform.position)
-        {
-            Destroy(Effect);
-            StopCoroutine("DelayTime");
-        }
-        Destroy(Effect);
     }
 }

@@ -57,8 +57,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround);
         Jump();
         Move();
         DoMining();
@@ -105,13 +105,15 @@ public class PlayerInput : MonoBehaviour
         }
 
         RaycastHit2D ground = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
+        RaycastHit2D DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Mineral , Define.DungeonGround);
+       
         if(!ground && !onAir)
         {
             isOnGround = false;
             isOnMineral = true;
             OnMineralWalk?.Invoke();
         }
-        else if(ground && !onAir)
+        else if(DungeonGround && !onAir)
         {
             isOnGround = true;
             isOnMineral = false;

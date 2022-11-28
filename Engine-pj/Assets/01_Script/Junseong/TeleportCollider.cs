@@ -46,12 +46,15 @@ public class TeleportCollider : MonoBehaviour
             else if(nextPositionType == NextPositionType.Mine)
             {
                 collision.transform.position = DestinationPoint.position;
+                DungeonCam.SetActive(false);
                 playerScaffolding.SetActive(true);
                 Fade(MineCam);
             }
-            else
+            else if(nextPositionType==NextPositionType.Dungeon)
             {
-
+                collision.transform.position = DestinationPoint.position;
+                MineCam.SetActive(false);
+                Fade(DungeonCam);
             }
         }
     }
@@ -73,10 +76,8 @@ public class TeleportCollider : MonoBehaviour
         }
         time = 0f;
         CurrentCam.SetActive(false);
-        //currentBackGround.SetActive(false);
         yield return new WaitForSeconds(0.7f);
         playerScaffolding.SetActive(false);
-        //otherBackGround.SetActive(true);
         otherCam.SetActive(true);
 
         while (alpha.a > 0f)
