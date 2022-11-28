@@ -17,7 +17,10 @@ public class Particle_Collision : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            print("불덩이맞음");
+        }
         int numCollisionEvents = ps.GetCollisionEvents(other, collisionEvents);
         StartCoroutine(Summon_FO(numCollisionEvents));
     }

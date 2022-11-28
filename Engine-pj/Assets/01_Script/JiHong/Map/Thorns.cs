@@ -11,6 +11,7 @@ public class Thorns : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.position = Startpos;
+            print("°¡½Ã");
         }
         else if (!(collision.gameObject.layer == layerMask))
         {

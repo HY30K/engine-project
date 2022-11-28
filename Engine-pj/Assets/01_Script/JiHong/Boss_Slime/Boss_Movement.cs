@@ -13,12 +13,14 @@ public class Boss_Movement : MonoBehaviour
     float bossHP=200;
     float ct;
     float skillcool = 6;
-    float speed = 3;
+    float speed = 6;
     int Skillnum = 0;
     [SerializeField]
     GameObject jumpParticle;
     bool sum_Particle = false;
     public LayerMask layermask;
+    int right;
+    Vector3 dir;
     void Destroy()=> Destroy(gameObject);
     private void Awake()
     {
@@ -104,11 +106,13 @@ public class Boss_Movement : MonoBehaviour
         {
             dir = Vector3.left*speed;
             animator.SetBool("Walk", true);
+            right = -1;
         }
         else if(transformx > transform.position.x)
         {
             dir = Vector3.right*speed;
             animator.SetBool("Walk", true);
+            right = 1;
         }
         else { dir = Vector3.zero; animator.SetBool("Walk", false); }
         transform.position += dir * Time.deltaTime;
@@ -173,12 +177,19 @@ public class Boss_Movement : MonoBehaviour
         skillcool -= Time.deltaTime;
         if(skillcool < 0)
         {
-            //Vector3 dir = new Vector3(player.transform.position.x-1,transform.position.y+6,transform.position.z);
+            //dir = new Vector3(player.transform.position.x - 1, transform.position.y + 6, transform.position.z);
             //dir.Normalize();
-            //transform.position += dir * Time.deltaTime * 3;
-            rb.AddForce(Vector3.up * 3);    
+            //StartCoroutine(jumpmove());
+            rb.AddForce(Vector2.up * 3);
             sum_Particle = true;
             Skill_Set();
         }
+    }
+    IEnumerator jumpmove()
+    {
+        transform.position += dir * Time.deltaTime * 10;
+        yield return null;
+        if(transform.position.x < player.transform.position.x*right*-1)
+        StartCoroutine(jumpmove());
     }
 }
