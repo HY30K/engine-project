@@ -21,9 +21,11 @@ public class WeatherController : MonoBehaviour
     [SerializeField] GameObject[] rainGenerator;
     [SerializeField] Camera mainCam;
     [SerializeField] float weatherChangeTime = 120;
+    [SerializeField] GameObject[] audioObj;
     float time = 0;
 
     Weather currentWeather = Weather.None;
+    bool isPlayerAboveGround = false;
 
     private void Start()
     {
@@ -42,6 +44,12 @@ public class WeatherController : MonoBehaviour
         {
             time = 0;
         }
+
+        isPlayerAboveGround = mainCam.transform.position.y > -5;
+        if (isPlayerAboveGround == false)
+        {
+            AudioActiveChange(-1);
+        }
     }
 
     IEnumerator TimeChange()
@@ -50,7 +58,7 @@ public class WeatherController : MonoBehaviour
         {
             Debug.Log("¾ßÈ£");
             yield return new WaitForSeconds(15);
-
+            AudioActiveChange(-1);
             Debug.Log("¾ßÈ£");
             if (time >= 3600) //¹ã
             {
@@ -60,12 +68,14 @@ public class WeatherController : MonoBehaviour
                     Debug.Log("ÆøÇ³Ä¡´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.35f, 3);
                     ParticleActiveChange(2);
+                    AudioActiveChange(1);
                 }
                 else if (currentWeather == Weather.Rainny)
                 {
                     Debug.Log("ºñ¿À´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.4f, 3);
                     ParticleActiveChange(1);
+                    AudioActiveChange(1);
                 }
                 else if (currentWeather == Weather.Sunny)
                 {
@@ -78,6 +88,7 @@ public class WeatherController : MonoBehaviour
                     Debug.Log("ºñ ¸¹ÀÌ ¿À´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.2f, 3);
                     ParticleActiveChange(3);
+                    AudioActiveChange(0);
                 }
             }
             else //³·
@@ -87,12 +98,14 @@ public class WeatherController : MonoBehaviour
                     Debug.Log("ÆøÇ³Ä¡´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.8f, 3);
                     ParticleActiveChange(2);
+                    AudioActiveChange(1);
                 }
                 else if (currentWeather == Weather.Rainny)
                 {
                     Debug.Log("ºñ¿À´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.9f, 3);
                     ParticleActiveChange(1);
+                    AudioActiveChange(1);
                 }
                 else if (currentWeather == Weather.Sunny)
                 {
@@ -105,6 +118,7 @@ public class WeatherController : MonoBehaviour
                     Debug.Log("ºñ ¸¹ÀÌ¿À´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.75f, 3);
                     ParticleActiveChange(3);
+                    AudioActiveChange(0);
                 }
             }
         }
@@ -119,6 +133,18 @@ public class WeatherController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(weatherChangeTime * 0.8f, weatherChangeTime * 1.2f));
             yield return new WaitForSeconds(1);
         }
+    }
+
+    void AudioActiveChange(int index)
+    {
+        for (int i = 0; i < audioObj.Length; i++)
+        {
+            audioObj[i].SetActive(false);
+        }
+
+        if (index <= -1 || index > audioObj.Length) return;
+
+        audioObj[index].SetActive(true);
     }
 
     void ParticleActiveChange(int cnt)

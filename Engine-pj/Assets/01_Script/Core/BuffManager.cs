@@ -13,10 +13,11 @@ public class BuffManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
-            instance = this;
+            Debug.LogWarning("µÎ°³¾ß");
         }
+            instance = this;
 
         for (int i = 0; i < buffArr.Length; i++)
         {
@@ -26,7 +27,9 @@ public class BuffManager : MonoBehaviour
 
     public void SpawnBuffIcon(string name, float time = 60)
     {
+        Debug.Log(11);
         GameObject buffIcon = Instantiate(buffs[name], buffParent.transform);
+        Debug.Log(buffs[name]);
         buffIcon.GetComponent<BuffMono>().Init(time);
     }
 }
