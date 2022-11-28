@@ -104,16 +104,16 @@ public class PlayerInput : MonoBehaviour
             transform.localScale = new Vector2(1, 1);
         }
 
-        RaycastHit2D ground = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
-        RaycastHit2D DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Mineral , Define.DungeonGround);
-       
-        if(!ground && !onAir)
+        RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Plane | Define.Mineral);
+        RaycastHit2D DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Mineral | Define.DungeonGround);
+
+        if (!ground && !onAir)
         {
             isOnGround = false;
             isOnMineral = true;
             OnMineralWalk?.Invoke();
         }
-        else if(DungeonGround && !onAir)
+        else if (DungeonGround && !onAir)
         {
             isOnGround = true;
             isOnMineral = false;
@@ -121,13 +121,13 @@ public class PlayerInput : MonoBehaviour
 
         if (isOnGround && !_isMoving)
         {
-            OnGroundWalk?.Invoke();
-        }
-        else if(isOnMineral && !_isMoving)
-        {
             OnMineralWalk?.Invoke();
         }
+        else if (isOnMineral && !_isMoving)
+        {
 
+            OnGroundWalk?.Invoke();
+        }
     }
 
     private void Jump()

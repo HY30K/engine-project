@@ -45,10 +45,23 @@ public class WeatherController : MonoBehaviour
             time = 0;
         }
 
+        if (TeleportCollider.instance.isEnterDungeon)
+        {
+            ParticleActiveChange(-2);
+            AudioActiveChange(-1);
+        }
+
         isPlayerAboveGround = mainCam.transform.position.y > -5;
+
         if (isPlayerAboveGround == false)
         {
             AudioActiveChange(-1);
+            globalLight.intensity = 0.22f;
+        }
+        else
+        {
+            ParticleActiveChange(0);
+            globalLight.intensity = 0.7f;
         }
     }
 
@@ -154,6 +167,7 @@ public class WeatherController : MonoBehaviour
             rainGenerator[i].SetActive(false);
         }
 
+        if (cnt < -1) return;
         if (cnt > rainGenerator.Length) cnt = rainGenerator.Length;
 
         for (int i = 0; i < cnt; i++)

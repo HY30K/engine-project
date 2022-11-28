@@ -14,7 +14,7 @@ public class GoMain : MonoBehaviour
     [SerializeField] GameObject prefabs;
     [SerializeField] GameObject _currentCam;
     [SerializeField] GameObject shopCamera;
-    
+
 
     GameObject Effect;
 
@@ -24,7 +24,7 @@ public class GoMain : MonoBehaviour
     }
     void Update()
     {
-        if(_currentCam != null)
+        if (_currentCam != null)
         {
             ICinemachineCamera currentCam
            = CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
@@ -39,17 +39,17 @@ public class GoMain : MonoBehaviour
             Effect = Instantiate(prefabs, transform.position, Quaternion.identity);
         }
 
-        
+
         if (firstPos != transform.position)
         {
-               
+
             StopCoroutine("DelayTime");
-            if(Effect != null)
+            if (Effect != null)
             {
                 Destroy(Effect);
                 //PoolManager.Instance.Push(Effect);
             }
-            
+
         }
 
         if (canTp)
@@ -57,9 +57,10 @@ public class GoMain : MonoBehaviour
             isClickB = false;
             canTp = false;
             transform.position = new Vector3(6, -2, 0);
+            TeleportCollider.instance.isEnterDungeon = false;
             _currentCam.SetActive(false);
             shopCamera.SetActive(true);
-            if(Effect != null)
+            if (Effect != null)
             {
                 Destroy(Effect);
                 //PoolManager.Instance.Push(Effect);
@@ -75,7 +76,7 @@ public class GoMain : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        if(firstPos == transform.position)
+        if (firstPos == transform.position)
         {
             canTp = true;
         }

@@ -23,35 +23,41 @@ public class TeleportCollider : MonoBehaviour
     public GameObject MineCam;
     //public GameObject currentBackGround;
     //public GameObject otherBackGround;
-
+    public bool isEnterDungeon = false;
     public Image Panel;
 
     float time = 0f;
     float ftime = 0.5f;
-   
+
+    static public TeleportCollider instance;
     private void Awake()
     {
-       //currentBackGround.SetActive(true);
-       //otherBackGround.SetActive(false);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        //currentBackGround.SetActive(true);
+        //otherBackGround.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
-            if(nextPositionType == NextPositionType.Shop)
+            if (nextPositionType == NextPositionType.Shop)
             {
                 collision.transform.position = new Vector3(0, 3, 0);
             }
-            else if(nextPositionType == NextPositionType.Mine)
+            else if (nextPositionType == NextPositionType.Mine)
             {
                 collision.transform.position = DestinationPoint.position;
                 DungeonCam.SetActive(false);
                 playerScaffolding.SetActive(true);
                 Fade(MineCam);
             }
-            else if(nextPositionType==NextPositionType.Dungeon)
+            else if (nextPositionType == NextPositionType.Dungeon)
             {
+                isEnterDungeon = true;
                 collision.transform.position = DestinationPoint.position;
                 MineCam.SetActive(false);
                 Fade(DungeonCam);
@@ -95,7 +101,7 @@ public class TeleportCollider : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            
+
         }
     }
 }
