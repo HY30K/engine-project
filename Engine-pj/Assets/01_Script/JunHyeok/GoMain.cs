@@ -8,14 +8,20 @@ public class GoMain : MonoBehaviour
     Vector3 firstPos;
 
     private bool waiting = false;
+    public bool canTp = false;
     [SerializeField] GameObject prefabs;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B) && !waiting)
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            //firstPos = this.transform.position;
+            firstPos = transform.position;
             StartCoroutine(DelayTime());
+        }
+        if (canTp)
+        {
+            transform.position = new Vector3(6, -2, 0);
+            canTp = false;
         }
     }
 
@@ -25,18 +31,19 @@ public class GoMain : MonoBehaviour
 
         waiting = true;
         yield return new WaitForSeconds(3f);
-        waiting = false;
 
-
-        if (Input.anyKeyDown)
+        if(firstPos == transform.position)
         {
-            StopCoroutine("DelayTime");
-            Destroy(Effect);
+            canTp = true;
         }
 
-        transform.position = new Vector3(6, -2, 0);
+        waiting = false;
 
+        if (firstPos != transform.position)
+        {
+            Destroy(Effect);
+            StopCoroutine("DelayTime");
+        }
         Destroy(Effect);
-
     }
 }
