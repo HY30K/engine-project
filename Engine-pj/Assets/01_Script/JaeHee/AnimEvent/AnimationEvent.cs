@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimationEvent : MonoBehaviour
 {
@@ -21,7 +22,18 @@ public class AnimationEvent : MonoBehaviour
 
     public void Death() //죽으면 실행되는 애니매이벤트
     {
+        _animator.SetTrigger("Death");
+    }
 
+    public void SceneReturn()
+    {
+        StartCoroutine("WaitingDieScene");
+    }
+
+    IEnumerator WaitingDieScene()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("DieScene");
     }
 
     public void RollStart() //구를때 애니매이벤트

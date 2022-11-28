@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerProperty : MonoBehaviour
 {
-    public static PlayerProperty instance = null;
+    private static PlayerProperty instance = null;
+    public static PlayerProperty Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                GameObject obj = new GameObject("PlayerProperty");
+                instance =  obj.AddComponent<PlayerProperty>();
+                DontDestroyOnLoad(obj);
+            }
+            return instance;
+        }
+    }
 
-    private float jumpPower = 1; //점프파워
+    private float jumpPower = 10; //점프파워
+    private float speed = 5;
     private float damage = 1; //데미지
-    private float health = 1; //체력
     private float miningSpeed = 1; //얜 왜있지
     private float evasion = 1; //방어력
     private float miningDelay = 1;
-
 
     public float JumpPower
     {
@@ -30,16 +43,16 @@ public class PlayerProperty : MonoBehaviour
         set { jumpPower = value; }
     }
 
+    public float Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+
     public float Damage
     {
         get { return damage; }
         set { damage = value; }
-    }
-
-    public float Health
-    {
-        get { return health; }
-        set { health = value; }
     }
 
     public float MiningDmg
@@ -60,9 +73,4 @@ public class PlayerProperty : MonoBehaviour
         set { evasion = value; }
     }
 
-    private void Awake()
-    {
-        if (instance != null)
-            instance = this;
-    }
 }

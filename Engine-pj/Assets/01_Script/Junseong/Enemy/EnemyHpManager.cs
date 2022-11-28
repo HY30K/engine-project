@@ -29,7 +29,7 @@ public class EnemyHpManager : EnemyBase
     {
         if (collision.gameObject.tag == "PlayerWeapon")
         {
-            hp -= player.damage;
+            hp -= state.Damage;
             EnemyOnDamaged();
         }        
         if(collision.gameObject.tag == "PlayerBody")

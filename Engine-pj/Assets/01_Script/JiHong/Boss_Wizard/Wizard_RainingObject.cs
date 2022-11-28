@@ -36,6 +36,7 @@ public class Wizard_RainingObject : MonoBehaviour
     }
     void Update()
     {
+        
         if (!Boss.Upanimation)
         {
             Raining();
@@ -47,7 +48,7 @@ public class Wizard_RainingObject : MonoBehaviour
     }
     void SetStartTransform()
     {
-        this.transform.position = new Vector2(Random.Range(this.transform.position.x - 0.2f, this.transform.position.x + 0.2f), 15);
+        this.transform.position = new Vector2(Random.Range(this.transform.position.x - 0.2f, this.transform.position.x + 0.2f), transform.position.y);
         this.transform.rotation = Quaternion.Euler(this.transform.rotation.x, this.transform.rotation.y-180, -110);
     }
     void Raining()
@@ -59,6 +60,6 @@ public class Wizard_RainingObject : MonoBehaviour
     IEnumerator DestroyCount()
     {
         yield return new WaitForSeconds(destroyTime);
-        Destroy(gameObject);
+        Boss.Destroy();
     }
 }

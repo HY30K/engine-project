@@ -5,14 +5,13 @@ using UnityEngine;
 public class Wizard_Skill_Bullet : MonoBehaviour
 {
     float destroyTime = 0;
-    float speed = 0;
     
     private void Update()
     {
         destroyTime += Time.deltaTime;
         if (destroyTime > 8)
         {
-
+            Destroy(this.gameObject);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,10 +21,10 @@ public class Wizard_Skill_Bullet : MonoBehaviour
             DamaToPlayer();
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.CompareTag("PlayerAttack"))
-        {
-            Destroy(this.gameObject);
-        }
+        //if (collision.gameObject.CompareTag("Player"))
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
     void DamaToPlayer() //플레이어에게 데미지 주기
     {
