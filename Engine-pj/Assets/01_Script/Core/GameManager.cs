@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     [SerializeField] Slider _slider;
 
     private float maxHealth = 100;//최대 체력
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
             _slider.value = health / maxHealth;
         }
     }
+
     public float Health
     {
         get { return health; }
@@ -48,6 +49,9 @@ public class GameManager : MonoBehaviour
             _slider.value = health / maxHealth;
         }
     }
+
+    public Light2D playerLight;
+    
 
     private void Awake()
     {
