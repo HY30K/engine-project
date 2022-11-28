@@ -29,6 +29,10 @@ public class PlayerInput : MonoBehaviour
     private bool doAttack;
     public bool canParticleSpawn = false;
     public bool particleWaiting = true;
+    public bool isOnGround = false;
+    public bool isOnMineral = false;
+    public bool isMining = false;
+
     private bool groundCheck;
 
     MiningParticle miningParticle;
@@ -36,6 +40,8 @@ public class PlayerInput : MonoBehaviour
     private Vector3 curretMiningMinePos;
     #region 사운드 플레이(유니티이벤트)
     [field: SerializeField] public UnityEvent OnMine { get; set; }
+    [field: SerializeField] public UnityEvent OnGroundWalk { get; set; }
+    [field: SerializeField] public UnityEvent OnMineralWalk { get; set; }
     #endregion
 
     SpriteRenderer spriteRenderer;
@@ -81,9 +87,15 @@ public class PlayerInput : MonoBehaviour
         transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * state.Speed;
 
         if (h == 0)
+        {
             _animator.SetBool("Walk", false);
+            _isMoving = false;
+        }
         else
+        {
             _animator.SetBool("Walk", true);
+            _isMoving = true;
+        }
 
         if (h > 0)
         {
@@ -97,11 +109,23 @@ public class PlayerInput : MonoBehaviour
         RaycastHit2D ground = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane);
         if(!ground && !onAir)
         {
-            // 광물 거든 소리
+            isOnGround = false;
+            isOnMineral = true;
+            OnMineralWalk?.Invoke();
         }
-        else
+        else if(ground && !onAir)
         {
-            //그냥 걷는소리;
+            isOnGround = true;
+            isOnMineral = false;
+        }
+
+        if (isOnGround && !_isMoving)
+        {
+            OnGroundWalk?.Invoke();
+        }
+        else if(isOnMineral && !_isMoving)
+        {
+            OnMineralWalk?.Invoke();
         }
 
     }
@@ -122,6 +146,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     int cnt = 0;
+    private bool _isMoving;
     #region 채광부분
     public void DoMining()
     {
@@ -159,7 +184,6 @@ public class PlayerInput : MonoBehaviour
 
             if (MineralHit)
             {
-                OnMine?.Invoke();
                 if (groundCheck)
                 {
                     miningParticle = PoolManager.Instance.Pop($"Mining{MineralHit.transform.GetComponent<MineralScript>().itemName}") as MiningParticle;
@@ -227,6 +251,7 @@ public class PlayerInput : MonoBehaviour
         //canParticleSpawn = true;
         while (MineralHit)
         {
+            OnMine?.Invoke();
             //miningParticle.enabled = true;
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= state.Damage;// 1부분을 플레이어 곡괭이의 데미지로 바꿔줘야함;
             //Debug.Log($"맞은 광물 : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");

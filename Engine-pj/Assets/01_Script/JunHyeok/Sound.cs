@@ -7,6 +7,7 @@ public class Sound : AudioPlayer
     [SerializeField]
     private AudioClip _hitClip = null, _deathClip = null, _attackClip = null, _mineClip = null;
 
+
     public void PlayHitSound()
     {
         PlayClipWithVariablePitch(_hitClip);
