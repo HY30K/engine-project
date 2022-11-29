@@ -22,6 +22,7 @@ public class GameStart : MonoBehaviour
     [SerializeField] RectTransform titleTargetPos;
 
     [SerializeField] GameObject mainCanvas;
+    [SerializeField] GameObject mods;
     Vector2 titleOrigin;
     Vector2 originPos;
 
@@ -83,6 +84,7 @@ public class GameStart : MonoBehaviour
 
     IEnumerator Dialog()
     {
+        yield return new WaitForSeconds(2.1f);
         while (loop)
         {
             originPos = dialogBox.transform.position;
@@ -112,8 +114,7 @@ public class GameStart : MonoBehaviour
         dialogUi.SetActive(false);
         player.SetActive(true);
         mainCanvas.SetActive(true);
-
-
+        mods.SetActive(true);
     }
 
     public void Skip()
@@ -122,7 +123,7 @@ public class GameStart : MonoBehaviour
         dialogUi.SetActive(false);
         player.SetActive(true);
         mainCanvas.SetActive(true);
-
+        mods.SetActive(true);
     }
 
     private void ChangeSize()
