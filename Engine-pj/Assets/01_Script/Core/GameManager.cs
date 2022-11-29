@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         PoolManager.Instance = new PoolManager(transform);
         CreatePool();
+        StartInit();
     }
 
     private void CreatePool()
@@ -70,5 +71,10 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(_poolingList.list[i].prefab, _poolingList.list[i].poolCount);
         }
+    }
+
+    private void StartInit()
+    {
+        
     }
 }
