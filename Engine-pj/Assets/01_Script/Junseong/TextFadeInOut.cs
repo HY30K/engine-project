@@ -12,7 +12,7 @@ public class TextFadeInOut : MonoBehaviour
     public Vector3 transformPos;
     TextMeshPro text;
     float texttime = 0f;
-    float textftime = 1.3f;
+    float textftime = 1.2f;
     public int arrowDirection;
     public float currentColorA;
 

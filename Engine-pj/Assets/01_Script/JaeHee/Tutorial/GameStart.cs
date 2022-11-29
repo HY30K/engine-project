@@ -23,6 +23,8 @@ public class GameStart : MonoBehaviour
 
     [SerializeField] GameObject mainCanvas;
     [SerializeField] GameObject mods;
+    [SerializeField] GameObject directionActiveCollider;
+
     Vector2 titleOrigin;
     Vector2 originPos;
 
@@ -115,6 +117,7 @@ public class GameStart : MonoBehaviour
         player.SetActive(true);
         mainCanvas.SetActive(true);
         mods.SetActive(true);
+        directionActiveCollider.SetActive(true);
     }
 
     public void Skip()
@@ -124,6 +127,7 @@ public class GameStart : MonoBehaviour
         player.SetActive(true);
         mainCanvas.SetActive(true);
         mods.SetActive(true);
+        directionActiveCollider.SetActive(true);
     }
 
     private void ChangeSize()
