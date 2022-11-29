@@ -13,7 +13,8 @@ public class Boss_Movement : MonoBehaviour
     float bossHP=80;
     float ct;
     float skillcool = 6;
-    float speed = 6f;
+    [SerializeField]
+    float speed = 0.1f;
     int Skillnum = 0;
     [SerializeField]
     GameObject jumpParticle;

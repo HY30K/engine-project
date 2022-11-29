@@ -6,7 +6,7 @@ public class Wizard_Skill_Wave : MonoBehaviour
 {
     Transform wizard_Transform;
     GameObject player;
-    int rotate=90;
+    float rotate=90;
     int rotation_y;
     int setxpos;
     float continuoustime = 0.5f; // 지속시간
@@ -44,7 +44,7 @@ public class Wizard_Skill_Wave : MonoBehaviour
         if (rotate <= 180)
         {  
             this.transform.rotation = Quaternion.Euler(0, rotation_y, rotate);
-            rotate++;
+            rotate+=1.5f;
         }
         yield return new WaitForSeconds(Time.deltaTime);
         if(rotate >= 180)

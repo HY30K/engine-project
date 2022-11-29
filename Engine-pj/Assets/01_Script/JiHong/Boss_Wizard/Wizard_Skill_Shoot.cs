@@ -50,7 +50,7 @@ public class Wizard_Skill_Shoot : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotz);
         if (scale < 1)
         {
-            transform.localScale = new(scale*1.2f, scale*1.2f, 1);
+            transform.localScale = new(scale*1.5f, scale*1.5f, 1);
             scale += 0.01f;
         }
         yield return new WaitForSeconds(Time.deltaTime);
