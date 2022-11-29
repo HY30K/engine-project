@@ -26,22 +26,28 @@ public class PlayerInput : MonoBehaviour
 
     public bool canParticleSpawn = false;
     public bool particleWaiting = true;
+    public bool isOnGround = false;
+    public bool isOnMineral = false;
+    public bool isMining = false;
+
     private bool groundCheck;
 
     MiningParticle miningParticle;
 
     private Vector3 curretMiningMinePos;
     #region ���� �÷���(����Ƽ�̺�Ʈ)
-    [field : SerializeField] public UnityEvent OnDie { get; set; }
-    [field: SerializeField] public UnityEvent OnGetHit { get; set; }
-    [field: SerializeField] public UnityEvent OnHit { get; set; }
     [field: SerializeField] public UnityEvent OnMine { get; set; }
+    [field: SerializeField] public UnityEvent OnGroundWalk { get; set; }
+    [field: SerializeField] public UnityEvent OnMineralWalk { get; set; }
     #endregion
+
+    SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -51,8 +57,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround);
         Jump();
         Move();
         DoMining();
@@ -78,9 +84,15 @@ public class PlayerInput : MonoBehaviour
         transform.position += (new Vector3(h, 0, 0)) * Time.deltaTime * PlayerProperty.Instance.Speed;
 
         if (h == 0)
+        {
             _animator.SetBool("Walk", false);
+            _isMoving = false;
+        }
         else
+        {
             _animator.SetBool("Walk", true);
+            _isMoving = true;
+        }
 
         if (h > 0)
         {
@@ -90,6 +102,31 @@ public class PlayerInput : MonoBehaviour
         else if (h < 0)
         {
             transform.localScale = new Vector2(1, 1);
+        }
+
+        RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Plane | Define.Mineral);
+        RaycastHit2D DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Mineral | Define.DungeonGround);
+
+        if (!ground && !onAir)
+        {
+            isOnGround = false;
+            isOnMineral = true;
+            OnMineralWalk?.Invoke();
+        }
+        else if (DungeonGround && !onAir)
+        {
+            isOnGround = true;
+            isOnMineral = false;
+        }
+
+        if (isOnGround && !_isMoving)
+        {
+            OnMineralWalk?.Invoke();
+        }
+        else if (isOnMineral && !_isMoving)
+        {
+
+            OnGroundWalk?.Invoke();
         }
     }
 
@@ -109,6 +146,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     int cnt = 0;
+    private bool _isMoving;
     #region ä���κ�
     public void DoMining()
     {
@@ -117,6 +155,8 @@ public class PlayerInput : MonoBehaviour
             mousePos = Input.mousePosition;
             mousePos = Define.MainCam.ScreenToWorldPoint(mousePos);
             mousePos.z = 0;
+
+            //FaceDirection(mousePos);
 
             MineralHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Mineral);
             EnemyHit = Physics2D.Raycast(transform.position, (mousePos - transform.position), raycastDistance, Define.Enemy);
@@ -128,13 +168,11 @@ public class PlayerInput : MonoBehaviour
             }
             else
             {
-                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
             }
 
             if (EnemyHit)
             {
-                OnHit?.Invoke();
                 _animator.SetTrigger("Attack");
                 _animator.SetBool("Mine", false);
             }
@@ -213,6 +251,7 @@ public class PlayerInput : MonoBehaviour
         //canParticleSpawn = true;
         while (MineralHit)
         {
+            OnMine?.Invoke();
             //miningParticle.enabled = true;
             MineralHit.collider.gameObject.GetComponent<MineralScript>().hp -= PlayerProperty.Instance.Damage;// 1�κ��� �÷��̾� ����� �������� �ٲ������;
             //Debug.Log($"���� ���� : {MineralHit.collider.gameObject.GetComponent<MineralScript>().MineralType}");
@@ -223,4 +262,11 @@ public class PlayerInput : MonoBehaviour
     }
     #endregion
 
+    public void FaceDirection(Vector2 pointerInput)
+    {
+        Vector3 direction = (Vector3)pointerInput - transform.position;
+        Vector3 result = Vector3.Cross(Vector2.up, direction);
+
+        spriteRenderer.flipX = result.z > 0;
+    }
 }

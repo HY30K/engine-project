@@ -48,7 +48,8 @@ public class EnemyAttack : EnemyBase
         //    _isAttacking = true;
         //}
        // else _isAttacking = false;
-        float distance = Vector3.Distance(transform.position, _target.position);
+        float distance = Vector2.Distance(transform.position, _target.position);
+
 
         if (distance <= _enemy.AttackRange())
         {
@@ -106,5 +107,13 @@ public class EnemyAttack : EnemyBase
         endAttacking = true;
         _isAttacking = false;
         _animator.SetBool("IsAttacking", false);
+    }
+
+    public void SetHitAnim()
+    {
+        //if (!_isAttacking)
+        //{
+            _animator.SetTrigger("IsHit");
+        //}
     }
 }

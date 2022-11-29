@@ -21,6 +21,7 @@ public class GameStart : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] RectTransform titleTargetPos;
 
+    [SerializeField] GameObject mainCanvas;
     Vector2 titleOrigin;
     Vector2 originPos;
 
@@ -110,6 +111,9 @@ public class GameStart : MonoBehaviour
         Debug.Log("대화 종료");
         dialogUi.SetActive(false);
         player.SetActive(true);
+        mainCanvas.SetActive(true);
+
+
     }
 
     public void Skip()
@@ -117,6 +121,8 @@ public class GameStart : MonoBehaviour
         loop = false;
         dialogUi.SetActive(false);
         player.SetActive(true);
+        mainCanvas.SetActive(true);
+
     }
 
     private void ChangeSize()

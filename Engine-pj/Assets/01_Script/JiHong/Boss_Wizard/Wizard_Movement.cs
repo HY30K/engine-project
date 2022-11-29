@@ -45,7 +45,7 @@ public class Wizard_Movement : MonoBehaviour
         SkillController();
         ct += Time.deltaTime;
     }   
-    private void CoolTime() //��Ÿ�� ����
+    private void CoolTime() 
     {
         WarpDis();
         if (warpCooltime < 0 && (warpDistance))
