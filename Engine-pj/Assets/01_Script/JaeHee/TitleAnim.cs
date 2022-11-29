@@ -18,5 +18,4 @@ public class TitleAnim : MonoBehaviour
             startText.SetActive(true);
         });
     }
-
 }

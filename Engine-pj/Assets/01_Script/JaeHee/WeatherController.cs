@@ -22,7 +22,9 @@ public class WeatherController : MonoBehaviour
     [SerializeField] Camera mainCam;
     [SerializeField] float weatherChangeTime = 120;
     [SerializeField] GameObject[] audioObj;
+    //35 /-40
     float time = 0;
+    float currentGroundIntensity = 1;
 
     Weather currentWeather = Weather.None;
     bool isPlayerAboveGround = false;
@@ -38,6 +40,7 @@ public class WeatherController : MonoBehaviour
         for (int i = 0; i < rainGenerator.Length; i++)
         {
             rainGenerator[i].transform.position = new Vector3(mainCam.transform.position.x, 7, -1);
+            rainGenerator[i].transform.position = new Vector2(Mathf.Clamp(rainGenerator[i].transform.position.x, -40, 35), 7);
         }
         time += Time.deltaTime;
         if (time >= 7200)
@@ -56,12 +59,11 @@ public class WeatherController : MonoBehaviour
         if (isPlayerAboveGround == false)
         {
             AudioActiveChange(-1);
-            globalLight.intensity = 0.22f;
+            globalLight.intensity = 0.15f;
         }
         else
         {
-            ParticleActiveChange(0);
-            globalLight.intensity = 0.7f;
+            globalLight.intensity = currentGroundIntensity;
         }
     }
 
@@ -80,6 +82,7 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("ÆøÇ³Ä¡´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.35f, 3);
+                    currentGroundIntensity = 0.35f;
                     ParticleActiveChange(2);
                     AudioActiveChange(1);
                 }
@@ -87,6 +90,7 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("ºñ¿À´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.4f, 3);
+                    currentGroundIntensity = 0.4f;
                     ParticleActiveChange(1);
                     AudioActiveChange(1);
                 }
@@ -94,12 +98,14 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("È­Ã¢ÇÑ ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.5f, 3);
+                    currentGroundIntensity = 0.5f;
                     ParticleActiveChange(0);
                 }
                 else if (currentWeather == Weather.HardRainny)
                 {
                     Debug.Log("ºñ ¸¹ÀÌ ¿À´Â ¹ã");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.2f, 3);
+                    currentGroundIntensity = 0.2f;
                     ParticleActiveChange(3);
                     AudioActiveChange(0);
                 }
@@ -110,6 +116,7 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("ÆøÇ³Ä¡´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.8f, 3);
+                    currentGroundIntensity = 0.8f;
                     ParticleActiveChange(2);
                     AudioActiveChange(1);
                 }
@@ -117,6 +124,7 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("ºñ¿À´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.9f, 3);
+                    currentGroundIntensity = 0.9f;
                     ParticleActiveChange(1);
                     AudioActiveChange(1);
                 }
@@ -124,12 +132,14 @@ public class WeatherController : MonoBehaviour
                 {
                     Debug.Log("È­Ã¢ÇÑ ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 1, 3);
+                    currentGroundIntensity = 1;
                     ParticleActiveChange(0);
                 }
                 else if (currentWeather == Weather.HardRainny)
                 {
                     Debug.Log("ºñ ¸¹ÀÌ¿À´Â ³·");
                     DOTween.To(() => globalLight.intensity, x => globalLight.intensity = x, 0.75f, 3);
+                    currentGroundIntensity = 0.75f;
                     ParticleActiveChange(3);
                     AudioActiveChange(0);
                 }
@@ -173,7 +183,7 @@ public class WeatherController : MonoBehaviour
         for (int i = 0; i < cnt; i++)
         {
             rainGenerator[i].SetActive(true);
+            Debug.Log(rainGenerator[i] + "ÄÑÁü");
         }
     }
-
 }

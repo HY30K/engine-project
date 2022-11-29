@@ -70,7 +70,6 @@ public class PlayerInput : MonoBehaviour
         {
             yield return null;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.LeftShift) && !onAir);
-            Debug.Log("'������'");
             _animator.SetBool("Roll", true);
 
             yield return new WaitForSeconds(rollCoolTime);
