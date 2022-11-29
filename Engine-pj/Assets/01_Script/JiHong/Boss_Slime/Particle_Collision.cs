@@ -17,12 +17,21 @@ public class Particle_Collision : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            print("불덩이맞음");
-        }
         int numCollisionEvents = ps.GetCollisionEvents(other, collisionEvents);
-        StartCoroutine(Summon_FO(numCollisionEvents));
+        if (i < numCollisionEvents)
+        {
+            StartCoroutine(Summon_FO(numCollisionEvents));
+            if (other.gameObject.CompareTag("Player"))
+            {
+                print("불덩이맞음");
+            }
+        }
+        else
+        {
+            i = 0;
+            StartCoroutine(Summon_FO(numCollisionEvents));
+        }
+
     }
     IEnumerator Summon_FO(int numCollisionEvents)
     {
@@ -30,10 +39,14 @@ public class Particle_Collision : MonoBehaviour
         {
             Fireobejcts.transform.position = collisionEvents[i].intersection;
             Fireobejcts.SetActive(true);
-            yield return new WaitForSeconds(1.5f);
-            Fireobejcts.SetActive(false);
+            yield return null;//new WaitForSeconds(1.5f);
+            //Fireobejcts.SetActive(false);
             i++;
         }
-        i = 0;
+        else
+        {
+            i = 0;
+            StartCoroutine(Summon_FO(numCollisionEvents));
+        }
     }
 }

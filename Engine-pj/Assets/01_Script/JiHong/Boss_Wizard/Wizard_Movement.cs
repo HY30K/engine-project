@@ -18,7 +18,7 @@ public class Wizard_Movement : MonoBehaviour
     [SerializeField]
     private int skillnum;
     protected bool changeRot=false;
-    protected float wizardHP = 40;
+    protected float wizardHP = 30;
     [SerializeField]
     GameObject[] Skills;
     bool BFanimate = true;
@@ -27,6 +27,8 @@ public class Wizard_Movement : MonoBehaviour
     float ct = 0;
     [SerializeField]
     GameObject floor;
+    [SerializeField]
+    GameObject updown_Obj;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -158,7 +160,7 @@ public class Wizard_Movement : MonoBehaviour
 
                 if (Random.Range(1, 11) < 3)
                 {
-                    wizardHP -= 4;
+                    wizardHP -= 3;
                 }
                 else
                     wizardHP -= 2;
@@ -167,6 +169,9 @@ public class Wizard_Movement : MonoBehaviour
             {
                 animator.SetBool("Death", true);
                 floor.SetActive(false);
+                updown_Obj.SetActive(false);
+                updown_Obj.transform.position = new Vector2(51.3f, -31.5f);
+                updown_Obj.SetActive(true);
                 Destroy(gameObject);
             }
             ct = 0;
