@@ -43,6 +43,10 @@ public class AudioPlayer : MonoBehaviour
             _audioSource.clip = clip;
             _audioSource.Play();
         }
-        else _audioSource.Stop();
+    }
+
+    protected void StopClip()
+    {
+        _audioSource?.Stop();
     }
 }

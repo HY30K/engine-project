@@ -58,7 +58,7 @@ public class TextFadeInOut : MonoBehaviour
         texttime = 0f;
         while (alpha.a > 0f)
         {
-            texttime += Time.deltaTime / textftime / 30;
+            texttime += Time.deltaTime / textftime / 6;
             transformPos.x = Mathf.Lerp(transformPos.x, firstTransform.x, texttime / textftime);
             //transformPos.y = Mathf.Lerp(transformPos.y, firstTransform.y, textftime);
             alpha.a = Mathf.Lerp(currentColorA, 0, texttime);

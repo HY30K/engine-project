@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerHP : MonoBehaviour
 {
-    public int hp = 100;
     public UnityEvent Dead;
     [field: SerializeField] public UnityEvent OnHit { get; set; }
 
@@ -26,16 +25,17 @@ public class PlayerHP : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyWeapon")){
-
-            if (hp > 0)
+            Debug.Log(GameManager.instance);
+            Debug.Log(GameManager.instance.Health);
+            if (GameManager.instance.Health > 0)
             {
                 if (collision.transform.root.name != "FlyingEye")
                 {
-                    hp -= collision.transform.parent.GetComponent<EnemyAttack>().damage;
+                    GameManager.instance.Health -= collision.transform.parent.GetComponent<EnemyAttack>().damage;
                 }
                 else
                 {
-                    hp -= collision.transform.parent.parent.GetComponent<EnemyAttack>().damage;
+                    GameManager.instance.Health -= collision.transform.parent.parent.GetComponent<EnemyAttack>().damage;
                     Debug.Log(collision.gameObject.name);
                     //throw new Exception("ÀÌ¹Ì Á×À½");
                 }
@@ -49,9 +49,9 @@ public class PlayerHP : MonoBehaviour
         }
         if (collision.CompareTag("Enemy"))
         {
-            if(hp > 0)
+            if(GameManager.instance.Health > 0)
             {
-                hp -= 5;
+                GameManager.instance.Health -= 5;
                 PlayerHit();
             }
             else

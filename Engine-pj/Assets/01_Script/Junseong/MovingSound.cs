@@ -8,10 +8,15 @@ public class MovingSound : AudioPlayer
     private AudioClip groundWalkClip = null , miningWalkClip = null;
     public void PlayGroundWalk()
     { 
-        PlayClip(groundWalkClip);
+        MovingPlayClip(groundWalkClip);
     }
     public void PlayMiningWalk()
     {
-        PlayClip(miningWalkClip);
+        MovingPlayClip(miningWalkClip);
+    }
+
+    public void StopSound()
+    {
+        StopClip();
     }
 }

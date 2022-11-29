@@ -45,13 +45,20 @@ public class GameManager : MonoBehaviour
         get { return health; }
         set
         {
-            health = value;
+            if (value > maxHealth)
+            {
+                health = maxHealth;
+            }
+            else
+            {
+                health = value;
+            }
             _slider.value = health / maxHealth;
         }
     }
 
     public Light2D playerLight;
-    
+
 
     private void Awake()
     {
@@ -75,6 +82,6 @@ public class GameManager : MonoBehaviour
 
     private void StartInit()
     {
-        
+
     }
 }

@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
+    public RaycastHit2D ground;
+    public RaycastHit2D DungeonGround;
+
     public float raycastDistance = 15f;
     RaycastHit2D EnemyHit;
     RaycastHit2D MineralHit;
@@ -17,8 +20,9 @@ public class PlayerInput : MonoBehaviour
 
     private Animator _animator;
     private Rigidbody2D _rigid;
+    private MovingSound _movingSound;
 
-    private bool onAir = false;
+    public bool onAir = false;
 
     public bool OnAir { get => onAir; }
 
@@ -48,6 +52,7 @@ public class PlayerInput : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        _movingSound = GameObject.Find("MovingSoundPlayer").GetComponent<MovingSound>();
     }
 
     private void Start()
@@ -57,8 +62,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround)
-            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Plane | Define.Mineral | Define.DungeonGround);
+        onAir = !Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Ground | Define.Mineral | Define.DungeonGround)
+            || !Physics2D.Raycast(rayPos2.position, Vector2.down, transform.localScale.y / 2, Define.Ground | Define.Mineral | Define.DungeonGround);
         Jump();
         Move();
         DoMining();
@@ -103,29 +108,37 @@ public class PlayerInput : MonoBehaviour
             transform.localScale = new Vector2(1, 1);
         }
 
-        RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Plane | Define.Mineral);
-        RaycastHit2D DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, (transform.localScale.y / 2) + 0.5f, Define.Mineral | Define.DungeonGround);
+        ground = Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2, Define.Ground | Define.Mineral);
+        DungeonGround = Physics2D.Raycast(rayPos1.position, Vector2.down, transform.localScale.y / 2, Define.Mineral | Define.DungeonGround);
 
-        if (!ground && !onAir)
+        if (DungeonGround && !onAir)
         {
             isOnGround = false;
             isOnMineral = true;
+            Debug.Log(1);
             OnMineralWalk?.Invoke();
         }
-        else if (DungeonGround && !onAir)
+        else if (ground && !onAir)
         {
             isOnGround = true;
             isOnMineral = false;
         }
 
-        if (isOnGround && !_isMoving)
+        if (isOnGround && _isMoving)
         {
+            Debug.Log(2);
             OnMineralWalk?.Invoke();
         }
-        else if (isOnMineral && !_isMoving)
+        else if (isOnMineral && _isMoving)
         {
 
             OnGroundWalk?.Invoke();
+        }
+        else if (!_isMoving)
+        {
+            isOnGround = false;
+            isOnMineral = false;
+            _movingSound.StopSound();
         }
     }
 

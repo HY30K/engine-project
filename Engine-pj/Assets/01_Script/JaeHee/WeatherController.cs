@@ -18,6 +18,7 @@ enum Weather
 public class WeatherController : MonoBehaviour
 {
     [SerializeField] Light2D globalLight;
+    [SerializeField] Light2D playerLight;
     [SerializeField] GameObject[] rainGenerator;
     [SerializeField] Camera mainCam;
     [SerializeField] float weatherChangeTime = 120;
@@ -60,10 +61,12 @@ public class WeatherController : MonoBehaviour
         {
             AudioActiveChange(-1);
             globalLight.intensity = 0.15f;
+            playerLight.transform.gameObject.SetActive(true);
         }
         else
         {
             globalLight.intensity = currentGroundIntensity;
+            playerLight.transform.gameObject.SetActive(false);
         }
     }
 

@@ -15,6 +15,11 @@ public class GoMain : MonoBehaviour
     [SerializeField] GameObject _currentCam;
     [SerializeField] GameObject shopCamera;
 
+    [SerializeField] AudioSource MineAudioSource;
+    [SerializeField] AudioSource ShopAudioSource;
+    [SerializeField] AudioSource DungeonAudioSource;
+    [SerializeField] AudioSource TeleportAudioSource;
+
 
     GameObject Effect;
 
@@ -58,8 +63,14 @@ public class GoMain : MonoBehaviour
             canTp = false;
             transform.position = new Vector3(6, -2, 0);
             TeleportCollider.instance.isEnterDungeon = false;
+            MineAudioSource.Stop();
+            DungeonAudioSource.Stop();
             _currentCam.SetActive(false);
             shopCamera.SetActive(true);
+            ShopAudioSource.Play();
+            TeleportAudioSource.Stop();
+            TeleportAudioSource.Play();
+           
             if (Effect != null)
             {
                 Destroy(Effect);

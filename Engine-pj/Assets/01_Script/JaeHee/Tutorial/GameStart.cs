@@ -7,7 +7,6 @@ using TMPro;
 
 public class GameStart : MonoBehaviour
 {
-
     [SerializeField] string[] arr;
     int arrCnt = 0;
 

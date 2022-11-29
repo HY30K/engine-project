@@ -6,14 +6,15 @@ public class TeleportPooling : MonoBehaviour
 {
     //public override void Init()
     //{
-        
+
     //}
 
     //public void DestroyTp()
     //{
     //    PoolManager.Instance.Push(this);
     //}
-
+    [SerializeField] AudioSource teleportSound;
+    
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)
     {
         transform.SetPositionAndRotation(pos, rot);

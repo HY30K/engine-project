@@ -24,6 +24,9 @@ public class TeleportCollider : MonoBehaviour
     //public GameObject currentBackGround;
     //public GameObject otherBackGround;
     public bool isEnterDungeon = false;
+    public AudioSource currentBgm;
+    public AudioSource miniBgM;
+    public AudioSource DungeonBgM;
     public Image Panel;
 
     float time = 0f;
@@ -53,23 +56,23 @@ public class TeleportCollider : MonoBehaviour
                 collision.transform.position = DestinationPoint.position;
                 DungeonCam.SetActive(false);
                 playerScaffolding.SetActive(true);
-                Fade(MineCam);
+                Fade(MineCam, miniBgM);
             }
             else if (nextPositionType == NextPositionType.Dungeon)
             {
                 isEnterDungeon = true;
                 collision.transform.position = DestinationPoint.position;
                 MineCam.SetActive(false);
-                Fade(DungeonCam);
+                Fade(DungeonCam, DungeonBgM);
             }
         }
     }
-    public void Fade(GameObject otherCam) // fadeÈÄ Å³ Ä·À» ³Ñ°ÜÁà¾ßÇÔ
+    public void Fade(GameObject otherCam, AudioSource bgm) // fadeÈÄ Å³ Ä·À» ³Ñ°ÜÁà¾ßÇÔ
     {
-        StartCoroutine(FadeIn(otherCam));
+        StartCoroutine(FadeIn(otherCam, bgm));
     }
 
-    IEnumerator FadeIn(GameObject otherCam)
+    IEnumerator FadeIn(GameObject otherCam, AudioSource bgm)
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
@@ -82,9 +85,11 @@ public class TeleportCollider : MonoBehaviour
         }
         time = 0f;
         CurrentCam.SetActive(false);
+        currentBgm.Stop();
         yield return new WaitForSeconds(0.7f);
         playerScaffolding.SetActive(false);
         otherCam.SetActive(true);
+        bgm.Play();
 
         while (alpha.a > 0f)
         {

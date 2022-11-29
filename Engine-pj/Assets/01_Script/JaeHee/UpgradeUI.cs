@@ -41,6 +41,7 @@ public class UpgradeUI : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("히히 여기다");
         image = GetComponent<Image>();
     }
 
