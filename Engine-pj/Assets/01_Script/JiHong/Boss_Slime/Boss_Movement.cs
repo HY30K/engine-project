@@ -10,10 +10,10 @@ public class Boss_Movement : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField]
     GameObject attack_range;
-    float bossHP=200;
+    float bossHP=80;
     float ct;
     float skillcool = 6;
-    float speed = 3;
+    float speed = 6f;
     int Skillnum = 0;
     [SerializeField]
     GameObject jumpParticle;
@@ -59,27 +59,27 @@ public class Boss_Movement : MonoBehaviour
     }
     void Skill_Set()
     {
-        Skillnum = Random.Range(2, 3);
+        Skillnum = Random.Range(1, 3);
         if (Skillnum == 1)
         {
-            if (bossHP < 50)
+            if (bossHP < 40)
             {
-                skillcool = 3;
+                skillcool = 4;
             }
             else
             {
-                skillcool = 6;
+                skillcool = 7;
             }
         }
         else if (Skillnum == 2)
         {
-            if (bossHP < 50)
+            if (bossHP < 40)
             {
-                skillcool = 7;
+                skillcool = 6;
             }
             else
             {
-                skillcool = 13;
+                skillcool = 11;
             }
         }
         else { Skill_Set(); }
@@ -125,7 +125,7 @@ public class Boss_Movement : MonoBehaviour
                 StartCoroutine(animations("Takehit", true));
                 if (Random.Range(1, 11) < 3)
                 {
-                    bossHP -= 4;
+                    bossHP -= 3;
                 }
                 else
                     bossHP -= 2;
@@ -186,7 +186,7 @@ public class Boss_Movement : MonoBehaviour
         skillcool -= Time.deltaTime;
         if(skillcool < 0)
         {
-            rb.AddForce(Vector2.up * 9, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * 13, ForceMode2D.Impulse);
             sum_Particle = true;
             Skill_Set();
         }
