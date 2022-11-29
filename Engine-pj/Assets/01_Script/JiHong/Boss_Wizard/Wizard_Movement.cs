@@ -22,8 +22,8 @@ public class Wizard_Movement : MonoBehaviour
     [SerializeField]
     GameObject[] Skills;
     bool BFanimate = true;
-    float upypos = -7.5f;
-    float downypos = -18.5f;
+    float upypos;
+    float downypos;
     float ct = 0;
     [SerializeField]
     GameObject floor;
@@ -36,6 +36,8 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void Start()
     {
+        upypos = transform.position.y;
+        downypos = transform.position.y-11;
         skillnum = Random.Range(1, 4);
         skillCooltime = 0;
         Warp();
@@ -89,13 +91,13 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void Warp() //����
     {
-        if (this.transform.position.x <= 40)
+        if (this.transform.position.x <= transform.position.x-20)
         {
-            transform.position = new Vector2(Random.Range(60f,62f), Random.Range(0,2)<1?upypos:downypos);
+            transform.position = new Vector2(Random.Range(transform.position.x - 20, transform.position.x - 20), Random.Range(0,2)<1?upypos:downypos);
         }
-        else if(this.transform.position.x >= 60)
+        else if(this.transform.position.x >= transform.position.x+20)
         {
-            transform.position = new Vector2(Random.Range(38f,40f), Random.Range(0, 2) < 1 ? upypos : downypos);
+            transform.position = new Vector2(Random.Range(transform.position.x + 20, transform.position.x + 22), Random.Range(0, 2) < 1 ? upypos : downypos);
         }
         warpDistance = false;
     }
