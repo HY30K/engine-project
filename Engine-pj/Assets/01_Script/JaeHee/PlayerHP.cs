@@ -47,7 +47,7 @@ public class PlayerHP : MonoBehaviour
                 PlayerDead();
             }
         }
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Boss"))
         {
             if(GameManager.instance.Health > 0)
             {

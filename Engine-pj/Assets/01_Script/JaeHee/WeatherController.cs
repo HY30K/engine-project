@@ -28,7 +28,7 @@ public class WeatherController : MonoBehaviour
     float currentGroundIntensity = 1;
 
     Weather currentWeather = Weather.None;
-    bool isPlayerAboveGround = false;
+    public bool isPlayerAboveGround = false;
 
     private void Start()
     {
@@ -55,19 +55,25 @@ public class WeatherController : MonoBehaviour
             AudioActiveChange(-1);
         }
 
-        isPlayerAboveGround = mainCam.transform.position.y > -5;
+        isPlayerAboveGround = mainCam.transform.position.y > -5 && mainCam.transform.position.x < 50;
+        
+        if (isPlayerAboveGround == true)
+        {
+            globalLight.intensity = currentGroundIntensity;
+            playerLight.transform.gameObject.SetActive(false);
+        }
 
-        if (isPlayerAboveGround == false)
+        else if (isPlayerAboveGround == false)
         {
             AudioActiveChange(-1);
             globalLight.intensity = 0.15f;
             playerLight.transform.gameObject.SetActive(true);
         }
-        else
-        {
-            globalLight.intensity = currentGroundIntensity;
-            playerLight.transform.gameObject.SetActive(false);
-        }
+        //else if (TeleportCollider.instance.isEnterDungeon || isPlayerAboveGround == true)
+        //{
+        //    globalLight.intensity = currentGroundIntensity;
+        //    playerLight.transform.gameObject.SetActive(false);
+        //}
     }
 
     IEnumerator TimeChange()
@@ -75,7 +81,7 @@ public class WeatherController : MonoBehaviour
         while (true)
         {
             Debug.Log("¾ßÈ£");
-            yield return new WaitForSeconds(15);
+            yield return new WaitForSeconds(60);
             AudioActiveChange(-1);
             Debug.Log("¾ßÈ£");
             if (time >= 3600) //¹ã

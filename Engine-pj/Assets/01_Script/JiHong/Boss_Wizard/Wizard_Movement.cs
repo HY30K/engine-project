@@ -4,21 +4,21 @@ using UnityEngine;
 using UnityEngine.Events;
 enum SkillName //Wave �� �ĵ�������, Rain �� �񳻸��°Ű�����, Shoot�� rotation�������� �ѹ� �߻�(������)
 {
-    Wave=6,Rain=11,Shoot=9
+    Wave = 6, Rain = 11, Shoot = 9
 }
 public class Wizard_Movement : MonoBehaviour
 {
     [SerializeField]
     GameObject player;
     Animator animator;
-    private bool warpDistance=false;
+    private bool warpDistance = false;
     [SerializeField]
     private float warpCooltime = 0;
     [SerializeField]
     private float skillCooltime = 6;
     [SerializeField]
     private int skillnum;
-    protected bool changeRot=false;
+    protected bool changeRot = false;
     protected float wizardHP = 30;
     [SerializeField]
     GameObject[] Skills;
@@ -30,15 +30,18 @@ public class Wizard_Movement : MonoBehaviour
     GameObject floor;
     [SerializeField]
     GameObject updown_Obj;
+    float posx;
+    bool WarpSet(float x) => (x > posx + 10);
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
     private void Start()
     {
+        posx = transform.position.x;
         player = GameObject.FindGameObjectWithTag("Player");
         upypos = transform.position.y;
-        downypos = transform.position.y-11;
+        downypos = transform.position.y - 11;
         skillnum = Random.Range(1, 4);
         skillCooltime = 0;
         Warp();
@@ -49,8 +52,8 @@ public class Wizard_Movement : MonoBehaviour
         CoolTime();
         SkillController();
         ct += Time.deltaTime;
-    }   
-    private void CoolTime() 
+    }
+    private void CoolTime()
     {
         WarpDis();
         if (warpCooltime < 0 && (warpDistance))
@@ -68,10 +71,10 @@ public class Wizard_Movement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             changeRot = true;
         }
-        else if(player.transform.position.x < this.transform.position.x)
+        else if (player.transform.position.x < this.transform.position.x)
         {
-            transform.rotation = Quaternion.Euler(0f,180f,0f);
-            changeRot=false;
+            transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            changeRot = false;
         }
         else
         {
@@ -80,8 +83,8 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void WarpDis()//�Ÿ� üũ (��������) - x��ǥ �ֺ� 3 , 8 / -8 �̻�/����
     {
-        if (((this.transform.position.x -3 > player.transform.position.x )) &&
-            ((this.transform.position.x +3 < player.transform.position.x )))
+        if (((transform.position.x - 3 > player.transform.position.x) &&
+            (transform.position.x + 3 < player.transform.position.x)) || warpCooltime + 6 < 0)
         {
             warpDistance = true;
         }
@@ -92,11 +95,11 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void Warp() //����
     {
-        if (this.transform.position.x < transform.position.x+20)
+        if (!WarpSet(transform.position.x))
         {
-            transform.position = new Vector2(Random.Range(transform.position.x + 20f, transform.position.x + 22f), Random.Range(0,2)<1?upypos:downypos);
+            transform.position = new Vector2(Random.Range(transform.position.x + 20f, transform.position.x + 22f), Random.Range(0, 2) < 1 ? upypos : downypos);
         }
-        else if(this.transform.position.x > transform.position.x-20)
+        else if (WarpSet(transform.position.x))
         {
             transform.position = new Vector2(Random.Range(transform.position.x - 20f, transform.position.x - 22f), Random.Range(0, 2) < 1 ? upypos : downypos);
         }
@@ -106,10 +109,10 @@ public class Wizard_Movement : MonoBehaviour
     {
         return skill switch
         {
-            1=>(int)SkillName.Wave,
-            2=>(int)SkillName.Rain,
-            3=>(int)SkillName.Shoot,
-            _=> 0
+            1 => (int)SkillName.Wave,
+            2 => (int)SkillName.Rain,
+            3 => (int)SkillName.Shoot,
+            _ => 0
         };
     }
     void SkillController() //��ų�� üũ �׽�ų ���
@@ -135,13 +138,13 @@ public class Wizard_Movement : MonoBehaviour
     }
     void Skill()
     {
-            GameObject thisskill = Instantiate(Skills[skillnum - 1]);
-            //thisskill.transform.SetParent(this.gameObject.transform);
-            skillnum = Random.Range(1, 4);
-            skillCooltime = SkillCooltimeSet(skillnum);
+        GameObject thisskill = Instantiate(Skills[skillnum - 1]);
+        //thisskill.transform.SetParent(this.gameObject.transform);
+        skillnum = Random.Range(1, 4);
+        skillCooltime = SkillCooltimeSet(skillnum);
         BFanimate = true;
     }
-    IEnumerator animations(string animation,bool setbool)
+    IEnumerator animations(string animation, bool setbool)
     {
         animator.SetBool(animation, setbool);
         yield return new WaitForSeconds(0f);
@@ -155,7 +158,7 @@ public class Wizard_Movement : MonoBehaviour
     //}
     private void OnCollisionEnter2D(Collision2D collision) //�÷��̾� ���� ����
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("PlayerWeapon"))
         {
             if (ct > 1)
             {
@@ -182,9 +185,9 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")||ct>0.8f)
+        if (collision.gameObject.CompareTag("Player") || ct > 0.8f)
         {
             animator.SetBool("Take hit", false);
         }
-        }
+    }
 }

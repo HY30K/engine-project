@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6374244844786366128}
   m_Layer: 0
   m_Name: Wizard_Skill_Wave
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 6374244845145166867}
   m_Layer: 0
   m_Name: Wizard_Skill (2)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 6374244846180064261}
   m_Layer: 0
   m_Name: Wizard_Skill
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 6374244846403781094}
   m_Layer: 0
   m_Name: Wizard_Skill (1)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 6374244846636628699}
   m_Layer: 0
   m_Name: Wizard_Skill (3)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 6374244846691998545}
   m_Layer: 0
   m_Name: Wizard_Skill (4)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

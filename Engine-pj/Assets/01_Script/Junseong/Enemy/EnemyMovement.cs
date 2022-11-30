@@ -118,7 +118,7 @@ public class EnemyMovement : EnemyBase
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 13)
+        if (collision.gameObject.layer == Define.DungeonGround)
         {
             nextMove = -nextMove;
             afterNoChasingTime = Random.Range(0f, 1f);//벽충돌후 적 생각쿨타임
@@ -179,18 +179,21 @@ public class EnemyMovement : EnemyBase
 
     void PlatformCheck()
     {
-        Vector2 rayDir = Vector2.down;
-        RaycastHit2D platformCheckHit = Physics2D.Raycast(origin, rayDir, 3);
-        Debug.DrawRay(origin, rayDir, Color.red, 0.1f);
-
-        if (platformCheckHit.collider == null)
+        if(_enemy.enemyType != EnemyType.FlyingEnemy)
         {
-            nextMove = -nextMove;
-            //afterNoChasingTime = 2;
-            //_isThinking = false;
+            Vector2 rayDir = Vector2.down;
+            RaycastHit2D platformCheckHit = Physics2D.Raycast(origin, rayDir, 3, Define.DungeonGround);
+            Debug.DrawRay(origin, rayDir * 3, Color.red, 0.1f);
 
-            //StartCoroutine(EnemyNextThinkTime(3));
+            if (platformCheckHit.collider == null)
+            {
+                nextMove = -nextMove;
+                //afterNoChasingTime = 2;
+                //_isThinking = false;
 
+                //StartCoroutine(EnemyNextThinkTime(3));
+
+            }
         }
     }
     #region BoxCast

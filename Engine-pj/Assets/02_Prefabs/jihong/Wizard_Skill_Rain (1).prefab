@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3074102959999242861}
   m_Layer: 0
   m_Name: Wizard_Skill (7)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4107054911758838848}
   m_Layer: 0
   m_Name: Wizard_Skill_Rain (1)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 7716836177313900349}
   m_Layer: 0
   m_Name: Wizard_Skill (6)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 8050858816720258377}
   m_Layer: 0
   m_Name: Wizard_Skill (13)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 2103554815867166942}
   m_Layer: 0
   m_Name: Wizard_Skill (12)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -678,7 +678,7 @@ GameObject:
   - component: {fileID: 8660730503672328198}
   m_Layer: 0
   m_Name: Wizard_Skill (9)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 919457735627120467}
   m_Layer: 0
   m_Name: Wizard_Skill (11)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 8725987239299619204}
   m_Layer: 0
   m_Name: Wizard_Skill (8)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1125,7 +1125,7 @@ GameObject:
   - component: {fileID: 8711921671337657305}
   m_Layer: 0
   m_Name: Wizard_Skill (10)
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1273,7 +1273,7 @@ GameObject:
   - component: {fileID: 180970058996711408}
   m_Layer: 0
   m_Name: GoUpObj
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

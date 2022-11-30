@@ -6,8 +6,16 @@ public class Slimeboss_Setactive : MonoBehaviour
 {
     [SerializeField]
     GameObject Boss_Slime;
+    [SerializeField]
+    AudioSource BossFight, DungeonSound;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Boss_Slime.SetActive(true);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Boss_Slime.SetActive(true);
+            BossFight.Play();
+            DungeonSound.Stop();
+        }
     }
 }

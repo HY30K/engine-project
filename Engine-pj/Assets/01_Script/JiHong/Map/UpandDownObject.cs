@@ -4,34 +4,41 @@ using UnityEngine;
 
 public class UpandDownObject : MonoBehaviour
 {
-    public float high_ypos;
-    public float low_ypos;
-    public bool upper ;
-    public bool lower ;
-    bool execute=false;
+    float high_pos;
+    float low_pos;
+    public bool upper;
+    public bool lower;
+    bool execute = false;
     Vector3 dir;
-    float speed=5;
+    float speed = 5;
+    [SerializeField]
+    float updowngap;
+    private void Start()
+    {
+        high_pos = transform.position.y + updowngap;
+        low_pos = transform.position.y;
+    }
     void Update()
     {
-        if(transform.position.y >= high_ypos-0.1f)
+        if (transform.position.y >= high_pos - 0.1f)
         {
             lower = false;
             upper = true;
         }
-        else if(transform.position.y <= low_ypos+0.1f)
+        else if (transform.position.y <= low_pos + 0.1f)
         {
-            lower=true;
+            lower = true;
             upper = false;
         }
         if (execute)
         {
             Executer();
         }
-        if (lower && transform.position.y < high_ypos && !upper)
+        if (lower && transform.position.y < high_pos && !upper)
         {
             dir = Vector3.up;
         }
-        else if (!lower && transform.position.y > low_ypos && upper)
+        else if (!lower && transform.position.y > low_pos && upper)
         {
             dir = Vector3.down;
         }
@@ -41,16 +48,16 @@ public class UpandDownObject : MonoBehaviour
         transform.position += dir * speed * Time.deltaTime;
         if (dir == Vector3.down)
         {
-            if (transform.position.y < low_ypos + 0.1f)
+            if (transform.position.y < low_pos + 0.1f)
             {
-                lower = true; upper = false;execute = false;
+                lower = true; upper = false; execute = false;
             }
         }
         else if (dir == Vector3.up)
         {
-            if (transform.position.y > high_ypos - 0.1f)
+            if (transform.position.y > high_pos - 0.1f)
             {
-                upper = true; lower = false;execute=false;
+                upper = true; lower = false; execute = false;
             }
         }
     }
@@ -66,7 +73,7 @@ public class UpandDownObject : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && collision.gameObject.CompareTag("Player"))
         {
-            execute=true;
+            execute = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
