@@ -31,7 +31,7 @@ public class UpgradeUI : MonoBehaviour
         if (GameManager.instance.Money >= price)
         {
             GameManager.instance.Money -= price;
-            price += 166;
+            price += 80;
             PlayerProperty.Instance.Damage += increaseDamage;
             PlayerProperty.Instance.MiningDelay -= increaseAttackDelay;
             level++;
@@ -41,6 +41,7 @@ public class UpgradeUI : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("히히 여기다");
         image = GetComponent<Image>();
     }
 

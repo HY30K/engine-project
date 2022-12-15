@@ -13,11 +13,14 @@ public class AnimationEvent : MonoBehaviour
     [SerializeField] private CircleCollider2D attackComboCol;
 
     Animator _animator;
+    SpriteRenderer _spriteRenderer;
+
     bool attackCom;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Death() //죽으면 실행되는 애니매이벤트
@@ -33,12 +36,13 @@ public class AnimationEvent : MonoBehaviour
     IEnumerator WaitingDieScene()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("DieScene");
+        SceneManager.LoadScene("GameOver");
     }
 
     public void RollStart() //구를때 애니매이벤트
     {
         hitBox.enabled = false;
+        hitBox.transform.gameObject.layer = 12;
         playerBody.size = new Vector2(0.75f, 0.95f);
         playerBody.offset = new Vector2(-0.02f, -0.5f);
     }
@@ -48,6 +52,7 @@ public class AnimationEvent : MonoBehaviour
         hitBox.enabled = true;
         playerBody.size = new Vector2(0.75f, 1.9f);
         playerBody.offset = new Vector2(-0.02f, -0.05f);
+        hitBox.transform.gameObject.layer = 8;
         _animator.SetBool("Roll", false);
     }
 

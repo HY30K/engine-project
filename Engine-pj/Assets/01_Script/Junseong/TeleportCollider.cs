@@ -23,44 +23,56 @@ public class TeleportCollider : MonoBehaviour
     public GameObject MineCam;
     //public GameObject currentBackGround;
     //public GameObject otherBackGround;
-
+    public bool isEnterDungeon = false;
+    public AudioSource currentBgm;
+    public AudioSource miniBgM;
+    public AudioSource DungeonBgM;
     public Image Panel;
 
     float time = 0f;
     float ftime = 0.5f;
-   
+
+    static public TeleportCollider instance;
     private void Awake()
     {
-       //currentBackGround.SetActive(true);
-       //otherBackGround.SetActive(false);
+        if (instance == null)
+        {
+            instance = this;
+        }
+        //currentBackGround.SetActive(true);
+        //otherBackGround.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
-            if(nextPositionType == NextPositionType.Shop)
+            if (nextPositionType == NextPositionType.Shop)
             {
                 collision.transform.position = new Vector3(0, 3, 0);
             }
-            else if(nextPositionType == NextPositionType.Mine)
+            else if (nextPositionType == NextPositionType.Mine)
             {
                 collision.transform.position = DestinationPoint.position;
+                DungeonCam.SetActive(false);
                 playerScaffolding.SetActive(true);
-                Fade(MineCam);
+                Fade(MineCam, miniBgM);
             }
-            else
+            else if (nextPositionType == NextPositionType.Dungeon)
             {
-
+                isEnterDungeon = true;
+                collision.transform.position = DestinationPoint.position;
+                MineCam.SetActive(false);
+                Fade(DungeonCam, DungeonBgM);
             }
         }
     }
-    public void Fade(GameObject otherCam) // fadeÈÄ Å³ Ä·À» ³Ñ°ÜÁà¾ßÇÔ
+    public void Fade(GameObject otherCam, AudioSource bgm) // fadeÈÄ Å³ Ä·À» ³Ñ°ÜÁà¾ßÇÔ
     {
-        StartCoroutine(FadeIn(otherCam));
+        StartCoroutine(FadeIn(otherCam, bgm));
     }
 
-    IEnumerator FadeIn(GameObject otherCam)
+    IEnumerator FadeIn(GameObject otherCam, AudioSource bgm)
     {
         Panel.gameObject.SetActive(true);
         Color alpha = Panel.color;
@@ -73,11 +85,11 @@ public class TeleportCollider : MonoBehaviour
         }
         time = 0f;
         CurrentCam.SetActive(false);
-        //currentBackGround.SetActive(false);
+        currentBgm.Stop();
         yield return new WaitForSeconds(0.7f);
         playerScaffolding.SetActive(false);
-        //otherBackGround.SetActive(true);
         otherCam.SetActive(true);
+        bgm.Play();
 
         while (alpha.a > 0f)
         {
@@ -94,7 +106,7 @@ public class TeleportCollider : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            
+
         }
     }
 }

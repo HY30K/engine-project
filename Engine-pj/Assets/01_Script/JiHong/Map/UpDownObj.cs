@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UpDownObj : MonoBehaviour
 {
-    float waitSeconds=5.5f;
-    float high_ypos=-10.5f;
-    float low_ypos=-22f;
+    float waitSeconds=-25.5f;
+    float high_ypos=-18.5f;
+    float low_ypos=2f;
     bool goup=false;
     bool godown=false;
     float moveSpeed=5;

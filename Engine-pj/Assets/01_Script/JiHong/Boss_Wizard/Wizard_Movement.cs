@@ -8,6 +8,7 @@ enum SkillName //Wave �� �ĵ�������, Rain �� �񳻸��
 }
 public class Wizard_Movement : MonoBehaviour
 {
+    [SerializeField]
     GameObject player;
     Animator animator;
     private bool warpDistance=false;
@@ -18,22 +19,26 @@ public class Wizard_Movement : MonoBehaviour
     [SerializeField]
     private int skillnum;
     protected bool changeRot=false;
-    protected float wizardHP = 40;
+    protected float wizardHP = 30;
     [SerializeField]
     GameObject[] Skills;
     bool BFanimate = true;
-    float upypos = -7.5f;
-    float downypos = -18.5f;
+    float upypos;
+    float downypos;
     float ct = 0;
     [SerializeField]
     GameObject floor;
+    [SerializeField]
+    GameObject updown_Obj;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
     }
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        upypos = transform.position.y;
+        downypos = transform.position.y-11;
         skillnum = Random.Range(1, 4);
         skillCooltime = 0;
         Warp();
@@ -45,7 +50,7 @@ public class Wizard_Movement : MonoBehaviour
         SkillController();
         ct += Time.deltaTime;
     }   
-    private void CoolTime() //��Ÿ�� ����
+    private void CoolTime() 
     {
         WarpDis();
         if (warpCooltime < 0 && (warpDistance))
@@ -75,8 +80,8 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void WarpDis()//�Ÿ� üũ (��������) - x��ǥ �ֺ� 3 , 8 / -8 �̻�/����
     {
-        if ((!(this.transform.position.x -3 > player.transform.position.x )&& this.transform.position.x >= 60) || 
-            (!(this.transform.position.x +3 < player.transform.position.x )&&this.transform.position.x<=40 ))
+        if (((this.transform.position.x -3 > player.transform.position.x )) &&
+            ((this.transform.position.x +3 < player.transform.position.x )))
         {
             warpDistance = true;
         }
@@ -87,13 +92,13 @@ public class Wizard_Movement : MonoBehaviour
     }
     private void Warp() //����
     {
-        if (this.transform.position.x <= 40)
+        if (this.transform.position.x < transform.position.x+20)
         {
-            transform.position = new Vector2(Random.Range(60f,62f), Random.Range(0,2)<1?upypos:downypos);
+            transform.position = new Vector2(Random.Range(transform.position.x + 20f, transform.position.x + 22f), Random.Range(0,2)<1?upypos:downypos);
         }
-        else if(this.transform.position.x >= 60)
+        else if(this.transform.position.x > transform.position.x-20)
         {
-            transform.position = new Vector2(Random.Range(38f,40f), Random.Range(0, 2) < 1 ? upypos : downypos);
+            transform.position = new Vector2(Random.Range(transform.position.x - 20f, transform.position.x - 22f), Random.Range(0, 2) < 1 ? upypos : downypos);
         }
         warpDistance = false;
     }
@@ -158,7 +163,7 @@ public class Wizard_Movement : MonoBehaviour
 
                 if (Random.Range(1, 11) < 3)
                 {
-                    wizardHP -= 4;
+                    wizardHP -= 3;
                 }
                 else
                     wizardHP -= 2;
@@ -167,6 +172,9 @@ public class Wizard_Movement : MonoBehaviour
             {
                 animator.SetBool("Death", true);
                 floor.SetActive(false);
+                updown_Obj.SetActive(false);
+                updown_Obj.transform.position = new Vector2(51.3f, -31.5f);
+                updown_Obj.SetActive(true);
                 Destroy(gameObject);
             }
             ct = 0;

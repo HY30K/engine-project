@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     [SerializeField] Slider _slider;
 
     private float maxHealth = 100;//최대 체력
@@ -39,15 +39,26 @@ public class GameManager : MonoBehaviour
             _slider.value = health / maxHealth;
         }
     }
+
     public float Health
     {
         get { return health; }
         set
         {
-            health = value;
+            if (value > maxHealth)
+            {
+                health = maxHealth;
+            }
+            else
+            {
+                health = value;
+            }
             _slider.value = health / maxHealth;
         }
     }
+
+    public Light2D playerLight;
+
 
     private void Awake()
     {
@@ -58,6 +69,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         PoolManager.Instance = new PoolManager(transform);
         CreatePool();
+        StartInit();
     }
 
     private void CreatePool()
@@ -66,5 +78,10 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(_poolingList.list[i].prefab, _poolingList.list[i].poolCount);
         }
+    }
+
+    private void StartInit()
+    {
+
     }
 }

@@ -8,6 +8,9 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IPointerUpHandler
 {
     [SerializeField] Item currentItem = null;
+    [SerializeField] AudioSource coinSound;
+    [SerializeField] AudioSource usingItem;
+
     public Item CurrentItem => currentItem;
 
     private int currentStackCount = 0;
@@ -37,6 +40,7 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
 
     private void Sale()
     {
+        coinSound.Play();
         if (currentStackCount > 0)
         {
             currentStackCount--;
@@ -53,6 +57,7 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
 
     public void Use()
     {
+        usingItem.Play();
         if (currentStackCount > 0)
         {
             currentStackCount--;

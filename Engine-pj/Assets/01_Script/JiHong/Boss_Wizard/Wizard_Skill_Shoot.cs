@@ -35,7 +35,7 @@ public class Wizard_Skill_Shoot : MonoBehaviour
     {
         StartCoroutine(Starting());
         if (Moving) transform.position += dir * Time.deltaTime * speed;
-        
+        rotz -= 1;
     }
 
     IEnumerator Starting()
@@ -46,7 +46,7 @@ public class Wizard_Skill_Shoot : MonoBehaviour
     }
     IEnumerator StartSpin()
     {
-        rotz -= 1.5f;
+        rotz -= 1.25f;
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotz);
         if (scale < 1)
         {
@@ -54,7 +54,7 @@ public class Wizard_Skill_Shoot : MonoBehaviour
             scale += 0.01f;
         }
         yield return new WaitForSeconds(Time.deltaTime);
-        rotz -= 1.5f;
+        rotz -= 1.25f;
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotz);
     }
     IEnumerator Destroytime()
