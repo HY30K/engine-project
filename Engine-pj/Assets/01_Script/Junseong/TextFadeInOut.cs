@@ -42,12 +42,12 @@ public class TextFadeInOut : MonoBehaviour
     {
         Color alpha = text.color;
         texttime = 0f;
-        while(alpha.a < 1f)
+        while (alpha.a < 1f)
         {
-            texttime +=Time.deltaTime/textftime;
-            transformPos.x = Mathf.Lerp(firstTransform.x,firstTransform.x + arrowDirection, texttime / textftime);
+            texttime += Time.deltaTime / textftime;
+            transformPos.x = Mathf.Lerp(firstTransform.x, firstTransform.x + arrowDirection, texttime / textftime);
             //transformPos.y = Mathf.Lerp(firstTransform.y,firstTransform.y, textftime);
-            alpha.a = Mathf.Lerp(0, 1,texttime);
+            alpha.a = Mathf.Lerp(0, 1, texttime);
             text.color = alpha;
             yield return null;
         }
