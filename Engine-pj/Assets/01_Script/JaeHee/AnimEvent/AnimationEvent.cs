@@ -43,15 +43,15 @@ public class AnimationEvent : MonoBehaviour
     {
         hitBox.enabled = false;
         hitBox.transform.gameObject.layer = 12;
-        playerBody.size = new Vector2(0.75f, 0.95f);
-        playerBody.offset = new Vector2(-0.02f, -0.5f);
+        //playerBody.size = new Vector2(0.75f, 0.95f);
+        //playerBody.offset = new Vector2(-0.02f, -0.5f);
     }
 
     public void EndOfRolling() //구르기가 끝날때 애니매이벤트
     {
         hitBox.enabled = true;
-        playerBody.size = new Vector2(0.75f, 1.9f);
-        playerBody.offset = new Vector2(-0.02f, -0.05f);
+        //playerBody.size = new Vector2(0.75f, 1.9f);
+        //playerBody.offset = new Vector2(-0.02f, -0.05f);
         hitBox.transform.gameObject.layer = 8;
         _animator.SetBool("Roll", false);
     }

@@ -47,12 +47,15 @@ public class PlayerInput : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
+    private Vector2 originSize;
+
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         _movingSound = GameObject.Find("MovingSoundPlayer").GetComponent<MovingSound>();
+        originSize = transform.localScale;
     }
 
     private void Start()
@@ -100,12 +103,12 @@ public class PlayerInput : MonoBehaviour
 
         if (h > 0)
         {
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector2(-originSize.x, originSize.y);
         }
 
         else if (h < 0)
         {
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector2(originSize.x, originSize.y);
         }
 
         ground = Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2, Define.Ground | Define.Mineral);

@@ -32,7 +32,7 @@ public class GoMain : MonoBehaviour
         if (_currentCam != null)
         {
             ICinemachineCamera currentCam
-           = CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
+                = CinemachineCore.Instance.GetActiveBrain(0).ActiveVirtualCamera;
             _currentCam = currentCam.VirtualCameraGameObject;
         }
 
